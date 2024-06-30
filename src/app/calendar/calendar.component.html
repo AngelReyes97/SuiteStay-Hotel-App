@@ -1,0 +1,18 @@
+<p class="calendar-title fs-6">Stay Dates</p>
+<p-calendar
+    [(ngModel)]="rangeDates"
+    selectionMode="range"
+    [numberOfMonths]="2"
+    (onSelect)="onRangeDateSelect()"
+    [readonlyInput]="true"
+    [showIcon]="true" 
+    [showOnFocus]="true"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    inputId="buttondisplay"
+    dateFormat="D, M d, yy"
+    [showButtonBar]="true"
+    [hideOnDateTimeSelect]="false"
+    (onTodayClick)="todayClicked()"
+    (onClearClick)="handleClearSelection()">
+</p-calendar>

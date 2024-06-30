@@ -1,0 +1,16 @@
+::ng-deep .p-calendar {
+    width: 100%;
+    max-width: 800px;
+}
+
+::ng-deep .p-inputtext {
+    padding: 8px;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.calendar-title{
+    display: block;
+    text-align: left;
+}

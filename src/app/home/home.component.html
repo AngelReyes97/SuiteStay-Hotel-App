@@ -1,0 +1,32 @@
+<div class="container-fluid bg-body-tertiary">
+    <div class="row g-0 mx-0 text-center d-flex justify-content-center">
+        <div class="col-12 col-lg-auto d-flex col-md-2 justify-content-center">
+            <app-city></app-city>
+            <p-divider type="solid" layout="vertical" class="d-none d-md-block"/>
+        </div>
+        <div class="col-12 col-auto col-md-4 justify-content-center">
+            <app-calendar></app-calendar>
+        </div>
+        <div class="col-12 col-auto col-md-2 d-flex justify-content-center">
+            <p-divider type="solid" layout="vertical" class="d-none d-md-block"/>
+            <app-guest-selector></app-guest-selector>
+            <p-divider type="solid" layout="vertical" class="d-none d-md-block"/>
+        </div>
+    
+        <div class="col-12 col-lg-auto col-md-2 colum4 d-flex align-items-center justify-content-center">
+            <p-button label="Find Rooms" 
+            [rounded]="true"
+            [raised]="true"
+            severity="primary"
+            [style]="{'width':'100%',
+                'margin-top': '30%',
+                'padding-top':'5px',
+                'padding-bottom':'5px',
+                'padding-left':'30px',
+                'padding-right':'30px'
+            }"/>
+        </div>
+    </div>
+</div>
+
+<app-home-carousel></app-home-carousel>

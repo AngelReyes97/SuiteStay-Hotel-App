@@ -1,0 +1,21 @@
+<p-galleria 
+    [value]="images"
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '100%' }"
+    [numVisible]="5"
+    [autoPlay]="true"
+    [showThumbnails]="false"
+    [showItemNavigators]="true"
+    [circular]="true"
+    [transitionInterval]="8000" >
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" [attr.srcset]="item.srcset" [attr.sizes]="item.sizes" loading="lazy" />
+    </ng-template>
+    <ng-template pTemplate="caption" let-img> 
+        <h4 
+            style="color: #ffffff; margin-bottom: 0;"> 
+            {{img.title}} 
+        </h4> 
+        <p style="margin-top: 0;">{{img.description}}</p> 
+    </ng-template> 
+</p-galleria>

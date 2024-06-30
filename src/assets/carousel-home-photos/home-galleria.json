@@ -1,0 +1,20 @@
+{
+    "galleria": [
+        {
+            "itemImageSrc": "/assets/carousel-home-photos/test.jpeg",
+            "thumbnailImageSrc": "/assets/carousel-home-photos/test.jpeg",
+            "description": "At Suite Stay, we strive to provide you with a luxurious and welcoming atmosphere from the moment you step through our doors.",
+            "title": "Welcome to Our Hotel Lobby",
+            "srcset": "/assets/carousel-home-photos/test.jpeg 1920w, /assets/carousel-home-photos/test.jpeg 1024w, /assets/carousel-home-photos/test.jpeg 640w",
+            "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        },
+        {
+            "itemImageSrc": "/assets/carousel-home-photos/home-galleria2.jpeg",
+            "thumbnailImageSrc": "/assets/carousel-home-photos/home-galleria2.jpeg",
+            "description": "Description for Image 2",
+            "title": "Title 2",
+            "srcset": "/assets/carousel-home-photos/home-galleria2.jpeg 1920w, /assets/carousel-home-photos/home-galleria2.jpeg 1024w, /assets/carousel-home-photos/home-galleria2.jpeg 640w",
+            "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        }
+    ]
+}
