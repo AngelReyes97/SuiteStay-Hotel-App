@@ -19,6 +19,7 @@ export class CityComponent implements OnInit {
   cities: City[] | undefined;
 
   selectedCity: City | undefined;
+  displaySignIn: boolean = false;
 
   ngOnInit() {
       this.cities = [
@@ -28,7 +29,6 @@ export class CityComponent implements OnInit {
           { name: 'Seattle, WA', code: 'WA' },
           { name: 'Miami, FL', code: 'FL' },
           { name: 'Honolulu, HI', code: 'HI' },
-
       ];
   }
 }

@@ -1,19 +1,38 @@
 {
     "galleria": [
         {
-            "itemImageSrc": "/assets/carousel-home-photos/test.jpeg",
-            "thumbnailImageSrc": "/assets/carousel-home-photos/test.jpeg",
-            "description": "At Suite Stay, we strive to provide you with a luxurious and welcoming atmosphere from the moment you step through our doors.",
+            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_lobby.jpeg",
             "title": "Welcome to Our Hotel Lobby",
-            "srcset": "/assets/carousel-home-photos/test.jpeg 1920w, /assets/carousel-home-photos/test.jpeg 1024w, /assets/carousel-home-photos/test.jpeg 640w",
+            "description": "At Suite Stay, we strive to provide you with a luxurious and welcoming atmosphere from the moment you step through our doors.",
+            "srcset": "/assets/carousel-home-photos/SuiteStay_lobby.jpeg 1920w, /assets/carousel-home-photos/SuiteStay_lobby.jpeg 1024w, /assets/carousel-home-photos/SuiteStay_lobby.jpeg 640w",
             "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         },
         {
-            "itemImageSrc": "/assets/carousel-home-photos/home-galleria2.jpeg",
-            "thumbnailImageSrc": "/assets/carousel-home-photos/home-galleria2.jpeg",
-            "description": "Description for Image 2",
-            "title": "Title 2",
-            "srcset": "/assets/carousel-home-photos/home-galleria2.jpeg 1920w, /assets/carousel-home-photos/home-galleria2.jpeg 1024w, /assets/carousel-home-photos/home-galleria2.jpeg 640w",
+            "itemImageSrc": "/assets/carousel-home-photos/room_decor.jpeg",
+            "title": "Lovebirds' Getaway",
+            "description": "From swan-inspired decor and roses to champagne, our team ensures every detail is perfect for your memorable romantic getaway.",
+            "srcset": "/assets/carousel-home-photos/room_decor.jpeg 1920w, /assets/carousel-home-photos/room_decor.jpeg 1024w, /assets/carousel-home-photos/room_decor.jpeg 640w",
+            "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        },
+        {
+            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_kitchen.jpeg",
+            "title": "Explore Our Chef's Creations",
+            "description": "Step into our kitchen where culinary artistry meets exquisite flavors.",
+            "srcset": "/assets/carousel-home-photos/SuiteStay_kitchen.jpeg 1920w, /assets/carousel-home-photos/SuiteStay_kitchen.jpeg 1024w, /assets/carousel-home-photos/SuiteStay_kitchen.jpeg 640w",
+            "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        },
+        {
+            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_poolside.jpeg",
+            "title": "Poolside Delights",
+            "description": "Whether sunbathing, splashing with family, or enjoying drinks by the water, our poolside offers the perfect retreat for fun and relaxation.",
+            "srcset": "/assets/carousel-home-photos/SuiteStay_poolside.jpeg 1920w, /assets/carousel-home-photos/SuiteStay_poolside.jpeg 1024w, /assets/carousel-home-photos/SuiteStay_poolside.jpeg 640w",
+            "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        },
+        {
+            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_fitness.jpeg",
+            "title": "Fitness Center",
+            "description": "Stay Fit at Suite Stay's Fitness Center. Energize your day with state-of-the-art equipment.",
+            "srcset": "/assets/carousel-home-photos/SuiteStay_fitness.jpeg 1920w, /assets/carousel-home-photos/SuiteStay_fitness.jpeg 1024w, /assets/carousel-home-photos/SuiteStay_fitness.jpeg 640w",
             "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
     ]

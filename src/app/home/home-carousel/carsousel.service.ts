@@ -5,9 +5,8 @@ import { map } from 'rxjs/operators';
 
 export interface Image {
   previewImageSrc: string;
-  thumbnailImageSrc: string;
-  alt: string;
   title: string;
+  description: string;
   srcset: string;
   sizes: string;
 }
