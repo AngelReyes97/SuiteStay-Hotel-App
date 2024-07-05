@@ -9,11 +9,11 @@ import { SignInComponent } from '../sign-in/sign-in.component';
   imports: [
     InputTextModule, 
     FormsModule, 
-    SignInComponent
+    SignInComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  value: string | undefined;
+
 }
