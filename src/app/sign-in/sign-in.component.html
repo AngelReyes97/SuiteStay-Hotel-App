@@ -10,8 +10,7 @@
     [draggable]="false"
     [dismissableMask]="true"
     [focusOnShow]="false"
-    (onHide)="restInput()"
->
+    (onHide)="restInput()">
     <form class="py-0 px-2">
         <div class="mb-0" style="text-align: center;">
             <img src="/assets/sign-in/welcome-logo.svg" alt="WelcomeLogo" width="200" height="auto" class="rounded-circle">
@@ -27,7 +26,7 @@
                     [(ngModel)]="email" 
                     id="email" 
                     name="email" 
-                    placeholder="e.g JohnDove123@example.com"
+                    placeholder="e.g. JohnDove123@example.com"
                     autocomplete="off" />
                 <label for="email">Email</label>
             </p-floatLabel>
@@ -40,7 +39,7 @@
                     type="password"
                     id="password" 
                     name="password"
-                    placeholder="e.g ********"/>
+                    placeholder="e.g. ********"/>
                 <label for="password">Password</label>
             </p-floatLabel>
         </div>

@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HideNavbarService } from './hide-navbar.service';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ import { NgIf } from '@angular/common';
     HttpClientModule,
     SignInComponent,
     SignUpComponent,
-    NgIf
+    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

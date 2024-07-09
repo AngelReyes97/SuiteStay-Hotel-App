@@ -1,0 +1,25 @@
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    min-height: 100vh; /* 100% of the viewport height */
+  }
+
+::ng-deep .p-inputtext {
+    font-size: 16px;
+    max-width: 100%;
+    width: 350px;
+    text-align: left;
+}
+
+::ng-deep .p-tag{
+  margin-top: 4px;
+  font-size: small;
+  background-color: var(--red-50);
+  color: var(--red-400);
+  border: solid 1px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  margin-bottom: 6px;
+}
