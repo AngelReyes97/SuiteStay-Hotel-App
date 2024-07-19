@@ -4,116 +4,107 @@
             <ng-template pTemplate="header">
                 <img src="/assets/SuiteStayLogo.svg" alt="mdo">
             </ng-template>
-            <form [formGroup]="signUpForm" class="sign-up-form">
+            <form [formGroup]="signUpForm" class="sign-up-form" (ngSubmit)="onSubmit()">
                 <div class="mt-1 mb-4">
                     <p-floatLabel>
-                        <input pInputText 
+                        <input pInputText
+                        [ngClass]="{'valid': fName.valid && fName.touched,
+                                    'invalid': (fName.invalid && formSubmitted) || fName.errors?.['pattern']}"
                         id="fName"
                         name="fName"
                         formControlName="fName"
                         placeholder="e.g., John"
                         autocomplete="off"/>
-                        <label for="fName">First Name</label>
+                        <label [ngClass]="{'error-label':formSubmitted && fName.errors?.['required']}" for="fName">First Name</label>
+                        <i *ngIf="fName.valid && fName.touched" class="pi pi-check valid-icon"></i>
+                        <i *ngIf="(fName.invalid && formSubmitted) || fName.errors?.['pattern']" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
                     <div *ngIf="fName.invalid && (fName.dirty || fName.touched)">
-                        <div *ngIf="fName.errors?.['required']">
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{required_error()}}"/>
-                        </div>
                         <div *ngIf="fName.errors?.['pattern']"> 
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{format_error()}}"/>
+                            <i class="error">Invalid format. Letters only.</i>
                         </div>
+                    </div>
+                    <div *ngIf="fName.errors?.['required'] && formSubmitted">
+                        <i class="error">Field is required.</i>
                     </div>
                 </div>
                 <div class="mb-4">
                     <p-floatLabel>
-                        <input pInputText 
+                        <input pInputText
+                        [ngClass]="{'valid': lName.valid && lName.touched,
+                                    'invalid': (lName.invalid && formSubmitted) || lName.errors?.['pattern']}" 
                         id="lName" 
                         name="lName" 
                         formControlName="lName"
                         placeholder="e.g., Smith"
                         autocomplete="off"/>
-                        <label for="lName">Last Name</label>
+                        <label [ngClass]="{'error-label':formSubmitted && lName.errors?.['required']}" for="lName">Last Name</label>
+                        <i *ngIf="lName.valid && lName.touched" class="pi pi-check valid-icon"></i>
+                        <i *ngIf="(lName.invalid && formSubmitted) || lName.errors?.['pattern']" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
                     <div *ngIf="lName.invalid && (lName.dirty || lName.touched)">
-                        <div *ngIf="lName.errors?.['required']">
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{required_error()}}"/>
-                        </div>
                         <div *ngIf="lName.errors?.['pattern']"> 
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{format_error()}}"/>
+                            <i class="error">Invalid format. Letters only.</i>
                         </div>
+                    </div>
+                    <div *ngIf="lName.errors?.['required'] && formSubmitted">
+                        <i class="error">Field is required.</i>
                     </div>
                 </div>
                 <div class="mb-4">
                     <p-floatLabel>
-                        <input pInputText 
+                        <input pInputText
+                        [ngClass]="{'valid': email.valid && email.touched,
+                                    'invalid': email.invalid && formSubmitted}"
                         id="email" 
                         name="email" 
                         formControlName="email"
                         placeholder="e.g., JohnDove123@example.com"
                         autocomplete="off"/>
-                        <label for="email">Email</label>
+                        <label [ngClass]="{'error-label':formSubmitted && email.errors?.['required']}" for="email">Email</label>
+                        <i *ngIf="email.valid && email.touched" class="pi pi-check valid-icon"></i>
+                        <i *ngIf="email.invalid && formSubmitted" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)">
-                        <div *ngIf="email.errors?.['required']">
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{required_error()}}"/>
-                        </div>
                         <div *ngIf="email.errors?.['email']"> 
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{email_error()}}"/>
+                        <i class="error">Email should be valid.</i>
                         </div>
+                    </div>
+                    <div *ngIf="email.errors?.['required'] && formSubmitted">
+                        <i class="error">Field is required.</i>
                     </div>
                 </div>
                 <div class="mb-4">
                     <p-floatLabel>
-                        <p-password 
+                        <p-password
+                            [inputStyle]="getInputStyle('password')"
                             formControlName="password"
                             inputId="password"
                             name="password"
                             placeholder="e.g., ********"
-                            promptLabel="Password Strength"
+                            promptLabel="Must contain:"
+                            weakLabel="Weak Password" 
+                            mediumLabel="Average Password" 
+                            strongLabel="Strong Password"
                             [style]="{'width':'320px'}">
                             <ng-template pTemplate="footer">
-                                <p-divider/>
-                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                    <li>Minimum 8 characters</li>
-                                    <li>At least one uppercase</li>
-                                    <li>At least one numeric</li>
-                                    <li>At least one symbol (e.g., !#$%^&&commat;*)</li>
+                                <ul class="password-requirements pl-2 mt-1 mb-0">
+                                    <li [ngClass]="{'requirement-met': hasMinimumLength}"> Minimum of 8 characters</li>
+                                    <li [ngClass]="{'requirement-met': hasUppercase}"> At least one uppercase</li>
+                                    <li [ngClass]="{'requirement-met': hasNumeric}"> At least one numeric</li>
+                                    <li [ngClass]="{'requirement-met': hasSymbol}"> At least one symbol (e.g., !#$%^&&commat;*)</li>
                                 </ul>
                             </ng-template>
                         </p-password>
-                            <label for="password">Password</label>
+                            <label [ngClass]="{'error-label':formSubmitted && password.errors?.['required']}" for="password">Password</label>
+                            <i *ngIf="password.valid && password.touched && !signUpForm.errors?.['pattern']" class="pi pi-check valid-icon"></i>
+                            <i *ngIf="(password.errors?.['required'] && formSubmitted) ||(password.touched && signUpForm.errors?.['pattern'])" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
-                        <div *ngIf="password.errors?.['required']">
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{required_error()}}"/>
-                        </div>
-                        <div *ngIf="password.errors?.['pattern']"> 
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{password_requirement_error()}}"/>
-                        </div>
+                    <div *ngIf="password.errors?.['required'] && formSubmitted">
+                        <i class="error">Field is required.</i>
+                    </div>
+                    <div *ngIf="signUpForm.errors?.['pattern'] && password.touched"> 
+                        <i class="error">Password does not meet requirements.</i>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -124,22 +115,23 @@
                             name="Cpassword"
                             [feedback]="false"
                             placeholder="e.g., ********"
+                            [inputStyle]="getInputStyle('Cpassword')"
+                            [ngClass]="{'ng-invalid': formSubmitted && signUpForm.errors?.['passwordMismatch']}"
                             [style]="{'width':'320px'}"/>
-                            <label for="Cpassword">Confirm Password</label>
+                            <label [ngClass]="{'error-label':formSubmitted && Cpassword.errors?.['required']}" for="Cpassword">Confirm Password</label>
+                            <i *ngIf="Cpassword.valid && Cpassword.touched && !signUpForm.errors?.['passwordMismatch']" class="pi pi-check valid-icon"></i>
+                            <i *ngIf="(formSubmitted && Cpassword.errors?.['required']) || (Cpassword.touched && signUpForm.errors?.['passwordMismatch'])" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
-                    <div *ngIf="Cpassword.invalid && (Cpassword.dirty || Cpassword.touched)">
-                        <div *ngIf="Cpassword.errors?.['required']">
-                            <p-tag [rounded]="true" 
-                            icon="pi pi-times-circle" 
-                            severity="danger" 
-                            value="{{required_error()}}"/>
-                        </div>
+                    <div *ngIf="Cpassword.errors?.['required'] && formSubmitted">
+                        <i class="error">Field is required.</i>
+                    </div>
+                    <div *ngIf="Cpassword.touched && signUpForm.errors?.['passwordMismatch'] && Cpassword.valid && password.valid">
+                        <i class="error">Passwords do not match.</i>
                     </div>
                 </div>
                 <div class="signup-btn d-grid gap-2 col-6 mx-auto mb-2">
                     <button type="submit" 
-                    class="btn btn-primary" 
-                    [disabled]="signUpForm.invalid">Sign up</button>
+                    class="btn btn-primary">Sign up</button>
                 </div>
                 <div class="text-center">
                     <small><a class="text-decoration-none" [routerLink]="['/']" routerLinkActive="active">Go Back</a></small>

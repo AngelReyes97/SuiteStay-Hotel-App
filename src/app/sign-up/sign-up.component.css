@@ -23,3 +23,69 @@
   font-weight: normal;
   margin-bottom: 6px;
 }
+
+::ng-deep .p-password-info{
+  font-size: small;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.password-requirements{
+  font-size: small;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+  line-height: 1.5;
+}
+
+ul li:before{
+  content: "\2022";
+}
+
+ul li.requirement-met:before{
+  content: "\2714";
+  color: green;
+}
+
+
+.valid{ 
+  border: 1px solid teal; 
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.invalid{
+  border: 1px solid red; 
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.valid-icon {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%; /* Center vertically relative to the input */
+  transform: translateY(-50%); /* Center vertically with the transform */
+  color: teal;
+  font-size: 1rem; /* Adjust size as needed */
+}
+
+.invalid-icon {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%; /* Center vertically relative to the input */
+  transform: translateY(-50%); /* Center vertically with the transform */
+  color: red;
+  font-size: 0.55rem; /* Adjust size as needed */
+}
+
+.error{
+  color: var(--red-500);
+  font-size: 12px;
+  margin-left: 8px;
+} 
+
+.error-label{
+  color: var(--red-500);
+}
