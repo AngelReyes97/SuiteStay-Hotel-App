@@ -10,9 +10,12 @@ import { PasswordModule } from 'primeng/password';
 import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from './password-match.directive';
 import { customPassword } from './custom-password.directive';
+import { AuthService } from '../services/auth.service';
+import { newUser } from '../models/account.model';
+import { emailValidator } from './invalidEmail.directive';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,26 +38,45 @@ import { customPassword } from './custom-password.directive';
   styleUrls: ['./sign-up.component.css']
 })
 
-export class SignUpComponent {
+export class SignUpComponent implements OnInit{
 
   readonly ROUTER_TOKENS = ROUTER_TOKENS;
   formSubmitted = false;
+  errorExistingAccount: string | null = null;
+  
 
-  signUpForm = this.fb.group({
-    fName:['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
-    lName:['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
-    email:['', [Validators.required, Validators.email]],
+  signUpForm = this.fb.nonNullable.group({
+    fullName:['', [Validators.required, Validators.pattern('^[a-zA-Z]+( [a-zA-Z]+)+$')]],
+    email:['', [Validators.required,]],
     password:['', Validators.required],
     Cpassword:['', Validators.required]
   }, {
-    validators: [passwordMatchValidator, customPassword]
+    validators: [passwordMatchValidator,
+                customPassword,
+                emailValidator]
   })
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private authSvc: AuthService,
+              private router: Router) {}
 
-  get fName() { return this.signUpForm.controls['fName']; }
+  ngOnInit() {
+    this.signUpForm.get('email')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.authSvc.checkEmail(value).subscribe(isEmailTaken => {
+          if (isEmailTaken) {
+            this.signUpForm.get('email')?.setErrors({ emailTaken: true });
+            this.errorExistingAccount = 'Email already exists.';
+          } else {
+            this.signUpForm.setErrors(null);
+            this.errorExistingAccount = null;
+          }
+        });
+      }
+    });
+  }
 
-  get lName() { return this.signUpForm.controls['lName']; }
+  get fullName() { return this.signUpForm.controls['fullName']; }
 
   get email() { return this.signUpForm.controls['email']; }
 
@@ -63,44 +85,19 @@ export class SignUpComponent {
   get Cpassword() { return this.signUpForm.controls['Cpassword']; }
 
   get hasMinimumLength(): boolean{
-    const passwordValue= this.password?.value;
-    if(passwordValue){
-      return this.password?.value?.length >= 8;
-    }
-    return false;
+    return this.password.value.length >= 8;
   }
 
   get hasUppercase(): boolean{
-    const passwordValue= this.password?.value;
-    if (passwordValue){
-      return /[A-Z]/.test(this.password?.value);
-    }
-    return false;
+    return /[A-Z]/.test(this.password.value);
   }
 
   get hasNumeric(): boolean{
-    const passwordValue= this.password?.value;
-    if(passwordValue){
-      return /\d/.test(this.password?.value);
-    }
-    return false;
+    return /\d/.test(this.password.value);
   }
 
   get hasSymbol(): boolean{
-    const passwordValue= this.password?.value;
-    if(passwordValue){
-      return /[@$!%*#&]/.test(this.password?.value);
-    }
-    return false;
-  }
-
-  onSubmit() {
-    this.formSubmitted = true;
-    if(this.signUpForm.valid){
-      console.log('form submitted!', this.signUpForm.value);
-      this.signUpForm.reset(); // Reset the form after successful submission
-      this.formSubmitted = false; // Optionally reset formSubmitted to false
-    }
+    return /[@$!%*#&]/.test(this.password.value);
   }
 
   getInputStyle(controlName: string): { [key: string]: string } {
@@ -133,6 +130,31 @@ export class SignUpComponent {
       }
     }
     return {};
+  }
+  
+  onSubmit() {
+    this.formSubmitted = true;
+
+    if(this.signUpForm.valid){
+
+      const User: newUser ={
+        fName: this.signUpForm.get('fullName')?.value.split(' ')[0]!,
+        lName: this.signUpForm.get('fullName')?.value.split(' ')[1]!,
+        email: this.signUpForm.get('email')?.value!,
+        password: this.signUpForm.get('password')?.value!
+      }
+
+      this.authSvc.signUp(User).subscribe({
+        next: (response) => {
+          console.log('Sign-up successful', response);
+          this.signUpForm.reset(); // Reset the form after successful submission
+          this.formSubmitted = false; // Optionally reset formSubmitted to false
+        },
+        error: (err) => {
+          console.error('Sign-up failed', err);
+        }
+      })
+    }
   }
   
 }

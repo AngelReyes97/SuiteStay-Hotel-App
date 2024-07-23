@@ -8,46 +8,23 @@
                 <div class="mt-1 mb-4">
                     <p-floatLabel>
                         <input pInputText
-                        [ngClass]="{'valid': fName.valid && fName.touched,
-                                    'invalid': (fName.invalid && formSubmitted) || fName.errors?.['pattern']}"
-                        id="fName"
-                        name="fName"
-                        formControlName="fName"
-                        placeholder="e.g., John"
+                        [ngClass]="{'valid': fullName.valid && fullName.touched,
+                                    'invalid': (fullName.invalid && formSubmitted) || fullName.errors?.['pattern']}"
+                        id="fullName"
+                        name="fullName"
+                        formControlName="fullName"
+                        placeholder="e.g., John Doe"
                         autocomplete="off"/>
-                        <label [ngClass]="{'error-label':formSubmitted && fName.errors?.['required']}" for="fName">First Name</label>
-                        <i *ngIf="fName.valid && fName.touched" class="pi pi-check valid-icon"></i>
-                        <i *ngIf="(fName.invalid && formSubmitted) || fName.errors?.['pattern']" class="pi pi-asterisk invalid-icon"></i>
+                        <label [ngClass]="{'error-label':formSubmitted && fullName.errors?.['required']}" for="fullName">Full Name</label>
+                        <i *ngIf="fullName.valid && fullName.touched" class="pi pi-check valid-icon"></i>
+                        <i *ngIf="(fullName.invalid && formSubmitted) || fullName.errors?.['pattern']" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
-                    <div *ngIf="fName.invalid && (fName.dirty || fName.touched)">
-                        <div *ngIf="fName.errors?.['pattern']"> 
-                            <i class="error">Invalid format. Letters only.</i>
+                    <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)">
+                        <div *ngIf="fullName.errors?.['pattern']"> 
+                            <i class="error">Must be full name. Letters only.</i>
                         </div>
                     </div>
-                    <div *ngIf="fName.errors?.['required'] && formSubmitted">
-                        <i class="error">Field is required.</i>
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <p-floatLabel>
-                        <input pInputText
-                        [ngClass]="{'valid': lName.valid && lName.touched,
-                                    'invalid': (lName.invalid && formSubmitted) || lName.errors?.['pattern']}" 
-                        id="lName" 
-                        name="lName" 
-                        formControlName="lName"
-                        placeholder="e.g., Smith"
-                        autocomplete="off"/>
-                        <label [ngClass]="{'error-label':formSubmitted && lName.errors?.['required']}" for="lName">Last Name</label>
-                        <i *ngIf="lName.valid && lName.touched" class="pi pi-check valid-icon"></i>
-                        <i *ngIf="(lName.invalid && formSubmitted) || lName.errors?.['pattern']" class="pi pi-asterisk invalid-icon"></i>
-                    </p-floatLabel>
-                    <div *ngIf="lName.invalid && (lName.dirty || lName.touched)">
-                        <div *ngIf="lName.errors?.['pattern']"> 
-                            <i class="error">Invalid format. Letters only.</i>
-                        </div>
-                    </div>
-                    <div *ngIf="lName.errors?.['required'] && formSubmitted">
+                    <div *ngIf="fullName.errors?.['required'] && formSubmitted">
                         <i class="error">Field is required.</i>
                     </div>
                 </div>
@@ -55,23 +32,27 @@
                     <p-floatLabel>
                         <input pInputText
                         [ngClass]="{'valid': email.valid && email.touched,
-                                    'invalid': email.invalid && formSubmitted}"
+                                    'invalid': (email.invalid && formSubmitted) || (email.touched && signUpForm.errors?.['invalidEmail']) ||
+                                    signUpForm.get('email')?.errors?.['emailTaken']}"
                         id="email" 
                         name="email" 
                         formControlName="email"
                         placeholder="e.g., JohnDove123@example.com"
                         autocomplete="off"/>
                         <label [ngClass]="{'error-label':formSubmitted && email.errors?.['required']}" for="email">Email</label>
-                        <i *ngIf="email.valid && email.touched" class="pi pi-check valid-icon"></i>
-                        <i *ngIf="email.invalid && formSubmitted" class="pi pi-asterisk invalid-icon"></i>
+                        <i *ngIf="(email.valid && email.touched) && !signUpForm.get('email')?.errors?.['emailTaken']
+                        && !signUpForm.errors?.['invalidEmail']" class="pi pi-check valid-icon"></i>
+                        <i *ngIf="(email.invalid && formSubmitted) || (email.touched && signUpForm.errors?.['invalidEmail']) ||
+                        signUpForm.get('email')?.errors?.['emailTaken'] " class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
-                        <div *ngIf="email.errors?.['email']"> 
+                    <div *ngIf="email.touched && signUpForm.errors?.['invalidEmail']">
                         <i class="error">Email should be valid.</i>
-                        </div>
                     </div>
                     <div *ngIf="email.errors?.['required'] && formSubmitted">
                         <i class="error">Field is required.</i>
+                    </div>
+                    <div *ngIf="signUpForm.get('email')?.errors?.['emailTaken']">
+                        <i class="error">{{errorExistingAccount}}</i>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -98,7 +79,7 @@
                         </p-password>
                             <label [ngClass]="{'error-label':formSubmitted && password.errors?.['required']}" for="password">Password</label>
                             <i *ngIf="password.valid && password.touched && !signUpForm.errors?.['pattern']" class="pi pi-check valid-icon"></i>
-                            <i *ngIf="(password.errors?.['required'] && formSubmitted) ||(password.touched && signUpForm.errors?.['pattern'])" class="pi pi-asterisk invalid-icon"></i>
+                            <i *ngIf="(password.errors?.['required'] && formSubmitted) || (password.touched && signUpForm.errors?.['pattern'])" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
                     <div *ngIf="password.errors?.['required'] && formSubmitted">
                         <i class="error">Field is required.</i>
@@ -120,7 +101,8 @@
                             [style]="{'width':'320px'}"/>
                             <label [ngClass]="{'error-label':formSubmitted && Cpassword.errors?.['required']}" for="Cpassword">Confirm Password</label>
                             <i *ngIf="Cpassword.valid && Cpassword.touched && !signUpForm.errors?.['passwordMismatch']" class="pi pi-check valid-icon"></i>
-                            <i *ngIf="(formSubmitted && Cpassword.errors?.['required']) || (Cpassword.touched && signUpForm.errors?.['passwordMismatch'])" class="pi pi-asterisk invalid-icon"></i>
+                            <i *ngIf="(formSubmitted && Cpassword.errors?.['required']) || 
+                            (Cpassword.touched && signUpForm.errors?.['passwordMismatch'])" class="pi pi-asterisk invalid-icon"></i>
                     </p-floatLabel>
                     <div *ngIf="Cpassword.errors?.['required'] && formSubmitted">
                         <i class="error">Field is required.</i>
