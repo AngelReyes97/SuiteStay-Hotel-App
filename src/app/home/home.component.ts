@@ -17,11 +17,12 @@ import { SignInComponent } from '../sign-in/sign-in.component';
     ButtonModule,
     DividerModule,
     HomeCarouselComponent,
-    SignInComponent
+    SignInComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 
 export class HomeComponent {
+
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { newUser } from '../models/account.model';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { User } from '../models/account.model';
+import { userCredentials } from '../models/account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,38 @@ import { newUser } from '../models/account.model';
 export class AuthService {
   private apiUrl ='http://localhost:8080';
 
+  private userSubject= new BehaviorSubject<User | null>(null);
+  readonly user$ = this.userSubject.asObservable();
+
   constructor(private http: HttpClient) { }
 
-  signUp(newAccount: newUser): Observable<newUser> {
+  signUp(newAccount: User): Observable<User> {
     const headers = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post<newUser>(`${this.apiUrl}/register`, newAccount, headers);
+    return this.http.post<User>(`${this.apiUrl}/register`, newAccount, headers);
   }
 
   checkEmail(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/register`, {params: {email}});
   }
+
+  login(user: userCredentials): Observable<User | null> {
+    const headers = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.post<User | null>(`${this.apiUrl}/home`, user, headers)
+    .pipe(
+      tap(user=> {
+        console.log(user); // This will log the response from the server
+        this.userSubject.next(user);
+      })
+    );
+  }
+
+  getUser(): Observable<User | null> {
+    return this.user$;
+  }
+
+  signOut(){
+    this.userSubject.next(null);
+  }
+
 
 }

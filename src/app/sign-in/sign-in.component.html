@@ -1,8 +1,6 @@
-<div class="text-end">
-    <button type="button" class="main-btn btn" id="signinDialog" (click)="visible = true">
-        Sign in <i class="pi pi-sign-in" style="font-size: 0.75rem"></i>
-    </button>
-</div>
+<button pRipple type="button" class="main-btn btn btn-primary" id="signinDialog" (click)="visible = true">
+    <i class="pi pi-user" style="font-size: .9rem"></i> Sign in
+</button>
 <p-dialog
     [modal]="true"
     [(visible)]="visible"
@@ -11,40 +9,46 @@
     [dismissableMask]="true"
     [focusOnShow]="false"
     (onHide)="restInput()">
-    <form class="py-0 px-2">
+    <form [formGroup]="loginForm" class="py-0 px-2" (ngSubmit)="submitLogin()">
         <div class="mb-0" style="text-align: center;">
             <img src="/assets/sign-in/welcome-logo.svg" alt="WelcomeLogo" width="200" height="auto" class="rounded-circle">
         </div>
         <div class="mb-4" style="text-align: left;">
             <p class="fs-5" style="font-family: Arial, Helvetica, sans-serif;">Sign into your account</p>
+            <i class="error" *ngIf="errorMsg">{{errorMsg}}</i>
         </div>
         <div class="mb-4">
             <p-floatLabel>
                 <input class="signIn-input"
-                    type="text"
                     pInputText 
-                    [(ngModel)]="email" 
+                    formControlName="email"
                     id="email" 
                     name="email" 
                     placeholder="e.g. JohnDove123@example.com"
                     autocomplete="off" />
                 <label for="email">Email</label>
             </p-floatLabel>
+            <div *ngIf="email.errors?.['required'] && formSubmitted">
+                <i class="error">Field is required.</i>
+            </div>
         </div>
         <div class="mb-3">
             <p-floatLabel>
                 <input class="signIn-input"
-                    pInputText 
-                    [(ngModel)]="password"
+                    pInputText
+                    formControlName="password" 
                     type="password"
                     id="password" 
                     name="password"
                     placeholder="e.g. ********"/>
                 <label for="password">Password</label>
             </p-floatLabel>
+            <div *ngIf="password.errors?.['required'] && formSubmitted">
+                <i class="error">Field is required.</i>
+            </div>
         </div>
         <div class="signIn-btn d-grid gap-2 col-6 mx-auto mb-2">
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button pRipple type="submit" class="btn btn-primary">Sign in</button>
         </div>
         <div class="text-center">
             <small>Don't have an account? <a class="text-decoration-none" [routerLink]="[ROUTER_TOKENS.REGISTER]" routerLinkActive="active">Sign up here!</a></small>

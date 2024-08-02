@@ -1,0 +1,77 @@
+::ng-deep .p-menubar{
+    border: none;
+    font-size: 16px;
+}
+
+::ng-deep .p-menuitem{
+    margin: 0px;
+}
+
+::ng-deep .p-menuitem-link{
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+}
+
+::ng-deep .custom-icon-1{
+    width: 1.1em;
+    height: 1.1em;
+    background-image: url("/assets/bedicon.svg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(55%); 
+}
+
+.avatar-menu-wrapper{
+    position: relative;
+}
+
+.avatar-dropdown-btn{
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.avatar-dropdown-btn:hover{
+    color: #555555;
+}
+
+.avatar{
+    margin-right: 0;
+}
+
+.dropdown-arrow{
+    font-size: 0.55rem;
+}
+
+::ng-deep .p-menu{
+    max-width: 100%;
+    position: sticky;
+}
+
+.avatar-menu{
+    position: absolute;
+}
+
+::ng-deep .p-menuitem-text{
+    font-size: 14px;
+}
+
+::ng-deep .p-menuitem-icon{
+    font-size: 14px;
+}
+
+::ng-deep .avatar-menu .p-menu-list{
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width: 1600px) {
+    .avatar-menu{
+        max-width: 40%;
+        position: absolute;
+        right: 0;
+    }
+}

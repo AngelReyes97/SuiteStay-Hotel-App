@@ -1,13 +1,13 @@
- .dropdown-toggle::after{
+.dropdown-toggle::after{
     display: none;
- }
+}
 
- .main-btn{
+.main-btn{
     border: none;
     font-family: Arial, Helvetica, sans-serif;
- }
+}
 
- .signIn-input{
+.signIn-input{
     font-size: 16px;
     max-width: 100%;
     width: 300px;
@@ -16,4 +16,10 @@
 
 .signIn-btn{
     text-align: center;
+}
+
+.error{
+   color: var(--red-500);
+   font-size: 12px;
+   margin-left: 8px;
 }

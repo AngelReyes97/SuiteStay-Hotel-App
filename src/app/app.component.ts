@@ -11,6 +11,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HideNavbarService } from './hide-navbar.service';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -26,19 +30,24 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     SignInComponent,
     SignUpComponent,
-    CommonModule
+    CommonModule,
+    ToastModule,
+    RippleModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [MessageService]
 })
 export class AppComponent implements OnInit{
   title = 'SuiteStay';
 
   showNavbar: boolean = true;
 
-  constructor(private navbarService: HideNavbarService) {}
+  constructor(private navbarService: HideNavbarService, 
+              private primengconfig: PrimeNGConfig) {}
 
   ngOnInit(): void {
+    this.primengconfig.ripple = true;
     this.navbarService.showNavbar$.subscribe(show => this.showNavbar = show);
   }
 }

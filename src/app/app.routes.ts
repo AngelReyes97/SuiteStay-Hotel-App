@@ -22,5 +22,5 @@ export const routes: Routes = [
         path: ROUTER_TOKENS.REGISTER,
         component: SignUpComponent,
         title: "Join Suite Stay - Sign Up Today"
-    }
+    },
 ];

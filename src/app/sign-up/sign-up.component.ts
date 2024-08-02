@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ROUTER_TOKENS } from '../app.routes';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -14,8 +14,11 @@ import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from './password-match.directive';
 import { customPassword } from './custom-password.directive';
 import { AuthService } from '../services/auth.service';
-import { newUser } from '../models/account.model';
+import { User } from '../models/account.model';
 import { emailValidator } from './invalidEmail.directive';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -33,9 +36,10 @@ import { emailValidator } from './invalidEmail.directive';
     TagModule,
     DividerModule,
     RouterLink,
+    ToastModule
   ],
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
 })
 
 export class SignUpComponent implements OnInit{
@@ -58,8 +62,10 @@ export class SignUpComponent implements OnInit{
 
   constructor(private fb: FormBuilder,
               private authSvc: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private messageSvc: MessageService) {}
 
+             
   ngOnInit() {
     this.signUpForm.get('email')?.valueChanges.subscribe(value => {
       if (value) {
@@ -67,14 +73,12 @@ export class SignUpComponent implements OnInit{
           if (isEmailTaken) {
             this.signUpForm.get('email')?.setErrors({ emailTaken: true });
             this.errorExistingAccount = 'Email already exists.';
-          } else {
-            this.signUpForm.setErrors(null);
-            this.errorExistingAccount = null;
           }
         });
       }
     });
   }
+
 
   get fullName() { return this.signUpForm.controls['fullName']; }
 
@@ -136,8 +140,7 @@ export class SignUpComponent implements OnInit{
     this.formSubmitted = true;
 
     if(this.signUpForm.valid){
-
-      const User: newUser ={
+      const User: User ={
         fName: this.signUpForm.get('fullName')?.value.split(' ')[0]!,
         lName: this.signUpForm.get('fullName')?.value.split(' ')[1]!,
         email: this.signUpForm.get('email')?.value!,
@@ -145,13 +148,24 @@ export class SignUpComponent implements OnInit{
       }
 
       this.authSvc.signUp(User).subscribe({
-        next: (response) => {
-          console.log('Sign-up successful', response);
+        next: () => {
           this.signUpForm.reset(); // Reset the form after successful submission
           this.formSubmitted = false; // Optionally reset formSubmitted to false
+          this.messageSvc.add({
+            severity:'success', 
+            summary:'Congratulations!', 
+            detail:'Your account has been successfully created.'
+          });
+          this.router.navigate([ROUTER_TOKENS.HOME]);
         },
-        error: (err) => {
-          console.error('Sign-up failed', err);
+        error: () => {
+          this.signUpForm.reset();
+          this.formSubmitted = false;
+          this.messageSvc.add({
+            severity:'error',
+            summary: 'Error',
+            detail: 'Something went wrong.'
+          });
         }
       })
     }
