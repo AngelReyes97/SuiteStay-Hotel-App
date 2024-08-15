@@ -1,8 +1,12 @@
 <p class="destination-title fs-6">Destination</p>
-<p-dropdown 
+<form [formGroup]="guestReservation">
+    <p-dropdown
     [options]="cities" 
-    [(ngModel)]="selectedCity" 
+    formControlName="selectedCity"
     optionLabel="name"
     id="cityDropdown"
     placeholder="Select a City"
-    [style]="{'width':'100%'}"/>
+    [scrollHeight]="'145px'"
+    [styleClass]="city.invalid && city_Error ? 'border-color' : ''"
+    [style]="{'width': '100%'}"/>
+</form>

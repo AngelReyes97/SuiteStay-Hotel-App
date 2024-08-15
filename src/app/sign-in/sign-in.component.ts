@@ -60,6 +60,7 @@ export class SignInComponent {
     this.loginForm.reset();
     this.visible = false;
     this.formSubmitted = false;
+    this.errorMsg = null;
   }
 
   submitLogin(){

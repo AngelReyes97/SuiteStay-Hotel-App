@@ -1,4 +1,5 @@
 export interface User{
+    account_id?: number;
     fName: string;
     lName: string;
     email: string;

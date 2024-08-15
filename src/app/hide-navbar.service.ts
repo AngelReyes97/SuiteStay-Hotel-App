@@ -16,7 +16,7 @@ export class HideNavbarService {
       filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       // Define routes where the navbar should not be displayed
-      const noNavbarRoutes = ['/register'];
+      const noNavbarRoutes = ['/suitestay/register'];
       const currentUrl = event.urlAfterRedirects;
       this.showNavbarSubject.next(!noNavbarRoutes.includes(currentUrl));
     });

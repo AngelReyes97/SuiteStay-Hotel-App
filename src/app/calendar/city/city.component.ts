@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-
-interface City {
-  name: string;
-  code: string;
-}
+import { ReactiveFormsModule } from '@angular/forms';
+import { City } from '../../models/reservation.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-city',
   standalone: true,
-  imports: [FormsModule, DropdownModule],
+  imports: [ReactiveFormsModule,
+            DropdownModule,
+            CommonModule],
   templateUrl: './city.component.html',
   styleUrl: './city.component.css'
 })
 
 export class CityComponent implements OnInit {
+  @Input() guestReservation!: FormGroup;
+  @Input() city_Error!: boolean;
+  // @Output() cityError = new EventEmitter<boolean>()
   cities: City[] | undefined;
-
-  selectedCity: City | undefined;
-  displaySignIn: boolean = false;
 
   ngOnInit() {
       this.cities = [
@@ -31,4 +31,9 @@ export class CityComponent implements OnInit {
           { name: 'Honolulu, HI', code: 'HI' },
       ];
   }
+
+  get city() {
+    return this.guestReservation.controls['selectedCity'];
+  }
+
 }

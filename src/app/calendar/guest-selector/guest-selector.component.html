@@ -1,9 +1,11 @@
 <p class="guest-selector-title fs-6">Guests</p>
-<p-inputNumber 
-    [(ngModel)]="guestNum" 
+<form [formGroup]="guestReservation">
+    <p-inputNumber 
+    formControlName="numberOfGuest"
     [showButtons]="true" 
     [min]="1"
     [max]="4"
-    inputId="stacked"
+    inputId="guestNum"
     [inputStyle]="{'width':'100%'}"
    /> 
+</form>

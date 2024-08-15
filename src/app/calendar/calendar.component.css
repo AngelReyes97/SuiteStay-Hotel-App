@@ -14,3 +14,7 @@
     display: block;
     text-align: left;
 }
+
+ .border-color{
+    border-color: red;
+}

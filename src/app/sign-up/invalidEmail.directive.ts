@@ -6,7 +6,6 @@ export const emailValidator: ValidatorFn = (control: AbstractControl): Validatio
     if(!email){
         return null;
     }
-
     const emailPattern = /^[^\s@]+@[^\s@]+\.(com)$/;
     const isValid = emailPattern.test(email);
     return isValid ? null : {invalidEmail: true};

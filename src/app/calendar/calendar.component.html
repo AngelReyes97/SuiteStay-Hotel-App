@@ -1,18 +1,24 @@
 <p class="calendar-title fs-6">Stay Dates</p>
-<p-calendar
-    [(ngModel)]="rangeDates"
-    selectionMode="range"
-    [numberOfMonths]="2"
-    (onSelect)="onRangeDateSelect()"
-    [readonlyInput]="true"
-    [showIcon]="true" 
-    [showOnFocus]="true"
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    inputId="buttondisplay"
-    dateFormat="D, M d, yy"
-    [showButtonBar]="true"
-    [hideOnDateTimeSelect]="false"
-    (onTodayClick)="todayClicked()"
-    (onClearClick)="handleClearSelection()">
-</p-calendar>
+<form [formGroup]="guestReservation">
+    <p-calendar
+        #calendar
+        [inputStyleClass]="guestReservation.errors?.['dateRangeInvalid'] && calendar_Error? 'border-color' : ''"
+        formControlName="rangeDates"
+        selectionMode="range"
+        [numberOfMonths]="2"
+        (onSelect)="onRangeDateSelect()"
+        [readonlyInput]="true"
+        [showIcon]="true" 
+        [showOnFocus]="true"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        inputId="buttondisplay"
+        dateFormat="D, M d, yy"
+        [showButtonBar]="true"
+        [hideOnDateTimeSelect]="false"
+        [rangeSeparator]="' | '"
+        (onTodayClick)="todayClicked()"
+        (onClearClick)="handleClearSelection($event)"
+        placeholder="Select Check-In & Check-Out Dates">
+    </p-calendar>
+</form>

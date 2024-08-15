@@ -26,7 +26,7 @@ export class AuthService {
 
   login(user: userCredentials): Observable<User | null> {
     const headers = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post<User | null>(`${this.apiUrl}/home`, user, headers)
+    return this.http.post<User | null>(`${this.apiUrl}/home/login`, user, headers)
     .pipe(
       tap(user=> {
         console.log(user); // This will log the response from the server

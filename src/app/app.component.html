@@ -1,6 +1,7 @@
 <app-navbar *ngIf="showNavbar"></app-navbar>
 <router-outlet></router-outlet>
-<p-toast  
+<p-toast
+    position="top-center"
     [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" 
     [life]="5000">
 </p-toast>

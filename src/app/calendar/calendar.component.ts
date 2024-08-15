@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Calendar, CalendarModule } from 'primeng/calendar';
+import { FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CityComponent } from './city/city.component';
 import { GuestSelectorComponent } from './guest-selector/guest-selector.component';
 
@@ -11,45 +11,83 @@ import { GuestSelectorComponent } from './guest-selector/guest-selector.componen
     CalendarModule, 
     FormsModule, 
     CityComponent,
-    GuestSelectorComponent],
+    GuestSelectorComponent,
+    ReactiveFormsModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'
 })
 export class CalendarComponent implements OnInit {
-  rangeDates: Date[] | undefined;
+  @Input() guestReservation!: FormGroup;
+  @Input() calendar_Error!: boolean;
+  @ViewChild('calendar') calendar: Calendar | undefined;
+
   minDate: Date | undefined;
   maxDate: Date | undefined;
-  defaultRange: string | undefined;
+  today: Date = new Date();
+  isClicked: boolean = false;
+
 
   ngOnInit(){
     const today = new Date();
     this.minDate = new Date(today);
-    this.rangeDates = [today];
-    const defaultrange = new Date(today);
-    defaultrange.setDate(defaultrange.getDate() + 3);
-    this.rangeDates[1] = defaultrange;
+    this.guestReservation.patchValue({
+      //set the default range to current date and 3 future days.
+      rangeDates: [this.minDate, new Date(today.setDate(today.getDate() + 3))]
+    });
   }
 
-  onRangeDateSelect() {   
-    if(this.rangeDates && this.rangeDates.length > 0){
-      if(this.rangeDates[0]?.getTime() === this.rangeDates[1]?.getTime()){
-        const nextDay = new Date(this.rangeDates[0]);
+  onRangeDateSelect(){
+    const rangeDates = this.guestReservation.get('rangeDates')?.value;
+  
+    if(rangeDates && rangeDates.length > 0){
+      if(rangeDates[0]?.getTime() === rangeDates[1]?.getTime()){
+        const nextDay = new Date(rangeDates[0]);
         nextDay.setDate(nextDay.getDate() + 1);
-        this.rangeDates[1] = nextDay;
-      } else{
-      const updatedMaxDate = new Date(this.rangeDates[0]);
-      updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
-      this.maxDate = updatedMaxDate;
+        rangeDates[1] = nextDay;
+        this.guestReservation.patchValue({ rangeDates });
       }
+      setTimeout(() =>{ // set time out because onRangeDate runs before todayclicked()
+        if(this.isClicked){
+          rangeDates[0] = this.today;
+          this.minDate = new Date(this.today);
+          this.guestReservation.patchValue({ rangeDates });
+          this.isClicked = false;
+        } else {
+          this.minDate = new Date(rangeDates[0]);
+          this.guestReservation.patchValue({ rangeDates });
+        }
+        }, 0);
+      // else{
+      //   console.log("SELECT: ",this.minDate);
+      //   console.log("SELECT: ", this.guestReservation.get('rangeDates')?.value);
+      //   const updatedMaxDate = new Date(rangeDates[0]);
+      //   updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
+      //   this.maxDate = updatedMaxDate;
+      // }
     }
+
   }
 
   todayClicked(){
+    this.isClicked = true;
+    this.minDate = new Date(this.today);
+    this.guestReservation.patchValue({
+      rangeDates: [this.today]
+    })
     this.onRangeDateSelect();
+    console.log("Clicked Today:", this.minDate);
   }
 
-  handleClearSelection(){
-    this.rangeDates = undefined;
-    this.maxDate = undefined; 
+  handleClearSelection(event: Event){
+    this.guestReservation.patchValue({ rangeDates: null });
+    this.minDate = new Date(this.today);
+    if (this.calendar) {
+      this.calendar.overlayVisible = true; // Ensure the overlay remains visible
+    }
   }
+
+  get Dates(){
+    return this.guestReservation.controls['rangeDates'];
+  }
+  
 }
