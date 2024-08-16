@@ -1,1 +1,48 @@
-<p>room-rates works!</p>
+<div class="content container-fluid d-flex justify-content-center">
+    <div class="content2" style="background-color: red;">
+        <div class="d-flex flex-wrap" style="background-color: blue;">
+            <h1 class="title">
+                Select Room
+            </h1>
+        </div>
+        <div class="content3 d-flex flex-wrap" style="background-color: purple;">
+            <section cols="4" class="d-block" style="background-color: pink;">
+                <div class="content4">
+                    <div class="content5">
+                        <div class="calendar-header">
+                            <h2 class="d-flex" style="font-size: 20px;">
+                                Select Dates
+                            </h2>
+                        </div>
+                        <div class="position-relative">
+                            <div style="font-size: 16px;">
+                                Max nights will be only 30.
+                            </div>
+                            <div class="calendar">
+                                <app-room-calendar></app-room-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-guest-container">
+                        <div class="guest-title">
+                            <span style="font-size: 18px; font-weight: 500;">Guests</span>
+                        </div>
+                        <button type="button" class="guest-button" (click)="reservationSvc.decrementGuest()">
+                            <div class="d-flex" style="align-self: center;">
+                                <i class="pi pi-minus-circle" style="font-size: 1.3rem;"></i>
+                            </div>
+                        </button>
+                        <div class="total-guests-text" style="text-align: center;">
+                            <span>{{(reservationSvc.reservation$ | async)?.numberOfGuest || 1}}</span>
+                        </div>
+                        <button type="button" class="guest-button" (click)="reservationSvc.incrementGuest()">
+                            <div class="d-flex" style="align-self: center;">
+                                <i class="pi pi-plus-circle" style="font-size: 1.3rem;"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

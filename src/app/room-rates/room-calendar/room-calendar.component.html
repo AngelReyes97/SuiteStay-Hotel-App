@@ -1,0 +1,10 @@
+<form [formGroup]="changeDatesForm">
+    <p-calendar
+        class="max-w-full"  
+        formControlName="newrangeDates"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        selectionMode="range"
+        [inline]="true"  
+        (onSelect)="selectRange()"/>
+</form>

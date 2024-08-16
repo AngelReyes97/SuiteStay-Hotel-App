@@ -50,11 +50,18 @@ export class CalendarComponent implements OnInit {
         if(this.isClicked){
           rangeDates[0] = this.today;
           this.minDate = new Date(this.today);
+          const updatedMaxDate = new Date(rangeDates[0]);
+          updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
+          this.maxDate = updatedMaxDate;
           this.guestReservation.patchValue({ rangeDates });
           this.isClicked = false;
         } else {
           this.minDate = new Date(rangeDates[0]);
+          const updatedMaxDate = new Date(rangeDates[0]);
+          updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
+          this.maxDate = updatedMaxDate;
           this.guestReservation.patchValue({ rangeDates });
+
         }
         }, 0);
       // else{
