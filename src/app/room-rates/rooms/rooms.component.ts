@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { Ripple } from 'primeng/ripple';
+import { RoomsService } from '../../services/rooms.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-rooms',
@@ -14,10 +16,15 @@ import { Ripple } from 'primeng/ripple';
             ButtonModule,
             DialogModule,
             DividerModule,
-            Ripple],
+            Ripple,
+            AsyncPipe],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css',
 })
 export class RoomsComponent {
   visible: boolean = false;
+
+  readonly rooms$ = this.roomSvc.Rooms$;
+
+  constructor( private roomSvc : RoomsService) {}
 }

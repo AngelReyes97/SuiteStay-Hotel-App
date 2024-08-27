@@ -1,6 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { City, Reservation } from '../models/reservation.model';
+import { Reservation } from '../models/reservation.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 

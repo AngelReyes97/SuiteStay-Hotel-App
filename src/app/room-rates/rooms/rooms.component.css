@@ -3,8 +3,8 @@
     flex-wrap: wrap; /* Allows the cards to wrap onto new lines */
     gap: 16px; /* Optional: Adds spacing between cards */
     /* padding: 16px; Optional: Adds padding around the container */
-    background-color: yellow;
-    margin-left: 10px;
+    /* background-color: yellow; */
+    margin-left: 12px;
 }
 
 ::ng-deep .p-card{
@@ -20,7 +20,6 @@
     font-weight: 600;
     color: black;
     margin-bottom: 0px;
-    text-align: center;
     height: 45px;
 }
 

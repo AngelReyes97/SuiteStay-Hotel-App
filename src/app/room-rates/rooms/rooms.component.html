@@ -1,86 +1,42 @@
 <div class="room-rates-container">
-    <div class="card">
-        <p-card header="Delano Stadium View King Suite Stay Well">
+    <ng-container *ngIf="(rooms$ | async) as rooms">
+      <ng-container *ngIf="rooms.length; else noRooms">
+        <div class="card" *ngFor="let room of rooms">
+          <p-card [header]="room.room_Type">
             <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" height="130" width="auto"/>
+              <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" height="130" width="auto"/>
             </ng-template>
             <div class="content-container">
-                <div style="align-self: flex-start; width: 118px;">
-                    <span class="room-details">725 sq. ft.</span>
-                    <span class="room-details">1 King Bed</span>
-                    <span class="room-details">Max Guests 3</span>
-                </div>
-                <div class="price-details-container">
-                    <span class="price-fee">+ $45 Daily Resort Fee</span>
-                    <span class="price-details">$506.50 Avg./Night</span>
-                    <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="visible = true">Pricing Details</button></span>
-                </div>
+              <div style="align-self: flex-start; width: 118px;">
+                <span class="room-details">{{room.room_Dimension}}</span>
+                <span class="room-details">{{room.bed_Type}}</span>
+                <span class="room-details">{{room.max_Guest}}</span>
+              </div>
+              <div class="price-details-container">
+                <span class="price-fee">+ $45 Daily Resort Fee</span>
+                <span class="price-details">{{room.room_Price | currency:'USD'}} Avg./Night</span>
+                <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="visible = true">Pricing Details</button></span>
+              </div>
             </div>
             <p-divider></p-divider>
             <ng-template pTemplate="footer">
-                <div class="footer-container">
-                    <button class="view-room" type="button">View Room Details</button>
-                    <button pRipple class="cart-btn btn btn-primary" type="button">Add to cart</button>
-                </div>
+              <div class="footer-container">
+                <button class="view-room" type="button">View Room Details</button>
+                <button pRipple class="cart-btn btn btn-primary" type="button">Add to cart</button>
+              </div>
             </ng-template>
-        </p-card>
-    </div>
-    
-    <div class="card">
-        <p-card header="Delano Stadium View King Suite Stay Well">
-            <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" height="130" width="auto"/>
-            </ng-template>
-            <div class="content-container">
-                <div style="align-self: flex-start; width: 118px;">
-                    <span class="room-details">725 sq. ft.</span>
-                    <span class="room-details">1 King Bed</span>
-                    <span class="room-details">Max Guests 3</span>
-                </div>
-                <div class="price-details-container">
-                    <span class="price-fee">+ $45 Daily Resort Fee</span>
-                    <span class="price-details">$506.50 Avg./Night</span>
-                    <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="visible = true">Pricing Details</button></span>
-                </div>
-            </div>
-            <p-divider></p-divider>
-            <ng-template pTemplate="footer">
-                <div class="footer-container">
-                    <button class="view-room" type="button">View Room Details</button>
-                    <button pRipple class="cart-btn btn btn-primary" type="button">Add to cart</button>
-                </div>
-            </ng-template>
-        </p-card>
-    </div>
-
-    <div class="card">
-        <p-card header="Delano Stadium View King Suite Stay Well">
-            <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" height="130" width="auto"/>
-            </ng-template>
-            <div class="content-container">
-                <div style="align-self: flex-start; width: 118px;">
-                    <span class="room-details">725 sq. ft.</span>
-                    <span class="room-details">1 King Bed</span>
-                    <span class="room-details">Max Guests 3</span>
-                </div>
-                <div class="price-details-container">
-                    <span class="price-fee">+ $45 Daily Resort Fee</span>
-                    <span class="price-details">$506.50 Avg./Night</span>
-                    <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="visible = true">Pricing Details</button></span>
-                </div>
-            </div>
-            <p-divider></p-divider>
-            <ng-template pTemplate="footer">
-                <div class="footer-container">
-                    <button class="view-room" type="button">View Room Details</button>
-                    <button pRipple class="cart-btn btn btn-primary" type="button">Add to cart</button>
-                </div>
-            </ng-template>
-        </p-card>
-    </div>
+          </p-card>
+        </div>
+      </ng-container>
+      <ng-template #noRooms>
+        <h3 class="container-fluid" style="text-align: center;">
+          No Rooms Found.
+        </h3>
+      </ng-template>
+    </ng-container>
 </div>
-
+  
+  
 <!-- <p-dialog 
     [modal]="true"
     [(visible)]="visible"

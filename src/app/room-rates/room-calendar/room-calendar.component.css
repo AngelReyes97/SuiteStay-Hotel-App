@@ -1,3 +1,7 @@
 ::ng-deep .p-datepicker-header .p-datepicker-title {
     pointer-events: none;
 }
+
+::ng-deep .p-datepicker-inline{
+    border: none;
+}
