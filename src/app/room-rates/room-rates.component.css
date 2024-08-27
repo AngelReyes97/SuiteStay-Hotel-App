@@ -1,13 +1,16 @@
-.content{
+.body-container{
+    display: flex;
+    justify-content: center;
     box-sizing: border-box;
 }
 
-.content2{
+.main-container{
     width: 100%;
+    flex-grow: 1;
 }
 
-@media (min-width: 1200px) {
-    .content2{
+@media (min-width: 1201px) {
+    .main-container{
         max-width: 1440px;
         padding-left: 64px;
         padding-right: 64px;
@@ -22,15 +25,18 @@
     }
 }
 
-.content4{
-   margin: 0 -5px 0 -5px;
-   padding: 0 5px 0 5px;
+.calendar-column-position{
+    position: sticky;
+    top: 76px;
+}
+
+.calendar-content-container{
    overflow-x: hidden;
    overflow-y: scroll;
    scrollbar-width: none;
 }
 
-.content5{
+.calendar-header{
     position: relative;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -38,10 +44,52 @@
     display: flex;
 }
 
-.calendar-header{
+.selected-dates-title{
     display: flex;
     justify-content: space-between;
     padding: 10px 0 10px 0;
+}
+
+.date-range{
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid rgb(191, 191, 191);
+    margin-bottom: 10px;
+}
+
+.date{
+    width: 130px;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgb(126, 128, 131);
+    flex-grow: 1;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.arrow{
+    display: inline-flex;
+    align-self: center;
+    color: rgb(126, 128, 131);
+    margin-bottom: 5px;
+}
+
+.icon-arrow::before {
+    content: "\27F6"; /* Unicode for the arrow symbol */
+    display: inline-flex;
+    align-self: center;
+    font-size: 1.4rem;
+    color: rgb(126, 128, 131);
+    transform: scale(2.5, 1.5); /* Stretch more horizontally */
+}
+
+.sub-header{
+    position: absolute;
+    top: -12px;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgb(126, 128, 131);
 }
 
 .calendar{
@@ -78,4 +126,19 @@
     width: calc(44px);
     font-weight: 500;
     color: var(--primary-color);
+}
+
+.room-section{
+    max-width: 65%;
+    flex: 0 0 65%;
+}
+
+.room-container-header{
+    margin-bottom: 24px;
+}
+
+.room-container-title{
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
 }

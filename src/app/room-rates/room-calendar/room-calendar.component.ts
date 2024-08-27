@@ -3,7 +3,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReservationService } from '../../services/reservation.service';
-import { distinctUntilChanged, range, Subscription, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-room-calendar',
@@ -37,16 +37,6 @@ export class RoomCalendarComponent implements OnInit{
         }
       }
     });
-
-    // this.changeDatesForm.get('newrangeDates')?.valueChanges
-    //  .subscribe({
-    //   next: (newDates) =>{
-    //     if(newDates && newDates[0] !== null && newDates[1] !==null){
-    //       // console.log(newDates);
-    //        this.reservationSvc.changeDates(newDates);
-    //     }
-    //   }
-    // });
   }
 
   selectRange(){

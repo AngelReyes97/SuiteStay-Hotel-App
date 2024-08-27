@@ -17,6 +17,7 @@ import { RippleModule } from 'primeng/ripple';
 import { PrimeNGConfig } from 'primeng/api';
 import { RoomRatesComponent } from './room-rates/room-rates.component';
 import { RoomCalendarComponent } from './room-rates/room-calendar/room-calendar.component';
+import { RoomsComponent } from './room-rates/rooms/rooms.component';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ import { RoomCalendarComponent } from './room-rates/room-calendar/room-calendar.
     ToastModule,
     RippleModule,
     RoomRatesComponent,
-    RoomCalendarComponent
+    RoomCalendarComponent,
+    RoomsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
