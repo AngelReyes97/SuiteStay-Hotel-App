@@ -1,90 +1,126 @@
-<div class="body-container">
-    <div class="main-container">
-        <div class="d-flex flex-wrap">
-            <h1 class="title">
-                Select Room
-            </h1>
+<div class="body">
+    <div class="page-container">
+        <div class="content-container">
+            <div class="title-container">
+                <h1 class="title" cols="11">
+                    Select Room
+                </h1>
+            </div>
         </div>
-        <div class="d-flex flex-wrap">
-            <section cols="4" class="d-block">
+        <div class="content-container">
+            <section class="calendar-section" cols="4">
                 <div class="calendar-column-position">
                     <div class="calendar-content-container">
-                        <div class="calendar-header">
-                            <div class="selected-dates-title">
-                                <h2 class="d-flex" style="font-size: 20px; font-weight: 500;">
-                                    Select Dates
-                                </h2>
+                        <div class="calendar-calculate-height">
+                            <div class="sub-content-container">
+                                <div class="select-dates-container">
+                                    <div class="d-flex">
+                                        <h2 class="select-dates-title">
+                                            Select Dates
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="date-range-container position-relative">
+                                    <div class="d-block position-relative" style="width: 100%">
+                                        <div class="date-range">
+                                            <div class="date">
+                                                <div *ngIf="CheckIn" class="checkin-date">
+                                                    {{CheckIn}}
+                                                </div>
+                                            </div>
+                                            <div class="arrow-container">
+                                                <div class="sub-arrow-container">
+                                                    <div class="icon-arrow"></div>
+                                                </div>
+                                            </div>
+                                            <div class="date">
+                                                <div *ngIf="CheckOut" class="checkout-date">
+                                                    {{CheckOut}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="checkin-sub-header">
+                                            Check In
+                                        </div>
+                                        <div class="checkout-sub-header">
+                                            Check Out
+                                        </div>
+                                    </div>
+                                    <div class="calendar-description">
+                                        Max nights will be only 30.
+                                    </div>
+                                    <div class="calendar" style="width: auto">
+                                        <app-room-calendar></app-room-calendar>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="date-range">
-                                <div *ngIf="CheckIn" class="date">
-                                    {{CheckIn}}
+                            <div class="total-guest-container">
+                                <div class="sub-guest-container">
+                                    <span style="font-size: 16px; font-weight: 500;">
+                                        Guests
+                                    </span>
                                 </div>
-                                <div class="arrow">
-                                    <div class="icon-arrow"></div>
+                                <button type="button" class="guest-btn" (click)="reservationSvc.decrementGuest()">
+                                    <div class="d-flex" style="align-self: center;">
+                                        <i class="pi pi-minus-circle" style="font-size: 1.3rem;"></i>
+                                    </div>
+                                </button>
+                                <div class="total-guests-text" style="text-align: center;">
+                                    <span>{{(reservationSvc.reservation$ | async)?.numberOfGuest || 1}}</span>
                                 </div>
-                                <div *ngIf="CheckOut" class="date" style="text-align: right;">
-                                    {{CheckOut}}
-                                </div>
-                                <div class="sub-header">
-                                    Check In
-                                </div>
-                                <div class="sub-header" style="right: 0px;">
-                                    Check Out
-                                </div>
+                                <button type="button" class="guest-btn" (click)="reservationSvc.incrementGuest()">
+                                    <div class="d-flex" style="align-self: center;">
+                                        <i class="pi pi-plus-circle" style="font-size: 1.3rem;"></i>
+                                    </div>
+                                </button>
                             </div>
-                            <div class="position-relative">
-                                <div style="font-size: 16px;">
-                                    Max nights will be only 30.
-                                </div>
-                                <div class="calendar">
-                                    <app-room-calendar></app-room-calendar>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="total-guest-container">
-                            <div class="guest-title">
-                                <span style="font-size: 18px; font-weight: 500;">Guests</span>
-                            </div>
-                            <button type="button" class="guest-button" (click)="reservationSvc.decrementGuest()">
-                                <div class="d-flex" style="align-self: center;">
-                                    <i class="pi pi-minus-circle" style="font-size: 1.3rem;"></i>
-                                </div>
-                            </button>
-                            <div class="total-guests-text" style="text-align: center;">
-                                <span>{{(reservationSvc.reservation$ | async)?.numberOfGuest || 1}}</span>
-                            </div>
-                            <button type="button" class="guest-button" (click)="reservationSvc.incrementGuest()">
-                                <div class="d-flex" style="align-self: center;">
-                                    <i class="pi pi-plus-circle" style="font-size: 1.3rem;"></i>
-                                </div>
-                            </button>
                         </div>
                     </div>
                 </div>
             </section>
-            <section cols="7" class="room-section">
-               <div class="room-container-header">
-                <div>
-                    <div class="room-container-title" style="margin-left: 28px;">
-                        <h2 style="font-size: 20px; font-weight: 500; line-height: 1.2;">
-                            Available Room Rates
-                        </h2>
-                        <p style="margin-top: 12px; font-size: 12px; color: rgb(96, 96, 96);">
-                            * Excludes taxes
-                        </p>
+            <section cols="6" class="room-section">
+                <div class="info-container">
+                    <div class="info-title">
+                        <h5>
+                            Your stay at Suite Stay Resorts includes
+                        </h5>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 400;">
+                        <span class="info-description">
+                            Free WiFi
+                        </span>
+                        <span class="info-description">
+                            Non-smoking rooms
+                        </span>
+                        <span class="info-description">
+                            On-site restaurants
+                        </span>
+                        <span class="info-description">
+                            Pet-friendly rooms
+                        </span>
+                        <span class="info-description">
+                            Fitness Center
+                        </span>
+                        <span class="info-description">
+                            Outdoor pool
+                        </span>
                     </div>
                 </div>
-               </div>
-               <div style="margin-bottom: 32px;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2 style="font-size: 18px; font-weight: 500; margin-left: 28px;">
-                        Rooms at SuiteStay
-                    </h2>
+                <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 20px;">
+                    <div style="flex: 1 1 auto;">
+                        <h5>
+                            Available Room Rates
+                        </h5>
+                    </div>
                 </div>
-                <div class="container-fluid" style="position: relative;">
-                    <app-rooms></app-rooms>
+                <p style="margin-top: 12px; font-size: 12px; color: rgb(96, 96, 96);">
+                    * Excludes taxes
+                </p>
+                <div style="margin-bottom: 32px;">
+                    <div style="position: relative;">
+                        <app-rooms class="room-cards"></app-rooms>
+                    </div>
                 </div>
-               </div>
             </section>
         </div>
     </div>

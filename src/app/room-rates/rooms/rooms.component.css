@@ -1,15 +1,55 @@
-.room-rates-container{
-    display: flex;
-    flex-wrap: wrap; /* Allows the cards to wrap onto new lines */
-    gap: 16px; /* Optional: Adds spacing between cards */
-    /* padding: 16px; Optional: Adds padding around the container */
-    /* background-color: yellow; */
-    margin-left: 12px;
+::ng-deep .p-card{
+    width: 350px;
 }
 
-::ng-deep .p-card{
-    width: 360px;
+@media (max-width: 1393px){
+    ::ng-deep .p-card{
+        width: 340px;
+    }
 }
+
+@media (max-width: 1358px){
+    ::ng-deep .p-card{
+        width: 330px;
+    }
+}
+
+@media (max-width: 1324px){
+    ::ng-deep .p-card{
+        width: 320px;
+    }
+}
+
+@media (max-width: 1290px){
+    ::ng-deep .p-card{
+        width: 310px;
+    }
+}
+
+@media (max-width: 1255px){
+    ::ng-deep .p-card{
+        width: 300px;
+    }
+}
+
+@media (max-width: 1221px){
+    ::ng-deep .p-card{
+        width: 290px;
+    }
+}
+
+@media (max-width: 1059px){
+    ::ng-deep .p-card{
+        width: 280px;
+    }
+}
+
+@media (max-width: 1025px){
+    ::ng-deep .p-card{
+        width: 270px;
+    }
+}
+
 
 ::ng-deep .p-card-header{
     height: 120px;

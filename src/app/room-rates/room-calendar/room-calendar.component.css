@@ -4,4 +4,39 @@
 
 ::ng-deep .p-datepicker-inline{
     border: none;
+    max-width: 100%;
+}
+
+::ng-deep .p-datepicker table td{
+    padding: 0.5rem;
+}
+
+@media only screen and (max-width: 1443px){
+    ::ng-deep .p-datepicker table td{
+        padding: 0.4rem;
+    }
+}
+
+@media only screen and (max-width: 1374px){
+    ::ng-deep .p-datepicker table td{
+        padding: 0.3rem;
+    }
+}
+
+@media only screen and (max-width: 1307px){
+    ::ng-deep .p-datepicker table td{
+        padding: 0.2rem;
+    }
+}
+
+@media only screen and (max-width: 1237px){
+    ::ng-deep .p-datepicker table td{
+        padding: 0.1rem;
+    }
+}
+
+@media only screen and (max-width: 1040px){
+    ::ng-deep .p-datepicker table td{
+        padding: 0rem;
+    }
 }

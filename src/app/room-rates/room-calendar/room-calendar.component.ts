@@ -65,5 +65,4 @@ export class RoomCalendarComponent implements OnInit{
       this.reservationSubscription.unsubscribe();
     }
   }
-  
 }

@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Subscription } from 'rxjs';
 import { RoomsComponent } from "./rooms/rooms.component";
 import { CardModule } from 'primeng/card';
+import { CalendarComponent } from "../calendar/calendar.component";
 
 @Component({
   selector: 'app-room-rates',
@@ -15,8 +16,8 @@ import { CardModule } from 'primeng/card';
     CommonModule,
     RoomCalendarComponent,
     CardModule,
-    ButtonModule, 
-    RoomsComponent],
+    ButtonModule,
+    RoomsComponent, CalendarComponent],
   templateUrl: './room-rates.component.html',
   styleUrl: './room-rates.component.css'
 })

@@ -26,5 +26,5 @@ export class RoomsComponent {
 
   readonly rooms$ = this.roomSvc.Rooms$;
 
-  constructor( private roomSvc : RoomsService) {}
+  constructor(private roomSvc : RoomsService) {}
 }
