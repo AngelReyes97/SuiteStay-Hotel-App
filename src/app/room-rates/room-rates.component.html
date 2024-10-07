@@ -29,7 +29,7 @@
                                                 </div>
                                             </div>
                                             <div class="arrow-container">
-                                                <div class="sub-arrow-container">
+                                                <div *ngIf="CheckOut" class="sub-arrow-container">
                                                     <div class="icon-arrow"></div>
                                                 </div>
                                             </div>
@@ -118,7 +118,7 @@
                 </p>
                 <div style="margin-bottom: 32px;">
                     <div style="position: relative;">
-                        <app-rooms class="room-cards"></app-rooms>
+                        <app-rooms [checkOut]="CheckOut" [checkIn]="CheckIn" class="room-cards"></app-rooms>
                     </div>
                 </div>
             </section>

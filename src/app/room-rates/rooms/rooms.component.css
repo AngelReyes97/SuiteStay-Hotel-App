@@ -145,3 +145,32 @@
     font-size: 12px;
     line-height: 20px;
 }
+
+::ng-deep .p-dialog .p-dialog-header{
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+::ng-deep .p-dialog-content{
+    padding: 0px 128px 64px 128px;
+}
+
+::ng-deep .p-dialog-header{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price-detail{
+    display: flex;
+    flex-flow: column;
+    flex-wrap: nowrap;
+    min-width: 240px;
+}
+
+.description-container{
+    padding: 4px 0px 4px 0px;
+    min-height: 30px;
+    align-items: center;
+}

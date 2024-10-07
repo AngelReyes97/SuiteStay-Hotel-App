@@ -14,7 +14,7 @@
           <div class="price-details-container">
             <span class="price-fee">+ $45 Daily Resort Fee</span>
             <span class="price-details">{{room.room_Price | currency:'USD'}} Avg./Night</span>
-            <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="visible = true">Pricing Details</button></span>
+            <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="pressed(room)">Pricing Details</button></span>
           </div>
         </div>
         <p-divider></p-divider>
@@ -34,15 +34,21 @@
   </ng-template>
 </ng-container>
   
-<!-- <p-dialog 
+<p-dialog 
     [modal]="true"
     [(visible)]="visible"
     [draggable]="false">
-    <ng-template  pTemplate="header">
-        <div class="inline-flex align-items-center justify-content-center">
-            <h3>
-                Delano Stadium View King Suite Stay Well
-            </h3>
-        </div>
-    </ng-template>
-</p-dialog> -->
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <div style="font-weight: 500; font-size: 28px; color: black">
+        {{selectedRoom?.room_Type}}
+      </div>
+    </div>
+    <div class="price-detail">
+      <!-- <div class="description-container ">
+        <p-divider></p-divider>
+      </div> -->
+      <div class="description-container" style="background-color: bisque;">
+        Hello
+      </div>
+    </div>
+</p-dialog>

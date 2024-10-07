@@ -24,8 +24,8 @@ import { CalendarComponent } from "../calendar/calendar.component";
 export class RoomRatesComponent implements OnInit{
   private reservationSubscription: Subscription | null = null;
 
-  CheckIn: String | null = null;
-  CheckOut: String | null = null;
+  CheckIn: string | null = null;
+  CheckOut: string | null = null;
 
   constructor(public reservationSvc: ReservationService) {}
 
