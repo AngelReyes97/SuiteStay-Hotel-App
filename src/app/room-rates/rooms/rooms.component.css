@@ -146,20 +146,13 @@
     line-height: 20px;
 }
 
-::ng-deep .p-dialog .p-dialog-header{
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-}
-
-::ng-deep .p-dialog-content{
+::ng-deep .price-dialog .p-dialog-content{
     padding: 0px 128px 64px 128px;
 }
 
 ::ng-deep .p-dialog-header{
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .price-detail{
@@ -171,6 +164,44 @@
 
 .description-container{
     padding: 4px 0px 4px 0px;
-    min-height: 30px;
     align-items: center;
+    display: flex;
+}
+
+.divider{
+    border-bottom: 1px solid rgb(191, 191, 191);
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.left-column-info{
+    font-size: 14px;
+    flex: 0 1 auto;
+    color: black;
+}
+
+.right-column-info{
+    font-size: 12px;
+    font-weight: 500;
+    color: black;
+    flex: 1 1 0%;
+    text-align: right;
+}
+
+.book-room-btn{
+    padding: 14px 36px 14px 36px;
+    margin: 0;
+    font-size: 16px;
+    border-width: 0;
+    border-radius: 4px;
+}
+
+.close-dialog-btn{
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    padding: 0;
+    margin: 32px auto 0px auto;
+    font-size: 12px;
+    color: var(--primary-color);
 }

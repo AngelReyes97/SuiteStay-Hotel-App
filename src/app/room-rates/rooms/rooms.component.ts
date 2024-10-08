@@ -29,16 +29,18 @@ export class RoomsComponent {
   selectedRoom!: Rooms | null;
   dateRange: Date[] = [];
   totalNights: number = 0;
+  totalPrice: number = 0;
 
   readonly rooms$ = this.roomSvc.Rooms$;
 
   constructor(private roomSvc : RoomsService) {}
 
-  pressed(room: Rooms){
+  priceDetail(room: Rooms){
     this.visible= true;
     this.selectedRoom = room;
     this.dateRange = [];
     this.totalNights = 0;
+    this.totalPrice = 0;
 
     if(this.checkIn && this.checkOut){
       const checkin_Date = new Date(this.checkIn);
@@ -50,14 +52,12 @@ export class RoomsComponent {
 
       let currentDate = checkin_Date;
 
-      while(currentDate <= checkout_Date){
+      while(currentDate < checkout_Date){
         this.dateRange.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
       }
-      this.dateRange.forEach(date =>{
-        console.log(date.toLocaleDateString());
-      })
-      console.log(this.totalNights);
+
+      this.totalPrice = this.totalNights * (45 + this.selectedRoom.room_Price);
     }  
   }
 

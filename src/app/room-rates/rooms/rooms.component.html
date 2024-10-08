@@ -14,7 +14,7 @@
           <div class="price-details-container">
             <span class="price-fee">+ $45 Daily Resort Fee</span>
             <span class="price-details">{{room.room_Price | currency:'USD'}} Avg./Night</span>
-            <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="pressed(room)">Pricing Details</button></span>
+            <span class="room-details">Excludes Taxes | <button class="price-btn" type="button" (click)="priceDetail(room)">Pricing Details</button></span>
           </div>
         </div>
         <p-divider></p-divider>
@@ -34,7 +34,8 @@
   </ng-template>
 </ng-container>
   
-<p-dialog 
+<p-dialog
+    class="price-dialog"
     [modal]="true"
     [(visible)]="visible"
     [draggable]="false">
@@ -44,11 +45,56 @@
       </div>
     </div>
     <div class="price-detail">
-      <!-- <div class="description-container ">
-        <p-divider></p-divider>
-      </div> -->
-      <div class="description-container" style="background-color: bisque;">
-        Hello
+      <div style="padding: 4px 0px 4px 0px;">
+        <div class="divider"></div>
       </div>
+      <div *ngIf="dateRange.length">
+        <div *ngFor="let date of dateRange">
+          <div class="description-container">
+            <div class="left-column-info">
+                {{date | date:'MM/dd'}}
+            </div>
+            <div class="right-column-info">
+              {{selectedRoom?.room_Price | currency:'USD'}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 4px 0px 4px 0px;">
+        <div class="divider"></div>
+      </div>
+      <div class="description-container">
+        <div class="left-column-info" style="color: rgb(96, 96, 96); font-size: 14px;">
+          Resort Fee*
+        </div>
+        <div class="right-column-info" style="color: rgb(96, 96, 96); font-size: 14px;">
+          {{totalNights * 45 | currency:'USD'}}
+        </div>
+      </div>
+      <div style="padding: 4px 0px 4px 0px;">
+        <div class="divider"></div>
+      </div>
+      <div class="description-container">
+        <div class="left-column-info" style="font-size: 16px; font-weight: 500">
+          Room Total*
+        </div>
+        <div class="right-column-info" style="font-size: 16px; font-weight: 500">
+          {{ totalPrice | currency: 'USD'}}
+        </div>
+      </div>
+      <div style="padding: 4px 0px 4px 0px;">
+        <div class="divider"></div>
+      </div>
+      <div class="description-container">
+        <div class="left-column-info" style="color:rgb(96, 96, 96); font-size: 12px; font-weight: 400;">
+          *Taxes not inculded
+        </div>
+      </div>
+      <button pRipple type="button" class="book-room-btn btn btn-primary">
+        Book Room
+      </button>
+      <button class="close-dialog-btn" type="button" (click)="visible=false">
+        Close
+      </button>
     </div>
 </p-dialog>
