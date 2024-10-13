@@ -154,7 +154,7 @@ export class SignUpComponent implements OnInit{
           this.messageSvc.add({
             severity:'success', 
             summary:'Congratulations!', 
-            detail:'Your account has been successfully created.'
+            detail:'Account ready.'
           });
           this.router.navigate([ROUTER_TOKENS.HOME]);
         },

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { SignInComponent } from '../sign-in/sign-in.component';
@@ -13,6 +13,7 @@ import { User } from '../models/account.model';
 import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -37,9 +38,14 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   avatarMenuItems: MenuItem[] | undefined;
   user: User | null = null;
+  cartItems = this.cartSvc.cartItems;
+
+  @Output() showSideBar: EventEmitter<boolean> = new EventEmitter<boolean>();
+  visible: boolean = false;
 
   constructor(private authSvc: AuthService, 
-              private msgSvc: MessageService) { }
+              private msgSvc: MessageService,
+              private cartSvc: CartService) { }
 
   ngOnInit() {
     this.authSvc.getUser().subscribe(user =>{
@@ -78,10 +84,16 @@ export class NavbarComponent implements OnInit {
     ]
   }
 
+  showCart(){
+    this.visible = true;
+    this.showSideBar.emit(this.visible);
+  }
+
   signOut(){
     this.authSvc.signOut();
     this.msgSvc.add({
       severity:'success',
+      summary:'All set!',
       detail: 'You’ve been signed out.'
     })
   }

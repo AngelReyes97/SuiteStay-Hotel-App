@@ -44,7 +44,6 @@ export class ReservationService {
     if(reservation && newDates.length == 2){
       reservation.checkIn = newDates[0];
       reservation.checkOut = newDates[1];
-      console.log("service in: ", reservation);
       this.reservationSubject.next(reservation);
     }
   }

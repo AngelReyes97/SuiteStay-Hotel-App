@@ -8,6 +8,7 @@ import { Ripple } from 'primeng/ripple';
 import { RoomsService } from '../../services/rooms.service';
 import { AsyncPipe } from '@angular/common';
 import { Rooms } from '../../models/rooms.model';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-rooms',
@@ -33,7 +34,7 @@ export class RoomsComponent {
 
   readonly rooms$ = this.roomSvc.Rooms$;
 
-  constructor(private roomSvc : RoomsService) {}
+  constructor(private roomSvc : RoomsService, private cartSvc: CartService) {}
 
   priceDetail(room: Rooms){
     this.visible= true;
@@ -59,6 +60,10 @@ export class RoomsComponent {
 
       this.totalPrice = this.totalNights * (45 + this.selectedRoom.room_Price);
     }  
+  }
+
+  addToCart(room: Rooms){
+    this.cartSvc.addToCart(room);
   }
 
 }

@@ -6,7 +6,6 @@
 ::ng-deep .p-dropdown-items{
     padding: 0;
     margin: 0;
-
 }
 
 /* ::ng-deep .p-dropdown-label{
@@ -16,4 +15,8 @@
 
 ::ng-deep .border-color{
     border-color: red;
+}
+
+::ng-deep .p-dropdown-items-wrapper::-webkit-scrollbar{
+    display: none;
 }

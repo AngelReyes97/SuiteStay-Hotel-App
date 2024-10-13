@@ -75,7 +75,7 @@ export class SignInComponent {
           this.msgSvc.add({
             severity: 'success',
             summary: 'Sign-In Successful',
-            detail: 'Welcome back! Explore our latest deals.'
+            detail: 'Welcome back!'
           })
         },
         error: (err) =>{

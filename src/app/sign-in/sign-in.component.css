@@ -5,6 +5,9 @@
 .main-btn{
     border: none;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 5px 8px 5px 8px;
+    margin: 0px;
 }
 
 .signIn-input{

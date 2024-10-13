@@ -1,23 +1,33 @@
 <header class="p-3 bg-body-tertiary">
-  <div class="container header-container"> 
+  <div class="container header-container">
     <p-menubar [model]="items">
       <ng-template pTemplate="start">
         <a [routerLink]="['/']" routerLinkActive="active">
           <img src="/assets/SuiteStayLogo.svg" alt="SuiteStay Logo" width="150" height="auto" class="rounded-circle">
         </a>
       </ng-template>
+
       <ng-template pTemplate="end">
-        <div *ngIf="!user">
-          <app-sign-in></app-sign-in>
+        <div class="d-flex align-items-center">
+          <div *ngIf="!user">
+            <app-sign-in></app-sign-in>
+          </div>
+
+          <div *ngIf="user" class="avatar-menu-wrapper">
+            <button pRipple class="avatar-dropdown-btn bg-body-tertiary" type="button" (click)="menu.toggle($event)">
+              <p-avatar class="avatar" image="/assets/sign-in-avatar/avtr.png" shape="circle"></p-avatar>
+              <span class="username">{{ user.fName }}</span>
+              <i class="dropdown-arrow pi pi-sort-down-fill"></i>
+            </button>
+            <p-menu class="avatar-menu" #menu [model]="avatarMenuItems" [popup]="true"></p-menu>
+          </div>
+
+          <div *ngIf="cartItems().length" class="shopping-cart">
+            <button pRipple class="cart-btn" type="button" (click)="showCart()">
+              <i class="pi pi-shopping-cart" pBadge value="{{cartItems().length}}" style="font-size: 1.4rem; color:rgb(126, 128, 131)"></i>
+            </button>
+          </div>
         </div>
-        <div *ngIf="user" class="avatar-menu-wrapper">
-          <button pRipple class="avatar-dropdown-btn bg-body-tertiary" type="button" (click)="menu.toggle($event)">
-            <p-avatar class="avatar" size="large" image="/assets/sign-in-avatar/avtr.png" shape="circle"></p-avatar>
-            <span class="username"> {{user.fName}} </span>
-            <i class="dropdown-arrow pi pi-sort-down-fill"></i>
-          </button>
-        </div>
-        <p-menu class="avatar-menu" #menu [model]="avatarMenuItems" [popup]="true"></p-menu>
       </ng-template>
     </p-menubar>
   </div>

@@ -1,3 +1,25 @@
 ::ng-deep .p-ripple{
     box-shadow: none;
 }
+
+::ng-deep .p-toast{
+    width: 16rem;
+    font-size: 14px;
+}
+
+::ng-deep .p-toast-message .p-toast-message-content{
+    padding: .5rem;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon){
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+::ng-deep .p-sidebar-content::-webkit-scrollbar{
+    display: none;
+}
+
+::ng-deep .p-sidebar-content{
+    scroll-behavior: smooth;
+}
