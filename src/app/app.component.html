@@ -1,17 +1,52 @@
-<app-navbar *ngIf="showNavbar" (showSideBar)="show($event)"></app-navbar>
+<app-navbar *ngIf="showNavbar"></app-navbar>
 <router-outlet></router-outlet>
 <p-toast
     position="top-right"
     [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" 
     [life]="4000">
 </p-toast>
+
 <p-sidebar
     class="sidebar"
     position="right" 
-    [visible]="visible"
-    (onHide)="visible=false"
+    [visible]="visible()"
+    (onHide)="hideSideBar()"
     [blockScroll]="true"
     [modal]="true"
-    [style]="{'overflow-y': 'auto', 'width': '24rem'}">
-    
+    [style]="{'width': '23.5rem'}">
+
+    <div *ngIf="cartItems().length else noItems" class="sidebar-container">
+        <div class="sidebar-header d-flex justify-content-between">
+            <h5>
+                Shopping Cart ({{cartItems().length}} items)
+            </h5>
+            <button class="clearAll-btn" type="button" (click)="clearAll()">Clear All</button>
+        </div>
+        <div style="margin-top: 8px; margin-bottom: 8px;">
+            <div class="sidebar-subheader" style="font-size: 16px; font-weight: 500;">
+                <span>Subtotal*</span>
+                <span>{{subTotal() | currency: 'USD'}}</span>
+            </div>
+        </div>
+        <div class="content-scroll">
+            <div style="margin: 24px 0px 2px 0px">
+                <div *ngFor="let item of cartItems()" class="item-container">
+                    <div class="item-header">
+                        <div class="room-image"></div>
+                        <div class="room-details">
+                            <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.checkIn | date:'MMM dd'}} - {{item.checkOut | date:'MMM dd'}}</span>
+                            <span *ngFor="let room of item.rooms" style="font-size: 16px; font-weight: 500; color:black;">{{room.room_Type}}</span>
+                            <div style="display:flex; flex-direction: row;">
+                                <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.numberOfGuest}} Guest(s)</span>
+                                <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96); margin-left:8px;">{{item.city}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template class="empty-cart" #noItems> 
+        <div class="empty-cart">No rooms added to cart.</div>
+    </ng-template>
 </p-sidebar>

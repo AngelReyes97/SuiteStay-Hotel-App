@@ -24,18 +24,18 @@
                                     <div class="d-block position-relative" style="width: 100%">
                                         <div class="date-range">
                                             <div class="date">
-                                                <div *ngIf="CheckIn" class="checkin-date">
-                                                    {{CheckIn}}
+                                                <div *ngIf="reservation" class="checkin-date">
+                                                    {{reservation.checkIn | date: 'MMM dd, yyyy'}}
                                                 </div>
                                             </div>
                                             <div class="arrow-container">
-                                                <div *ngIf="CheckOut" class="sub-arrow-container">
+                                                <div *ngIf="reservation" class="sub-arrow-container">
                                                     <div class="icon-arrow"></div>
                                                 </div>
                                             </div>
                                             <div class="date">
-                                                <div *ngIf="CheckOut" class="checkout-date">
-                                                    {{CheckOut}}
+                                                <div *ngIf="reservation" class="checkout-date">
+                                                    {{reservation.checkOut | date: 'MMM dd, yyyy'}}
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                 </p>
                 <div style="margin-bottom: 32px;">
                     <div style="position: relative;">
-                        <app-rooms [checkOut]="CheckOut" [checkIn]="CheckIn" class="room-cards"></app-rooms>
+                        <app-rooms [reservation]="reservation" class="room-cards"></app-rooms>
                     </div>
                 </div>
             </section>

@@ -9,6 +9,7 @@ import { RoomsService } from '../../services/rooms.service';
 import { AsyncPipe } from '@angular/common';
 import { Rooms } from '../../models/rooms.model';
 import { CartService } from '../../services/cart.service';
+import { Reservation } from '../../models/reservation.model';
 
 @Component({
   selector: 'app-rooms',
@@ -24,8 +25,7 @@ import { CartService } from '../../services/cart.service';
   styleUrl: './rooms.component.css',
 })
 export class RoomsComponent {
-  @Input() checkIn: string | null = null;
-  @Input() checkOut: string | null = null;
+  @Input() reservation: Reservation | null = null;
   visible: boolean = false;
   selectedRoom!: Rooms | null;
   dateRange: Date[] = [];
@@ -43,9 +43,9 @@ export class RoomsComponent {
     this.totalNights = 0;
     this.totalPrice = 0;
 
-    if(this.checkIn && this.checkOut){
-      const checkin_Date = new Date(this.checkIn);
-      const checkout_Date = new Date(this.checkOut);
+    if(this.reservation){
+      const checkin_Date = new Date(this.reservation.checkIn);
+      const checkout_Date = new Date(this.reservation.checkOut);
 
        // Calculate total nights
       const millisecondsPerDay = 1000 * 60 * 60 * 24;
@@ -63,7 +63,10 @@ export class RoomsComponent {
   }
 
   addToCart(room: Rooms){
-    this.cartSvc.addToCart(room);
+    if(this.reservation){
+      this.cartSvc.showSideBar();
+      this.cartSvc.addToCart(room, this.reservation);
+    }
   }
 
 }

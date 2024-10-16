@@ -20,6 +20,7 @@ import { RoomCalendarComponent } from './room-rates/room-calendar/room-calendar.
 import { RoomsComponent } from './room-rates/rooms/rooms.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { CardModule } from 'primeng/card';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -51,18 +52,24 @@ export class AppComponent implements OnInit{
   title = 'SuiteStay';
 
   showNavbar: boolean = true;
-  visible: boolean = false;
+  visible = this.cartSvc.sideBarVisible;
+  cartItems = this.cartSvc.cartItems;
+  subTotal = this.cartSvc.subTotal;
 
   constructor(private navbarService: HideNavbarService, 
-              private primengconfig: PrimeNGConfig) {}
+              private primengconfig: PrimeNGConfig,
+              private cartSvc: CartService) {}
 
   ngOnInit(): void {
     this.primengconfig.ripple = true;
     this.navbarService.showNavbar$.subscribe(show => this.showNavbar = show);
   }
 
-  show(isVisble: boolean){
-    this.visible = isVisble;
-    console.log(this.visible);
+  hideSideBar(){
+    this.cartSvc.hideSideBar();
+  }
+
+  clearAll(){
+    this.cartSvc.clearAllItems();
   }
 }

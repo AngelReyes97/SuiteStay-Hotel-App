@@ -40,9 +40,6 @@ export class NavbarComponent implements OnInit {
   user: User | null = null;
   cartItems = this.cartSvc.cartItems;
 
-  @Output() showSideBar: EventEmitter<boolean> = new EventEmitter<boolean>();
-  visible: boolean = false;
-
   constructor(private authSvc: AuthService, 
               private msgSvc: MessageService,
               private cartSvc: CartService) { }
@@ -85,8 +82,7 @@ export class NavbarComponent implements OnInit {
   }
 
   showCart(){
-    this.visible = true;
-    this.showSideBar.emit(this.visible);
+    this.cartSvc.showSideBar();
   }
 
   signOut(){

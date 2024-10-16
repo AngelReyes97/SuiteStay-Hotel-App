@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { RoomsComponent } from "./rooms/rooms.component";
 import { CardModule } from 'primeng/card';
 import { CalendarComponent } from "../calendar/calendar.component";
+import { Reservation } from '../models/reservation.model';
 
 @Component({
   selector: 'app-room-rates',
@@ -24,8 +25,7 @@ import { CalendarComponent } from "../calendar/calendar.component";
 export class RoomRatesComponent implements OnInit{
   private reservationSubscription: Subscription | null = null;
 
-  CheckIn: string | null = null;
-  CheckOut: string | null = null;
+  reservation: Reservation | null = null;
 
   constructor(public reservationSvc: ReservationService) {}
 
@@ -34,10 +34,7 @@ export class RoomRatesComponent implements OnInit{
     this.reservationSubscription = this.reservationSvc.getReservation()
     .subscribe((reservation) =>{
       if(reservation){
-        const checkIn = reservation.checkIn.toString().split(' ');
-        this.CheckIn = `${checkIn[1]} ${checkIn[2]}, ${checkIn[3]}`;
-        const checkOut = reservation.checkOut.toString().split(' ');
-        this.CheckOut = `${checkOut[1]} ${checkOut[2]}, ${checkOut[3]}`;
+        this.reservation = reservation;
       }
     });
   }
