@@ -19,8 +19,8 @@ import { RoomRatesComponent } from './room-rates/room-rates.component';
 import { RoomCalendarComponent } from './room-rates/room-calendar/room-calendar.component';
 import { RoomsComponent } from './room-rates/rooms/rooms.component';
 import { SidebarModule } from 'primeng/sidebar';
-import { CardModule } from 'primeng/card';
 import { CartService } from './services/cart.service';
+import { Reservation } from './models/reservation.model';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +42,7 @@ import { CartService } from './services/cart.service';
     RoomRatesComponent,
     RoomCalendarComponent,
     RoomsComponent,
-    SidebarModule, CardModule
+    SidebarModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -71,5 +71,9 @@ export class AppComponent implements OnInit{
 
   clearAll(){
     this.cartSvc.clearAllItems();
+  }
+
+  removeReservation(roomId: number){
+    this.cartSvc.removeReservation(roomId);
   }
 }

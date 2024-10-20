@@ -29,17 +29,29 @@
             </div>
         </div>
         <div class="content-scroll">
-            <div style="margin: 24px 0px 2px 0px">
-                <div *ngFor="let item of cartItems()" class="item-container">
-                    <div class="item-header">
-                        <div class="room-image"></div>
-                        <div class="room-details">
-                            <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.checkIn | date:'MMM dd'}} - {{item.checkOut | date:'MMM dd'}}</span>
-                            <span *ngFor="let room of item.rooms" style="font-size: 16px; font-weight: 500; color:black;">{{room.room_Type}}</span>
-                            <div style="display:flex; flex-direction: row;">
-                                <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.numberOfGuest}} Guest(s)</span>
-                                <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96); margin-left:8px;">{{item.city}}</span>
-                            </div>
+            <div *ngFor="let item of cartItems()" class="item-container">
+                <div class="item-header">
+                    <div class="room-image"></div>
+                    <div class="room-details">
+                        <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.checkIn | date:'MMM dd'}} - {{item.checkOut | date:'MMM dd'}}</span>
+                        <span *ngFor="let room of item.rooms" style="font-size: 16px; font-weight: 500; color:black;">{{room.room_Type}}</span>
+                        <div style="display:flex; flex-direction: row;">
+                            <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.numberOfGuest}} Guest(s)</span>
+                            <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96); margin-left:8px;">{{item.city}}</span>
+                        </div>
+                    </div>
+                    <div *ngFor="let room of item.rooms">
+                        <button class="remove-btn" type="button" (click)="removeReservation(room.room_Id)">Remove</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="room-total-container">
+                    <div class="room-total">
+                        <div class="d-flex">
+                            <div style="margin-right: 6px;">Room Total*</div>
+                        </div>
+                        <div class="d-flex">
+                            <div *ngFor="let room of item.rooms" class="text-end">{{room.room_Price | currency: 'USD'}}</div>
                         </div>
                     </div>
                 </div>

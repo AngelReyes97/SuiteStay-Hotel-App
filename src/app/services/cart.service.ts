@@ -1,7 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Reservation } from '../models/reservation.model';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { Rooms } from '../models/rooms.model';
 
 @Injectable({
@@ -19,7 +18,7 @@ export class CartService {
   constructor(private http: HttpClient) {}
 
   addToCart(room: Rooms, reservation: Reservation): void{
-    this.cartItems.update(items => [...items, {...reservation, rooms: [room]}]);
+    this.cartItems.update(items => [{...reservation, rooms: [room]}, ...items]);
   }
 
   showSideBar(): void{
@@ -32,6 +31,17 @@ export class CartService {
 
   clearAllItems(): void{
     this.cartItems.set([]);  
+  }
+
+  removeReservation(roomId: number){
+    this.cartItems.update(items =>
+      items.map(item => ({
+        ...item,
+        rooms: Array.isArray(item.rooms) 
+          ? item.rooms.filter(room => room.room_Id !== roomId) // Filter out the room to remove
+          : item.rooms // If rooms is undefined, keep it as is
+      })).filter(item => item.rooms && item.rooms.length > 0) // Remove reservation if no rooms left
+    );
   }
 
 }
