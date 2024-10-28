@@ -40,8 +40,8 @@
                             <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96); margin-left:8px;">{{item.city}}</span>
                         </div>
                     </div>
-                    <div *ngFor="let room of item.rooms">
-                        <button class="remove-btn" type="button" (click)="removeReservation(room.room_Id)">Remove</button>
+                    <div>
+                        <button class="remove-btn" type="button" (click)="removeReservation(item.reservationId ?? 0)">Remove</button>
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -51,14 +51,23 @@
                             <div style="margin-right: 6px;">Room Total*</div>
                         </div>
                         <div class="d-flex">
-                            <div *ngFor="let room of item.rooms" class="text-end">{{room.room_Price | currency: 'USD'}}</div>
+                            <div *ngFor="let room of item.rooms" class="text-end">{{item.totalNights * (room.room_Price + 45) | currency: 'USD'}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <ng-template pTemplate="footer">
+        <div *ngIf="cartItems().length" class="d-flex justify-content-center">
+            <div class="checkout-container">
+                <button pRipple class="checkout-btn btn btn-primary" type="button">Check Out</button>
+            </div>
+        </div>
+    </ng-template>
+
     <ng-template class="empty-cart" #noItems> 
         <div class="empty-cart">No rooms added to cart.</div>
     </ng-template>
+
 </p-sidebar>

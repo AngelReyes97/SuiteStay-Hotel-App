@@ -26,6 +26,16 @@ export class CalendarComponent implements OnInit {
   today: Date = new Date();
   isClicked: boolean = false;
 
+  responsiveOptions = [
+    {
+        breakpoint: '1024px', // For devices larger than 1024px
+        numMonths: 2           // Show 2 months
+    },
+    {
+        breakpoint: '965px',  // For devices between 768px and 1024px
+        numMonths: 1           // Show 1 month
+    }
+  ];
 
   ngOnInit(){
     const today = new Date();

@@ -44,6 +44,7 @@ export class ReservationService {
     if(reservation && newDates.length == 2){
       reservation.checkIn = newDates[0];
       reservation.checkOut = newDates[1];
+      reservation.totalNights = (newDates[1].getTime() - newDates[0].getTime()) / (1000 * 60 * 60 * 24);
       this.reservationSubject.next(reservation);
     }
   }

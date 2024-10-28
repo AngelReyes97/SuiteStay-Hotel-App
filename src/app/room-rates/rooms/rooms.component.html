@@ -68,7 +68,7 @@
           Resort Fee*
         </div>
         <div class="right-column-info" style="color: rgb(96, 96, 96); font-size: 14px;">
-          {{totalNights * 45 | currency:'USD'}}
+          {{(reservation?.totalNights ?? 0) * 45 | currency:'USD'}}
         </div>
       </div>
       <div style="padding: 4px 0px 4px 0px;">

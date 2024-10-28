@@ -67,7 +67,8 @@ export class HomeComponent implements OnInit{
         state: this.guestReservation.get('selectedCity')?.value?.code!,
         checkIn: dates[0],
         checkOut: dates[1],
-        numberOfGuest: this.guestReservation.get('numberOfGuest')?.value!
+        numberOfGuest: this.guestReservation.get('numberOfGuest')?.value!,
+        totalNights: (dates[1].getTime() - dates[0].getTime()) / (1000 * 60 * 60 * 24)
       }
       this.reservationSvc.saveReservation(reservation);
       this.router.navigate([ROUTER_TOKENS.ROOM_RATES]);

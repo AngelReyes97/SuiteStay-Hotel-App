@@ -73,7 +73,7 @@ export class AppComponent implements OnInit{
     this.cartSvc.clearAllItems();
   }
 
-  removeReservation(roomId: number){
-    this.cartSvc.removeReservation(roomId);
+  removeReservation(resId: number){
+    this.cartSvc.removeReservation(resId);
   }
 }

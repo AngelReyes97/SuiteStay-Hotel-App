@@ -6,10 +6,12 @@ export interface City {
 }
 
 export interface Reservation {
+    reservationId?: number;
     city: string;
     state: string;
     checkIn: Date;
     checkOut: Date;
     numberOfGuest: number;
+    totalNights: number;
     rooms?: Rooms[];
 }

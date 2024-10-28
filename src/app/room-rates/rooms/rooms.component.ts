@@ -29,7 +29,6 @@ export class RoomsComponent {
   visible: boolean = false;
   selectedRoom!: Rooms | null;
   dateRange: Date[] = [];
-  totalNights: number = 0;
   totalPrice: number = 0;
 
   readonly rooms$ = this.roomSvc.Rooms$;
@@ -40,16 +39,11 @@ export class RoomsComponent {
     this.visible= true;
     this.selectedRoom = room;
     this.dateRange = [];
-    this.totalNights = 0;
     this.totalPrice = 0;
 
     if(this.reservation){
       const checkin_Date = new Date(this.reservation.checkIn);
       const checkout_Date = new Date(this.reservation.checkOut);
-
-       // Calculate total nights
-      const millisecondsPerDay = 1000 * 60 * 60 * 24;
-      this.totalNights = Math.floor((checkout_Date.getTime() - checkin_Date.getTime()) / millisecondsPerDay);
 
       let currentDate = checkin_Date;
 
@@ -58,7 +52,7 @@ export class RoomsComponent {
         currentDate.setDate(currentDate.getDate() + 1);
       }
 
-      this.totalPrice = this.totalNights * (45 + this.selectedRoom.room_Price);
+      this.totalPrice = this.reservation.totalNights * (45 + this.selectedRoom.room_Price);
     }  
   }
 

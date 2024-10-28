@@ -137,3 +137,26 @@
 .remove-btn:hover{
     text-decoration: underline;
 }
+
+
+.checkout-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 375px;
+  flex-shrink: 0;
+  padding: 24px 16px 24px 16px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -2px 4px;
+}
+
+.checkout-btn{
+    border: none;
+    font-size: 12px;
+    margin: 0px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 60px;
+    height: 46px;
+    padding: 0px 24px 0px 24px;
+    width: 100%;
+}
