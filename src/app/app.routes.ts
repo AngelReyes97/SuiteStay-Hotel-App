@@ -2,11 +2,13 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RoomRatesComponent } from './room-rates/room-rates.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 export enum ROUTER_TOKENS {
     HOME ='suitestay/home',
     REGISTER ='suitestay/register',
-    ROOM_RATES = 'suitestay/available-rooms'
+    ROOM_RATES = 'suitestay/available-rooms',
+    CHECKOUT = 'suitestay/booking-payment'
 }
 
 export const routes: Routes = [
@@ -29,5 +31,10 @@ export const routes: Routes = [
         path: ROUTER_TOKENS.ROOM_RATES,
         component: RoomRatesComponent,
         title: "Suite Stay - Explore Room Rates & Availability"
+    },
+    {
+        path: ROUTER_TOKENS.CHECKOUT,
+        component: CheckoutComponent,
+        title: "Suite Stay - Complete Your Booking"
     }
 ];

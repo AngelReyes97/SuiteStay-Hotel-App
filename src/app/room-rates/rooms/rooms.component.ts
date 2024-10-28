@@ -10,6 +10,8 @@ import { AsyncPipe } from '@angular/common';
 import { Rooms } from '../../models/rooms.model';
 import { CartService } from '../../services/cart.service';
 import { Reservation } from '../../models/reservation.model';
+import { Router } from '@angular/router';
+import { ROUTER_TOKENS } from '../../app.routes';
 
 @Component({
   selector: 'app-rooms',
@@ -32,8 +34,11 @@ export class RoomsComponent {
   totalPrice: number = 0;
 
   readonly rooms$ = this.roomSvc.Rooms$;
+  cartItems = this.cartSvc.cartItems;
 
-  constructor(private roomSvc : RoomsService, private cartSvc: CartService) {}
+  constructor(private roomSvc : RoomsService, 
+              private cartSvc: CartService,
+              private router: Router) {}
 
   priceDetail(room: Rooms){
     this.visible= true;
@@ -60,6 +65,19 @@ export class RoomsComponent {
     if(this.reservation){
       this.cartSvc.showSideBar();
       this.cartSvc.addToCart(room, this.reservation);
+    }
+  }
+
+  checkout(){
+    if(this.selectedRoom && this.reservation){
+      if(this.cartItems().length == 0){
+        this.cartSvc.addToCart(this.selectedRoom, this.reservation);
+        this.router.navigate([ROUTER_TOKENS.CHECKOUT]);
+      } else{
+        this.visible = false;
+        this.cartSvc.showSideBar();
+        this.cartSvc.addToCart(this.selectedRoom, this.reservation);
+      }
     }
   }
 

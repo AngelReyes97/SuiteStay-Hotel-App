@@ -61,7 +61,7 @@
     <ng-template pTemplate="footer">
         <div *ngIf="cartItems().length" class="d-flex justify-content-center">
             <div class="checkout-container">
-                <button pRipple class="checkout-btn btn btn-primary" type="button">Check Out</button>
+                <button pRipple class="checkout-btn btn btn-primary" type="button" (click)="checkout()">Check Out</button>
             </div>
         </div>
     </ng-template>

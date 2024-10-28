@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,7 +20,8 @@ import { RoomCalendarComponent } from './room-rates/room-calendar/room-calendar.
 import { RoomsComponent } from './room-rates/rooms/rooms.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { CartService } from './services/cart.service';
-import { Reservation } from './models/reservation.model';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ROUTER_TOKENS } from './app.routes';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,7 @@ import { Reservation } from './models/reservation.model';
     RoomCalendarComponent,
     RoomsComponent,
     SidebarModule,
+    CheckoutComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -58,7 +60,8 @@ export class AppComponent implements OnInit{
 
   constructor(private navbarService: HideNavbarService, 
               private primengconfig: PrimeNGConfig,
-              private cartSvc: CartService) {}
+              private cartSvc: CartService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.primengconfig.ripple = true;
@@ -75,5 +78,10 @@ export class AppComponent implements OnInit{
 
   removeReservation(resId: number){
     this.cartSvc.removeReservation(resId);
+  }
+
+  checkout(){
+    this.cartSvc.hideSideBar();
+    this.router.navigate([ROUTER_TOKENS.CHECKOUT]);
   }
 }

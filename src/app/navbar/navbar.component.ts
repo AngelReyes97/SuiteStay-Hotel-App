@@ -14,6 +14,8 @@ import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -39,15 +41,21 @@ export class NavbarComponent implements OnInit {
   avatarMenuItems: MenuItem[] | undefined;
   user: User | null = null;
   cartItems = this.cartSvc.cartItems;
+  hideCart: boolean = false;
 
   constructor(private authSvc: AuthService, 
               private msgSvc: MessageService,
-              private cartSvc: CartService) { }
+              private cartSvc: CartService,
+              private router: Router) { }
 
   ngOnInit() {
     this.authSvc.getUser().subscribe(user =>{
       this.user = user;
     })
+
+    this.router.events.subscribe(() => {
+      this.hideCart = this.router.url === '/suitestay/booking-payment';
+    });
 
     this.items = [
         {
