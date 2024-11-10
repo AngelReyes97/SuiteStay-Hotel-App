@@ -30,7 +30,6 @@ export class RoomRatesComponent implements OnInit{
   constructor(public reservationSvc: ReservationService) {}
 
   ngOnInit() {
-    console.log("in init");
     this.reservationSubscription = this.reservationSvc.getReservation()
     .subscribe((reservation) =>{
       if(reservation){

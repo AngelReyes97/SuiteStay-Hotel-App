@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { dateValidator } from './datevalidator.directive';
 import { Router } from '@angular/router';
 import { ROUTER_TOKENS } from '../app.routes';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -49,13 +50,14 @@ export class HomeComponent implements OnInit{
 
   constructor(private fb: FormBuilder, 
               private reservationSvc: ReservationService,
-              private router: Router) {}
+              private router: Router,
+              private authSvc: AuthService) {}
 
   ngOnInit(){
     this.guestReservation.get('selectedCity')?.valueChanges.subscribe();
     this.guestReservation.get('rangeDates')?.valueChanges.subscribe();
     this.guestReservation.get('numberOfGuest')?.valueChanges.subscribe();
-
+    this.authSvc.setPreviousUrl(this.router.url);
   }
 
   onSubmitReservation(){

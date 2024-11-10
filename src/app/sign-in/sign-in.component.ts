@@ -35,7 +35,7 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class SignInComponent {
   readonly ROUTER_TOKENS = ROUTER_TOKENS;
-  visible: boolean = false;
+  visible = this.authSvc.showSignIn;
   formSubmitted: boolean = false;
   errorMsg: string | null = null;
 
@@ -58,7 +58,7 @@ export class SignInComponent {
 
   restInput(){
     this.loginForm.reset();
-    this.visible = false;
+    this.authSvc.Hide();
     this.formSubmitted = false;
     this.errorMsg = null;
   }
@@ -71,7 +71,7 @@ export class SignInComponent {
           this.loginForm.reset();
           this.formSubmitted = false;
           this.errorMsg = null;
-          this.visible = false;
+          this.authSvc.Hide();
           this.msgSvc.add({
             severity: 'success',
             summary: 'Sign-In Successful',
@@ -87,5 +87,9 @@ export class SignInComponent {
         }
       });
     }
+  }
+
+  showSignIn(){
+    this.authSvc.Show();
   }
 }

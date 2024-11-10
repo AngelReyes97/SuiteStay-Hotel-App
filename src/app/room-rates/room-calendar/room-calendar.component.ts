@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReservationService } from '../../services/reservation.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-room-calendar',
@@ -24,7 +26,9 @@ export class RoomCalendarComponent implements OnInit{
     newrangeDates: new FormControl<Date[] | null>(null)
   });
 
-  constructor(private reservationSvc: ReservationService) {}
+  constructor(private reservationSvc: ReservationService,
+              private router: Router,
+              private authSvc: AuthService) {}
 
   ngOnInit(){
     const today = new Date();
@@ -37,6 +41,7 @@ export class RoomCalendarComponent implements OnInit{
         }
       }
     });
+    this.authSvc.setPreviousUrl(this.router.url);
   }
 
   selectRange(){

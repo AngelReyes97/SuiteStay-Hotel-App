@@ -67,8 +67,8 @@ export class NavbarComponent implements OnInit {
             icon:"custom-icon-1"
         },
         {
-            label: 'Past Reservations',
-            icon: 'pi pi-history',
+            label: 'Locations',
+            icon: 'pi pi-map',
             // routerLink: '/register'
         }
     ]

@@ -18,6 +18,7 @@ import { User } from '../models/account.model';
 import { emailValidator } from './invalidEmail.directive';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { RoomsService } from '../services/rooms.service';
 
 
 @Component({
@@ -47,6 +48,8 @@ export class SignUpComponent implements OnInit{
   readonly ROUTER_TOKENS = ROUTER_TOKENS;
   formSubmitted = false;
   errorExistingAccount: string | null = null;
+
+  previousUrl = this.authSvc.previousUrl;
   
 
   signUpForm = this.fb.nonNullable.group({
@@ -63,7 +66,7 @@ export class SignUpComponent implements OnInit{
   constructor(private fb: FormBuilder,
               private authSvc: AuthService,
               private router: Router,
-              private messageSvc: MessageService) {}
+              private messageSvc: MessageService, private roomSvc: RoomsService) {}
 
              
   ngOnInit() {
@@ -77,6 +80,7 @@ export class SignUpComponent implements OnInit{
         });
       }
     });
+    this.authSvc.Hide();
   }
 
 
@@ -156,6 +160,7 @@ export class SignUpComponent implements OnInit{
             summary:'Congratulations!', 
             detail:'Account ready.'
           });
+          this.authSvc.setUser(User);
           this.router.navigate([ROUTER_TOKENS.HOME]);
         },
         error: () => {
