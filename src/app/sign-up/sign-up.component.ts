@@ -161,7 +161,7 @@ export class SignUpComponent implements OnInit{
             detail:'Account ready.'
           });
           this.authSvc.setUser(User);
-          this.router.navigate([ROUTER_TOKENS.HOME]);
+          this.router.navigate([this.previousUrl()]);
         },
         error: () => {
           this.signUpForm.reset();

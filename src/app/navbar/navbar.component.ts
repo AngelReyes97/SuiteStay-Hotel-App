@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
   avatarMenuItems: MenuItem[] | undefined;
   user: User | null = null;
   cartItems = this.cartSvc.cartItems;
-  hideCart: boolean = false;
+  disableCart = this.authSvc.previousUrl;
 
   constructor(private authSvc: AuthService, 
               private msgSvc: MessageService,
@@ -52,10 +52,6 @@ export class NavbarComponent implements OnInit {
     this.authSvc.getUser().subscribe(user =>{
       this.user = user;
     })
-
-    this.router.events.subscribe(() => {
-      this.hideCart = this.router.url === '/suitestay/booking-payment';
-    });
 
     this.items = [
         {

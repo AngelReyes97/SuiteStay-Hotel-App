@@ -23,7 +23,7 @@
           </div>
 
           <div *ngIf="cartItems().length" class="shopping-cart">
-            <button pRipple class="cart-btn" type="button" [disabled]="hideCart" (click)="showCart()">
+            <button pRipple class="cart-btn" type="button" [disabled]="disableCart() === '/suitestay/booking-payment'" (click)="showCart()">
               <i class="pi pi-shopping-cart" pBadge value="{{cartItems().length}}" style="font-size: 1.4rem; color:rgb(126, 128, 131)"></i>
             </button>
           </div>

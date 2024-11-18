@@ -25,7 +25,7 @@ import { AuthService } from '../services/auth.service';
     ButtonModule,
     DividerModule,
     HomeCarouselComponent,
-    SignInComponent,
+    // SignInComponent,
     ReactiveFormsModule,
     CommonModule
   ],
