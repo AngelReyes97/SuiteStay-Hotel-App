@@ -10,3 +10,94 @@
 .invalid label{
     color: var(--red-500);
 }
+
+.item-container{
+    display: flex;
+    padding: 10px 0px 10px 0px;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 16px;
+}
+
+.room-pic{
+    background-image: url(/assets/sign-in-avatar/avtr.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+}
+
+.description-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.room-header{
+    margin-bottom: 5px;
+}
+
+.row-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.date-description{
+    font-size: 14px;
+    font-weight: 500;
+    color: #606060; 
+}
+
+.guest-description{
+    font-size: 14px;
+    font-weight: 500;
+    color: #606060;
+    margin-left: 18px;
+}
+
+.city-description{
+    font-size: 14px;
+    font-weight: 500;
+    color: #606060;
+    margin-left: 18px;
+}
+
+@media (max-width: 1200px){
+    .room-header{
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .room-pic{
+        background-image: url(/assets/sign-in-avatar/avtr.png);
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+        width: 54px;
+        height: 54px;
+    }
+
+    .date-description{
+        font-size: 12px;
+        font-weight: 500;
+        color: #606060; 
+    }
+    
+    .guest-description{
+        font-size: 12px;
+        font-weight: 500;
+        color: #606060;
+        margin-left: 10px;
+    }
+    
+    .city-description{
+        font-size: 12px;
+        font-weight: 500;
+        color: #606060;
+        margin-left: 10px;
+    }
+
+}

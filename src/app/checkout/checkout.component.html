@@ -6,20 +6,28 @@
       </div>
   
       <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
+        <div class="col-md-6 col-lg-5 order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your cart</span>
             <span class="badge bg-primary rounded-pill">{{cartItems().length}}</span>
           </h4>
           <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-start lh-sm">
-              <div class="align-items-center">
+            <li class="list-group-item lh-sm" >
+              <div class="item-container">
+                <div class="room-pic"></div>
+                <div class="description-container">
+                  <span class="date-description">Dec 24-25</span>
+                  <h5 class="room-header">Delano Suite View King</h5>
+                  <div class="row-container">
+                    <span class="date-description">1 Stay</span>
+                    <span class="guest-description">2 Guests</span>
+                    <span class="city-description">New York</span>
+                  </div>
+                </div>
+                <div>
+                  <i class="pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
+                </div>
               </div>
-              <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$12</span>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
@@ -27,13 +35,6 @@
                 <small class="text-body-secondary">Brief description</small>
               </div>
               <span class="text-body-secondary">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$5</span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
               <div class="text-success">
@@ -49,7 +50,7 @@
           </ul>
         </div>
 
-        <div class="col-md-7 col-lg-8">
+        <div class="col-md-6 col-lg-7">
           <h4 class="mb-3">Billing Information</h4>
           <form class="needs-validation" [formGroup]="checkoutForm" (ngSubmit)="submitCheckout()">
             <div class="row g-3" formGroupName="billingInfo">
