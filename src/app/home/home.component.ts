@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { CityComponent } from '../calendar/city/city.component';
 import { GuestSelectorComponent } from '../calendar/guest-selector/guest-selector.component';
