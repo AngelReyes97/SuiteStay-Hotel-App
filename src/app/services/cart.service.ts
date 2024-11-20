@@ -28,6 +28,7 @@ export class CartService {
   }
 
   hideSideBar(): void{
+    console.log("in service");
     this.sideBarVisible.set(false);
   }
 

@@ -9,8 +9,7 @@
 <p-sidebar
     class="sidebar"
     position="right" 
-    [visible]="visible()"
-    (onHide)="hideSideBar()"
+    [(visible)]="visible"
     [blockScroll]="true"
     [modal]="true"
     [style]="{'width': '23.5rem'}">

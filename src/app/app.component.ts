@@ -36,6 +36,8 @@ export class AppComponent implements OnInit{
   cartItems = this.cartSvc.cartItems;
   subTotal = this.cartSvc.subTotal;
 
+  sidebarVisible: boolean = false;
+
   constructor(private navbarService: HideNavbarService, 
               private primengconfig: PrimeNGConfig,
               private cartSvc: CartService,
@@ -45,11 +47,7 @@ export class AppComponent implements OnInit{
     this.primengconfig.ripple = true;
     this.navbarService.showNavbar$.subscribe(show => this.showNavbar = show);
   }
-
-  hideSideBar(){
-    this.cartSvc.hideSideBar();
-  }
-
+  
   clearAll(){
     this.cartSvc.clearAllItems();
   }

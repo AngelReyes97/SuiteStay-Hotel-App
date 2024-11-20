@@ -59,7 +59,7 @@
 .guest-description{
     font-size: 14px;
     font-weight: 500;
-    color: #606060;
+
     margin-left: 18px;
 }
 
@@ -71,13 +71,13 @@
 }
 
 ::ng-deep .summary .p-accordion .p-accordion-header .p-accordion-header-link{
-    color: black;
+    color: var(--surface-800);
     text-decoration: none;
     background-color: transparent;
-    font-size: 14px;
+    font-size: 16px;
     padding: 14px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
     border-left-width: 0px;
     border-right-width: 0px;
     justify-content: space-between;
@@ -87,7 +87,24 @@
 }
 
 ::ng-deep .summary .p-accordion-toggle-icon{
-    margin-right: 0;
+    margin: 0;
+}
+
+::ng-deep .p-accordion p-accordiontab .p-accordion-tab {
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 5px;
+}
+
+::ng-deep .p-accordion .p-accordion-content{
+    padding: 0 14px 14px 14px;
+    border: 0 none;
+    border-top: 0;
+    font-size: 14px;
+}
+
+::ng-deep .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+    font-size: 17px;
+    color: var(--surface-800);
 }
 
 @media (max-width: 1200px){
