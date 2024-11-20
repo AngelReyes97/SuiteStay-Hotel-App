@@ -50,6 +50,12 @@
     color: #606060; 
 }
 
+.stay-description{
+    font-size: 14px;
+    font-weight: 500;
+    color: #606060; 
+}
+
 .guest-description{
     font-size: 14px;
     font-weight: 500;
@@ -62,6 +68,26 @@
     font-weight: 500;
     color: #606060;
     margin-left: 18px;
+}
+
+::ng-deep .summary .p-accordion .p-accordion-header .p-accordion-header-link{
+    color: black;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 14px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    border-radius: 0;
+    margin-top: 5px;
+}
+
+::ng-deep .summary .p-accordion-toggle-icon{
+    margin-right: 0;
 }
 
 @media (max-width: 1200px){
@@ -81,6 +107,12 @@
     }
 
     .date-description{
+        font-size: 12px;
+        font-weight: 500;
+        color: #606060; 
+    }
+
+    .stay-description{
         font-size: 12px;
         font-weight: 500;
         color: #606060; 

@@ -19,15 +19,22 @@
                   <span class="date-description">Dec 24-25</span>
                   <h5 class="room-header">Delano Suite View King</h5>
                   <div class="row-container">
-                    <span class="date-description">1 Stay</span>
+                    <span class="stay-description">1 Stay</span>
                     <span class="guest-description">2 Guests</span>
                     <span class="city-description">New York</span>
                   </div>
                 </div>
                 <div>
-                  <i class="pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
+                  <i class="delete-icon pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
                 </div>
               </div>
+              <p-accordion expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" class="summary" [activeIndex]="null">
+                <p-accordionTab header="Summary">
+                  <p>
+                    hello
+                  </p>
+                </p-accordionTab>
+              </p-accordion>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
@@ -188,4 +195,4 @@
     <footer class="my-5 pt-5 text-body-secondary text-center text-small">
       <p class="mb-1">&copy; 2017–2024 Suite Stay</p>
     </footer>
-  </div>
+</div>

@@ -5,7 +5,6 @@ import { GuestSelectorComponent } from '../calendar/guest-selector/guest-selecto
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { HomeCarouselComponent } from './home-carousel/home-carousel.component';
-import { SignInComponent } from '../sign-in/sign-in.component';
 import { City, Reservation } from '../models/reservation.model';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ReservationService } from '../services/reservation.service';
@@ -25,7 +24,6 @@ import { AuthService } from '../services/auth.service';
     ButtonModule,
     DividerModule,
     HomeCarouselComponent,
-    // SignInComponent,
     ReactiveFormsModule,
     CommonModule
   ],

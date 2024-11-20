@@ -6,13 +6,15 @@ import { User } from '../models/account.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    AccordionModule
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'

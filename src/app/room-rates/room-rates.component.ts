@@ -7,18 +7,18 @@ import { ButtonModule } from 'primeng/button';
 import { Subscription } from 'rxjs';
 import { RoomsComponent } from "./rooms/rooms.component";
 import { CardModule } from 'primeng/card';
-import { CalendarComponent } from "../calendar/calendar.component";
 import { Reservation } from '../models/reservation.model';
 
 @Component({
   selector: 'app-room-rates',
   standalone: true,
-  imports: [ReactiveFormsModule,
+  imports: [
+    ReactiveFormsModule,
     CommonModule,
     RoomCalendarComponent,
     CardModule,
     ButtonModule,
-    RoomsComponent, CalendarComponent],
+    RoomsComponent],
   templateUrl: './room-rates.component.html',
   styleUrl: './room-rates.component.css'
 })

@@ -57,7 +57,7 @@
                             <div class="total-guest-container">
                                 <div class="sub-guest-container">
                                     <span style="font-size: 16px; font-weight: 500;">
-                                        Guests
+                                        {{reservation?.numberOfGuest == 1 ? 'Guest' : 'Guests'}}
                                     </span>
                                 </div>
                                 <button type="button" class="guest-btn" (click)="reservationSvc.decrementGuest()">
