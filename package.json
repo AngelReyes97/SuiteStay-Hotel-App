@@ -23,10 +23,10 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "primeicons": "^7.0.0",
-    "primeng": "^17.18.1",
+    "primeng": "^17.18.12",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "^0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.0",
