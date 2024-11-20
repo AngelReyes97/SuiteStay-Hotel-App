@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { SignInComponent } from '../sign-in/sign-in.component';
@@ -15,7 +15,6 @@ import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
-import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',

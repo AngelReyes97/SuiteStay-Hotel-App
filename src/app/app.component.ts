@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
 import { HideNavbarService } from './hide-navbar.service';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
@@ -20,7 +19,6 @@ import { ROUTER_TOKENS } from './app.routes';
     RouterOutlet,
     FormsModule,
     NavbarComponent,
-    HttpClientModule,
     CommonModule,
     ToastModule,
     RippleModule,

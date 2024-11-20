@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Calendar, CalendarModule } from 'primeng/calendar';
-import { FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CityComponent } from './city/city.component';
-import { GuestSelectorComponent } from './guest-selector/guest-selector.component';
+import { FormGroup} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar',
@@ -10,8 +9,6 @@ import { GuestSelectorComponent } from './guest-selector/guest-selector.componen
   imports: [
     CalendarModule, 
     FormsModule, 
-    CityComponent,
-    GuestSelectorComponent,
     ReactiveFormsModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'
