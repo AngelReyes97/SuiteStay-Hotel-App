@@ -5,53 +5,54 @@
         <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
       </div>
   
-      <div class="row g-5">
+      <div *ngIf="cartItems().length" class="row g-5">
         <div class="col-md-6 col-lg-5 order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your cart</span>
             <span class="badge bg-primary rounded-pill">{{cartItems().length}}</span>
           </h4>
           <ul class="list-group mb-3">
-            <li class="list-group-item lh-sm" >
+            <li *ngFor="let item of cartItems()" class="list-group-item lh-sm" >
               <div class="item-container">
                 <div class="room-pic"></div>
                 <div class="description-container">
-                  <span class="date-description">Dec 24-25</span>
-                  <h5 class="room-header">Delano Suite View King</h5>
+                  <span class="date-description">{{item.checkIn.getMonth() === item.checkOut.getMonth() ? (item.checkIn | date:'MMM dd' ) + '-' + (item.checkOut | date: 'dd') : (item.checkIn | date:'MMM dd' ) + ' - ' + (item.checkOut | date: 'MMM dd')}}</span>
+                  <h5 *ngFor="let room of item.rooms" class="room-header">{{room.room_Type}}</h5>
                   <div class="row-container">
-                    <span class="stay-description">1 Stay</span>
-                    <span class="guest-description">2 Guests</span>
-                    <span class="city-description">New York</span>
+                    <span class="stay-description">{{item.totalNights}} {{item.totalNights === 1 ? 'Night' : 'Nights'}}</span>
+                    <span class="guest-description">{{item.numberOfGuest}} {{item.numberOfGuest === 1 ? 'Guest' : 'Guests'}}</span>
+                    <span class="city-description">{{item.city}}</span>
                   </div>
                 </div>
                 <div>
-                  <i class="delete-icon pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
+                  <button class="delete-btn" type="button" (click)="removeItem(item.reservationId ?? 0)">
+                    <i class="delete-icon pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
+                  </button>
                 </div>
               </div>
-              <p-accordion expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" class="summary" [activeIndex]="null">
+              <p-accordion (onOpen)="dateRange(item.checkIn, item.checkOut)" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" class="summary" [activeIndex]="null">
                 <p-accordionTab header="Summary">
-                  <p>
-                    hello
-                  </p>
+                  <div *ngFor="let date of dates" class="content-container">
+                    <div class="content-date">{{date | date:'MM/dd'}}</div>
+                    <div *ngFor="let room of item.rooms" class="content-price">{{room.room_Price | currency:'USD'}}</div>
+                  </div>
+                  <p-divider class="divider"></p-divider>
+                  <div class="content-container">
+                    <div class="content-fee">Resort Fee* (+ $45 per night)</div>
+                    <div class="content-price">{{item.totalNights * 45 | currency:'USD'}}</div>
+                  </div>
+                  <div class="content-container">
+                    <div class="content-room-total">Room Total*</div>
+                    <div *ngFor="let room of item.rooms" class="content-room-total-price">{{item.totalNights * (room.room_Price + 45) | currency:'USD'}}</div>
+                  </div>
                 </p-accordionTab>
               </p-accordion>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-body-secondary">Brief description</small>
+              <div class="row-container" style="justify-content: end;">
+                <span class="cancel-description">{{ getCancellationDate(item.checkIn) <= today ? 'Non-cancellation Period.' : 'Free Cancellation Until ' + (getCancellationDate(item.checkIn) | date:'MMM dd, yyyy') + '.'}}</span>
               </div>
-              <span class="text-body-secondary">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">−$5</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
+              <span>Grand Total (USD)</span>
               <strong>$20</strong>
             </li>
           </ul>

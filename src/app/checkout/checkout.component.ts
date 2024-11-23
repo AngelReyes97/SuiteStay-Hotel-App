@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-checkout',
@@ -14,7 +15,8 @@ import { AccordionModule } from 'primeng/accordion';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    AccordionModule
+    AccordionModule,
+    DividerModule
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
@@ -24,6 +26,8 @@ export class CheckoutComponent implements OnInit{
   cartItems = this.cartSvc.cartItems;
   private userSubscription: Subscription | null = null;
   checkoutSubmitted: boolean = false;
+  dates: Date[] = [];
+  today = new Date();
 
   checkoutForm = this.fb.nonNullable.group({
     billingInfo: this.fb.nonNullable.group({
@@ -84,6 +88,27 @@ export class CheckoutComponent implements OnInit{
     }
     console.log(this.checkoutForm.get('billingInfo')?.value);
     console.log(this.checkoutForm.get('paymentMethod')?.value);
+  }
+
+  dateRange(checkIn: Date, checkOut: Date){
+    this.dates = [];
+    const check_in = new Date(checkIn);
+    let currentDate = check_in;
+    
+    while(currentDate < checkOut){
+      this.dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
+
+  getCancellationDate(checkInDate: Date): Date {
+    const cancellationDate = new Date(checkInDate);
+    cancellationDate.setDate(cancellationDate.getDate() - 3);
+    return cancellationDate;
+  }
+
+  removeItem(resId: number){
+    this.cartSvc.removeReservation(resId);
   }
 
   ngOnDestroy(){

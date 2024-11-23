@@ -59,15 +59,23 @@
 .guest-description{
     font-size: 14px;
     font-weight: 500;
-
-    margin-left: 18px;
+    color: #606060;
+    margin-left: 16px;
 }
 
 .city-description{
     font-size: 14px;
     font-weight: 500;
     color: #606060;
-    margin-left: 18px;
+    margin-left: 16px;
+}
+
+.delete-btn{
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 ::ng-deep .summary .p-accordion .p-accordion-header .p-accordion-header-link{
@@ -83,7 +91,7 @@
     justify-content: space-between;
     flex-direction: row-reverse;
     border-radius: 0;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 ::ng-deep .summary .p-accordion-toggle-icon{
@@ -105,6 +113,59 @@
 ::ng-deep .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
     font-size: 17px;
     color: var(--surface-800);
+}
+
+.content-container{
+    display: flex;
+    padding: 4px 0px 4px 0px;
+    align-items: center;
+}
+
+.content-date{
+    font-size: 14px;
+    font-weight: 500;
+    flex: 0 1 auto;
+    color: #606060;
+}
+
+.content-price{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    flex: 1 1 0%;
+    color: #606060;
+}
+
+::ng-deep .divider .p-divider.p-divider-horizontal{
+    margin: 10px 0px 10px 0px;
+}
+
+.content-room-total{
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
+}
+
+.content-room-total-price{
+    font-size: 16px;
+    font-weight: 500;
+    text-align: right;
+    flex: 1 1 0%;
+    color: black;
+}
+
+.content-fee{
+    font-size: 13px;
+    font-weight: 500;
+    color: #606060; 
+}
+
+.cancel-description{
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding-left: 8px;
+    margin: 4px 0px 8px 0px;
 }
 
 @media (max-width: 1200px){
