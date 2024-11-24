@@ -16,6 +16,14 @@ export class CartService {
     total + item.totalNights * (item.rooms?.reduce((fee, room) => fee + room.room_Price, 45) || 0), 0)
   );
 
+  resortFee = computed(() => this.cartItems().reduce((total, reservation) =>
+  total + reservation.totalNights * 45, 0))
+
+  tax = computed(() => this.cartItems(). reduce((total, reservation) =>
+  total + reservation.totalNights * (reservation.rooms?.reduce((tax, room) => room.room_Price * tax / 100, 10.75) || 0), 0));
+
+  grandTotal = computed(()=> this.subTotal() + this.tax());
+
   constructor(private http: HttpClient) {}
 
   addToCart(room: Rooms, reservation: Reservation): void{

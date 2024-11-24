@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
+import { Reservation } from '../models/reservation.model';
+import { Rooms } from '../models/rooms.model';
 
 @Component({
   selector: 'app-checkout',
@@ -28,6 +30,9 @@ export class CheckoutComponent implements OnInit{
   checkoutSubmitted: boolean = false;
   dates: Date[] = [];
   today = new Date();
+  resortFee = this.cartSvc.resortFee;
+  tax = this.cartSvc.tax;
+  grandTotal = this.cartSvc.grandTotal;
 
   checkoutForm = this.fb.nonNullable.group({
     billingInfo: this.fb.nonNullable.group({
@@ -109,6 +114,17 @@ export class CheckoutComponent implements OnInit{
 
   removeItem(resId: number){
     this.cartSvc.removeReservation(resId);
+  }
+
+
+  getRoomTotal(reservation: Reservation, room: Rooms): number{
+    let roomTotal = 0;
+    const nightlyRate = room.room_Price + 45;
+    const roomPrice= room.room_Price;
+    const taxRate = 10.75 /100;
+    roomTotal = reservation.totalNights * nightlyRate;
+    roomTotal += reservation.totalNights * (roomPrice * taxRate);
+    return roomTotal;
   }
 
   ngOnDestroy(){
