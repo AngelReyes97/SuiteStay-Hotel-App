@@ -14,4 +14,7 @@ export interface Reservation {
     numberOfGuest: number;
     totalNights: number;
     rooms?: Rooms[];
+    userId?: number;
+    roomId?: number;
+    price?: number;
 }

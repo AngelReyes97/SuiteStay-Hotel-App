@@ -14,7 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from './password-match.directive';
 import { customPassword } from './custom-password.directive';
 import { AuthService } from '../services/auth.service';
-import { User } from '../models/account.model';
+import { User, userCredentials } from '../models/account.model';
 import { emailValidator } from './invalidEmail.directive';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -144,33 +144,50 @@ export class SignUpComponent implements OnInit{
   onSubmit() {
     this.formSubmitted = true;
 
-    if(this.signUpForm.valid){
-      const User: User ={
+    if(this.signUpForm.valid){ //checks if the form is valid
+      const User: User ={ //extract data
         fName: this.signUpForm.get('fullName')?.value.split(' ')[0]!,
         lName: this.signUpForm.get('fullName')?.value.split(' ')[1]!,
         email: this.signUpForm.get('email')?.value!,
         password: this.signUpForm.get('password')?.value!
       }
 
-      this.authSvc.signUp(User).subscribe({
-        next: () => {
-          this.signUpForm.reset(); // Reset the form after successful submission
-          this.formSubmitted = false; // Optionally reset formSubmitted to false
-          this.messageSvc.add({
-            severity:'success', 
-            summary:'Congratulations!', 
-            detail:'Account ready.'
-          });
-          this.authSvc.setUser(User);
-          this.router.navigate([this.previousUrl()]);
+      this.authSvc.signUp(User).subscribe({ //subscribe to sign up to save account
+        next: () => { 
+          const userCredentials: userCredentials = { // After successful sign-up, automatically log the user in
+            email: User.email,
+            password: User.password
+          };
+          this.authSvc.login(userCredentials).subscribe({ // Log in the user
+            next: () =>{
+              this.signUpForm.reset(); // Reset the form after successful submission
+              this.formSubmitted = false; // Optionally reset formSubmitted to false
+              this.messageSvc.add({ //success message
+                severity:'success', 
+                summary:'Congratulations!', 
+                detail:'Account ready.'
+              });
+               // Redirect the user to the previous URL they were trying to visit
+              this.router.navigate([this.previousUrl()]);
+            },
+            error: () =>{
+               // In case of login error, handle it here (you don't need to reset form or formSubmitted)
+              this.messageSvc.add({
+                severity: 'error',
+                summary: 'Login Failed',
+                detail: 'Something went wrong during login.'
+              });
+            }
+          })
         },
         error: () => {
+           // Reset form and formSubmitted if sign-up fails
           this.signUpForm.reset();
           this.formSubmitted = false;
           this.messageSvc.add({
             severity:'error',
             summary: 'Error',
-            detail: 'Something went wrong.'
+            detail: 'Something went wrong during sign up.'
           });
         }
       })

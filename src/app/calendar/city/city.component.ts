@@ -18,13 +18,12 @@ import { CommonModule } from '@angular/common';
 export class CityComponent implements OnInit {
   @Input() guestReservation!: FormGroup;
   @Input() city_Error!: boolean;
-  // @Output() cityError = new EventEmitter<boolean>()
   cities: City[] | undefined;
 
   ngOnInit() {
       this.cities = [
-          { name: 'Los Angeles, LA', code: 'LA' },
-          { name: 'New York, NY', code: 'NY' },
+          { name: 'Los Angeles, CA', code: 'CA' },
+          { name: 'New York City, NY', code: 'NY' },
           { name: 'Las Vegas, NV', code: 'NV' },
           { name: 'Seattle, WA', code: 'WA' },
           { name: 'Miami, FL', code: 'FL' },

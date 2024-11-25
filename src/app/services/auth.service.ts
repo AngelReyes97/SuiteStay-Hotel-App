@@ -45,10 +45,6 @@ export class AuthService {
     this.userSubject.next(null);
   }
 
-  setUser(user: User){
-    this.userSubject.next(user);
-  }
-
   Show(): void {
     this.showSignIn.set(true);
   }
@@ -60,5 +56,4 @@ export class AuthService {
   setPreviousUrl(url: string): void {
     this.previousUrl.set(url);
   }
-
 }

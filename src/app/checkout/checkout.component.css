@@ -3,9 +3,9 @@
     color: var(--red-500);
 }
 
-.invalid input{
+/* .invalid input{
     border-color: var(--red-500);
-}
+} */
 
 .invalid label{
     color: var(--red-500);

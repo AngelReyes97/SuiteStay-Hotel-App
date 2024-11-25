@@ -44,16 +44,16 @@
                     </div>
                     <div class="content-container">
                       <div class="content-tax">Room Estimated Tax</div>
-                      <div *ngFor="let room of item.rooms" class="content-price">+{{(item.totalNights * room.room_Price * 10.75) / 100| currency:'USD'}}</div>
+                      <div *ngFor="let room of item.rooms" class="content-price">+{{item.totalNights * (room.room_Price * 10.75 / 100) | currency:'USD'}}</div>
                     </div>
                     <div class="content-container">
                       <div class="content-room-total">Room Total*</div>
-                      <div *ngFor="let room of item.rooms" class="content-room-total-price">{{getRoomTotal(item, room) | currency:'USD'}}</div>
+                      <div *ngFor="let room of item.rooms" class="content-room-total-price">{{ item.price | currency:'USD'}}</div>
                     </div>
                   </p-accordionTab>
                 </p-accordion>
                 <div class="row-container" style="justify-content: end;">
-                  <span class="cancel-description">{{ getCancellationDate(item.checkIn) <= today ? 'Non-cancellation Period.' : 'Free Cancellation Until ' + (getCancellationDate(item.checkIn) | date:'MMM dd, yyyy') + '.'}}</span>
+                  <span class="cancel-description">{{getCancellationDate(item.checkIn) <= today ? 'Non-cancellation Period.' : 'Free Cancellation Until ' + (getCancellationDate(item.checkIn) | date:'MMM dd, yyyy') + '.'}}</span>
                 </div>
               </li>
             </div>

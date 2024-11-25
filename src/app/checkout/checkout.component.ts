@@ -86,18 +86,6 @@ export class CheckoutComponent implements OnInit{
     event.target.value = exp;
   }
 
-  submitCheckout(): void {
-    this.checkoutSubmitted = true;
-    if(this.checkoutForm.valid){
-      console.log("valid");
-      if(!this.user && this.cartItems().length){
-        this.authSvc.Show();
-      }
-    }else{
-      console.log("invalid");
-    }
-  }
-
   dateRange(checkIn: Date, checkOut: Date){
     this.dates = [];
     const check_in = new Date(checkIn);
@@ -119,15 +107,40 @@ export class CheckoutComponent implements OnInit{
     this.cartSvc.removeReservation(resId);
   }
 
+  submitCheckout(): void {
+    this.checkoutSubmitted = true;
 
-  getRoomTotal(reservation: Reservation, room: Rooms): number{
-    let roomTotal = 0;
-    const nightlyRate = room.room_Price + 45;
-    const roomPrice= room.room_Price;
-    const taxRate = 10.75 /100;
-    roomTotal = reservation.totalNights * nightlyRate;
-    roomTotal += reservation.totalNights * (roomPrice * taxRate);
-    return roomTotal;
+    if(this.checkoutForm.valid){
+      if(!this.user && this.cartItems().length){
+        this.authSvc.Show();
+      } 
+      else if(this.user && this.cartItems().length){
+        const userId = this.user.account_id;
+
+        const reservation = this.cartItems().map(reservation => ({
+          city: reservation.city,
+          state: reservation.state,
+          checkIn: reservation.checkIn,
+          checkOut: reservation.checkOut,
+          numberOfGuest: reservation.numberOfGuest,
+          totalNights: reservation.totalNights,
+          price: reservation.price,
+          userId: userId,
+          roomId: reservation.rooms && reservation.rooms[0]?.room_Id
+        }));
+
+        this.cartSvc.finalizeBooking(reservation).subscribe({
+          next: () =>{
+            console.log("good");
+          },
+          error: () =>{
+
+          }
+        })
+      }
+    } else{
+      console.log("invalid");
+    }
   }
 
   ngOnDestroy(){
