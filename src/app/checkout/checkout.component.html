@@ -1,60 +1,62 @@
-<div class="container">
+<div *ngIf="cartItems().length; else noItems" class="container">
     <main>
-      <div class="py-5 text-center">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      <div class="py-3 text-center">
+        <h2>Payment Information</h2>
+        <p class="lead">Please fill in the form to complete your reservation.</p>
       </div>
   
-      <div *ngIf="cartItems().length" class="row g-5">
+      <div class="row g-5">
         <div class="col-md-6 col-lg-5 order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your cart</span>
             <span class="badge bg-primary rounded-pill">{{cartItems().length}}</span>
           </h4>
           <ul class="list-group mb-3">
-            <li *ngFor="let item of cartItems()" class="list-group-item lh-sm" >
-              <div class="item-container">
-                <div class="room-pic"></div>
-                <div class="description-container">
-                  <span class="date-description">{{item.checkIn.getMonth() === item.checkOut.getMonth() ? (item.checkIn | date:'MMM dd' ) + '-' + (item.checkOut | date: 'dd') : (item.checkIn | date:'MMM dd' ) + ' - ' + (item.checkOut | date: 'MMM dd')}}</span>
-                  <h5 *ngFor="let room of item.rooms" class="room-header">{{room.room_Type}}</h5>
-                  <div class="row-container">
-                    <span class="stay-description">{{item.totalNights}} {{item.totalNights === 1 ? 'Night' : 'Nights'}}</span>
-                    <span class="guest-description">{{item.numberOfGuest}} {{item.numberOfGuest === 1 ? 'Guest' : 'Guests'}}</span>
-                    <span class="city-description">{{item.city}}</span>
+            <div class="scroll-list">
+              <li *ngFor="let item of cartItems()" class="res-list list-group-item lh-sm">
+                <div class="item-container">
+                  <div class="room-pic"></div>
+                  <div class="description-container">
+                    <span class="date-description">{{item.checkIn.getMonth() === item.checkOut.getMonth() ? (item.checkIn | date:'MMM dd' ) + '-' + (item.checkOut | date: 'dd') : (item.checkIn | date:'MMM dd' ) + ' - ' + (item.checkOut | date: 'MMM dd')}}</span>
+                    <h5 *ngFor="let room of item.rooms" class="room-header">{{room.room_Type}}</h5>
+                    <div class="row-container">
+                      <span class="stay-description">{{item.totalNights}} {{item.totalNights === 1 ? 'Night' : 'Nights'}}</span>
+                      <span class="guest-description">{{item.numberOfGuest}} {{item.numberOfGuest === 1 ? 'Guest' : 'Guests'}}</span>
+                      <span class="city-description">{{item.city}}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <button class="delete-btn" type="button" (click)="removeItem(item.reservationId ?? 0)">
+                      <i class="delete-icon pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
+                    </button>
                   </div>
                 </div>
-                <div>
-                  <button class="delete-btn" type="button" (click)="removeItem(item.reservationId ?? 0)">
-                    <i class="delete-icon pi pi-trash" style="font-size: 1rem; color: var(--red-500);"></i>
-                  </button>
+                <p-accordion (onOpen)="dateRange(item.checkIn, item.checkOut)" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" class="summary" [activeIndex]="null">
+                  <p-accordionTab header="Summary">
+                    <div *ngFor="let date of dates" class="content-container">
+                      <div class="content-date">{{date | date:'MM/dd'}}</div>
+                      <div *ngFor="let room of item.rooms" class="content-price">{{room.room_Price | currency:'USD'}}</div>
+                    </div>
+                    <p-divider class="divider"></p-divider>
+                    <div class="content-container">
+                      <div class="content-fee">Resort Fee* (+ $45 per night)</div>
+                      <div class="content-price">+{{item.totalNights * 45 | currency:'USD'}}</div>
+                    </div>
+                    <div class="content-container">
+                      <div class="content-tax">Room Estimated Tax</div>
+                      <div *ngFor="let room of item.rooms" class="content-price">+{{(item.totalNights * room.room_Price * 10.75) / 100| currency:'USD'}}</div>
+                    </div>
+                    <div class="content-container">
+                      <div class="content-room-total">Room Total*</div>
+                      <div *ngFor="let room of item.rooms" class="content-room-total-price">{{getRoomTotal(item, room) | currency:'USD'}}</div>
+                    </div>
+                  </p-accordionTab>
+                </p-accordion>
+                <div class="row-container" style="justify-content: end;">
+                  <span class="cancel-description">{{ getCancellationDate(item.checkIn) <= today ? 'Non-cancellation Period.' : 'Free Cancellation Until ' + (getCancellationDate(item.checkIn) | date:'MMM dd, yyyy') + '.'}}</span>
                 </div>
-              </div>
-              <p-accordion (onOpen)="dateRange(item.checkIn, item.checkOut)" expandIcon="pi pi-angle-down" collapseIcon="pi pi-angle-up" class="summary" [activeIndex]="null">
-                <p-accordionTab header="Summary">
-                  <div *ngFor="let date of dates" class="content-container">
-                    <div class="content-date">{{date | date:'MM/dd'}}</div>
-                    <div *ngFor="let room of item.rooms" class="content-price">{{room.room_Price | currency:'USD'}}</div>
-                  </div>
-                  <p-divider class="divider"></p-divider>
-                  <div class="content-container">
-                    <div class="content-fee">Resort Fee* (+ $45 per night)</div>
-                    <div class="content-price">+{{item.totalNights * 45 | currency:'USD'}}</div>
-                  </div>
-                  <div class="content-container">
-                    <div class="content-tax">Room Estimated Tax</div>
-                    <div *ngFor="let room of item.rooms" class="content-price">+{{(item.totalNights * room.room_Price * 10.75) / 100| currency:'USD'}}</div>
-                  </div>
-                  <div class="content-container">
-                    <div class="content-room-total">Room Total*</div>
-                    <div *ngFor="let room of item.rooms" class="content-room-total-price">{{getRoomTotal(item, room) | currency:'USD'}}</div>
-                  </div>
-                </p-accordionTab>
-              </p-accordion>
-              <div class="row-container" style="justify-content: end;">
-                <span class="cancel-description">{{ getCancellationDate(item.checkIn) <= today ? 'Non-cancellation Period.' : 'Free Cancellation Until ' + (getCancellationDate(item.checkIn) | date:'MMM dd, yyyy') + '.'}}</span>
-              </div>
-            </li>
+              </li>
+            </div>
             <li class="list-group-item">
               <div class="d-flex justify-content-between">
                 <span class="grand-total">{{cartItems().length > 1 ? 'Grand Total' + ' (' + (cartItems().length) + ' items)*' : 'Grand Total*'}}</span>
@@ -203,3 +205,10 @@
       <p class="mb-1">&copy; 2017–2024 Suite Stay</p>
     </footer>
 </div>
+
+<ng-template #noItems>
+  <div class="text-center py-5">
+    <h3>It looks like you haven't added any items to your cart yet.</h3>
+    <p>To begin your booking, visit our <a href="/">Homepage</a> to choose your destination, select your travel dates, and specify the number of guests. We’ll help you find the perfect room for your stay!</p>
+  </div>
+</ng-template>

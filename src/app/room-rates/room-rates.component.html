@@ -1,4 +1,4 @@
-<div class="body">
+<div *ngIf="reservation; else noReservation" class="body">
     <div class="page-container">
         <div class="content-container">
             <div class="title-container">
@@ -57,7 +57,7 @@
                             <div class="total-guest-container">
                                 <div class="sub-guest-container">
                                     <span style="font-size: 16px; font-weight: 500;">
-                                        {{reservation?.numberOfGuest == 1 ? 'Guest' : 'Guests'}}
+                                        {{reservation.numberOfGuest == 1 ? 'Guest' : 'Guests'}}
                                     </span>
                                 </div>
                                 <button type="button" class="guest-btn" (click)="reservationSvc.decrementGuest()">
@@ -125,3 +125,10 @@
         </div>
     </div>
 </div>
+
+<ng-template #noReservation>
+    <div class="text-center py-5">
+        <h3>It looks like you haven't made a reservation yet.</h3>
+        <p>Visit our <a href="/">Homepage</a> to choose your destination, select your travel dates, and specify the number of guests. We’ll help you find the perfect room!</p>
+    </div>
+</ng-template>

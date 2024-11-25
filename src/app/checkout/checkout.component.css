@@ -181,6 +181,26 @@
     padding: 5px 0px 5px 0px;
 }
 
+.scroll-list{
+    max-height: 545px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: var(--bs-list-group-border-width) solid;
+    border-color: var(--bs-list-group-border-color);
+}
+
+.scroll-list::-webkit-scrollbar{
+    display: none;
+}
+
+.res-list:first-child{
+    border-top: none;
+}
+
+.res-list:last-child{
+    border-bottom: none;
+}
+
 @media (max-width: 1200px){
     .room-header{
         font-size: 16px;
