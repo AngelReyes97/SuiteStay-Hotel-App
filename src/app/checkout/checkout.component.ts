@@ -30,8 +30,6 @@ export class CheckoutComponent implements OnInit{
   checkoutSubmitted: boolean = false;
   dates: Date[] = [];
   today = new Date();
-  resortFee = this.cartSvc.resortFee;
-  tax = this.cartSvc.tax;
   grandTotal = this.cartSvc.grandTotal;
 
   checkoutForm = this.fb.nonNullable.group({

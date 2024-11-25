@@ -17,15 +17,15 @@ export class CartService {
     total + item.totalNights * (item.rooms?.reduce((fee, room) => fee + room.room_Price, 45) || 0), 0)
   );
 
-  resortFee = computed(() => this.cartItems().reduce((total, reservation) =>
-  total + reservation.totalNights * 45, 0))
+  // resortFee = computed(() => this.cartItems().reduce((total, reservation) =>
+  // total + reservation.totalNights * 45, 0))
 
-  tax = computed(() => this.cartItems(). reduce((total, reservation) =>
-  total + reservation.totalNights * (reservation.rooms?.reduce((tax, room) => room.room_Price * tax / 100, 10.75) || 0), 0));
+  // tax = computed(() => this.cartItems().reduce((total, reservation) =>
+  // total + reservation.totalNights * (reservation.rooms?.reduce((tax, room) => room.room_Price * tax / 100, 10.75) || 0), 0));
 
-  //used math floor kept rounding to the next cent
-  grandTotal = computed(()=> Math.floor((this.subTotal() + this.tax()) * 100) / 100);
-
+  grandTotal = computed(()=> this.cartItems().reduce((total, item) =>
+  total + (item.price ?? 0), 0));
+  
   constructor(private http: HttpClient) {}
 
   addToCart(room: Rooms, reservation: Reservation): void{
@@ -67,7 +67,7 @@ export class CartService {
     // The multiplication by 100 and division by 100 ensures the number 
     //is truncated to two decimal places, while the Math.floor() 
     //ensures it doesn't round up.
-    return Math.floor(roomTotal * 100)/100; 
+    return Math.round(roomTotal * 100)/100; 
   }
 
 }
