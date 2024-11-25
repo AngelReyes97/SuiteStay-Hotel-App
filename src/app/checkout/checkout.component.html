@@ -72,7 +72,12 @@
             <div class="row g-3" formGroupName="billingInfo">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="John" formControlName="firstName">
+                <input [ngClass]="{'valid': firstName.valid && firstName.touched, 'invalid': firstName.invalid && (checkoutSubmitted || firstName.touched)}" 
+                  type="text" 
+                  class="form-control" 
+                  id="firstName" 
+                  placeholder="John" 
+                  formControlName="firstName">
                 <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)">
                    <i class="error" *ngIf="firstName.errors?.['required']">Valid first name is required.</i>
                 </div>
@@ -80,7 +85,12 @@
 
               <div class="col-sm-6">
                 <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Doe" formControlName="lastName">
+                <input [ngClass]="{'valid': lastName.valid && lastName.touched, 'invalid': lastName.invalid && (checkoutSubmitted || lastName.touched)}" 
+                    type="text" 
+                    class="form-control" 
+                    id="lastName" 
+                    placeholder="Doe" 
+                    formControlName="lastName">
                 <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)">
                   <i class="error" *ngIf="lastName.errors?.['required']">Valid last name is required.</i>
                </div>
@@ -88,7 +98,12 @@
   
               <div class="col-12">
                 <label for="address" class="form-label">Address</label>
-                <input autocomplete="street-address" type="text" class="form-control" id="address" placeholder="1234 Main St" formControlName="address">
+                <input [ngClass]="{'valid': address.valid && address.touched, 'invalid': address.invalid && (checkoutSubmitted || address.touched)}" 
+                    autocomplete="street-address" 
+                    type="text" class="form-control" 
+                    id="address" 
+                    placeholder="1234 Main St" 
+                    formControlName="address">
                 <div *ngIf="address.invalid && (address.touched || address.dirty)">
                   <i class="error" *ngIf="address.errors?.['required']">Please enter your shipping address.</i>
                   <i class="error" *ngIf="address.errors?.['pattern']">Address contains invalid characters.</i>
@@ -97,7 +112,11 @@
   
               <div class="col-md-5">
                 <label for="country" class="form-label">Country</label>
-                <select autocomplete="off" class="form-select" id="country" formControlName="country">
+                <select [ngClass]="{'valid': country.valid && country.touched, 'invalid': country.invalid && (checkoutSubmitted || country.touched)}" 
+                    autocomplete="off" 
+                    class="form-select" 
+                    id="country" 
+                    formControlName="country">
                   <option value="">Choose...</option>
                   <option>United States</option>
                 </select>
@@ -108,7 +127,10 @@
   
               <div class="col-md-4">
                 <label for="state" class="form-label">State</label>
-                <select class="form-select" id="state" formControlName="state">
+                <select [ngClass]="{'valid': state.valid && state.touched, 'invalid': state.invalid && (checkoutSubmitted || state.touched)}"
+                    class="form-select" 
+                    id="state" 
+                    formControlName="state">
                   <option value="">Choose...</option>
                   <option value="California">California</option>
                   <option value="Florida">Florida</option>
@@ -124,7 +146,14 @@
   
               <div class="col-md-3">
                 <label for="zip" class="form-label">Zip</label>
-                <input [maxlength]="5" autocomplete="postal-code" type="text" class="form-control" id="zip" placeholder="12345" formControlName="zipCode">
+                <input [ngClass]="{'valid': zipCode.valid && zipCode.touched, 'invalid': zipCode.invalid && (checkoutSubmitted || zipCode.touched)}"
+                    [maxlength]="5" 
+                    autocomplete="postal-code" 
+                    type="text" 
+                    class="form-control" 
+                    id="zip" 
+                    placeholder="12345" 
+                    formControlName="zipCode">
                 <div *ngIf="zipCode.invalid && (zipCode.touched || zipCode.dirty)">
                   <i class="error" *ngIf="zipCode.errors?.['required']">Zip code required.</i>
                   <i class="error" *ngIf="zipCode.errors?.['pattern']">Please enter a valid 5-digit zip code.</i>
@@ -154,7 +183,13 @@
             <div formGroupName="paymentMethod" class="row gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name on card</label>
-                <input autocomplete="off" type="text" class="form-control" id="cc-name" placeholder="John Doe" formControlName="cardName">
+                <input [ngClass]="{'valid': cardName.valid && cardName.touched, 'invalid': cardName.invalid && (checkoutSubmitted || cardName.touched)}"
+                    autocomplete="off" 
+                    type="text" 
+                    class="form-control" 
+                    id="cc-name" 
+                    placeholder="John Doe" 
+                    formControlName="cardName">
                 <small class="text-body-secondary">Full name as displayed on card</small>
                 <div *ngIf="cardName.invalid && (cardName.touched || cardName.dirty)">
                   <i class="error" *ngIf="cardName.errors?.['required']">Name on card is required.</i>
@@ -164,7 +199,14 @@
   
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Credit card number</label>
-                <input [maxlength]="16" autocomplete="off" type="text" class="form-control" id="cc-number" placeholder="1234 5678 9012 3456" formControlName="cardNumber">
+                <input [ngClass]="{'valid': cardNumber.valid && cardNumber.touched, 'invalid': cardNumber.invalid && (checkoutSubmitted || cardNumber.touched)}"
+                    [maxlength]="16" 
+                    autocomplete="off" 
+                    type="text" 
+                    class="form-control" 
+                    id="cc-number" 
+                    placeholder="1234 5678 9012 3456" 
+                    formControlName="cardNumber">
                 <div class="invalid-feedback">
                   Credit card number is required
                 </div>
@@ -176,7 +218,14 @@
   
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">Expiration</label>
-                <input [maxlength]="5" type="text" class="form-control" id="cc-expiration"  placeholder="MM/YY" formControlName="expiration" (input)="formatExp($event)">
+                <input [ngClass]="{'valid': expiration.valid && expiration.touched, 'invalid': expiration.invalid && (checkoutSubmitted || expiration.touched)}"
+                    [maxlength]="5" 
+                    type="text" 
+                    class="form-control" 
+                    id="cc-expiration"  
+                    placeholder="MM/YY" 
+                    formControlName="expiration" 
+                    (input)="formatExp($event)">
                 <div *ngIf="expiration.invalid && (expiration.touched || expiration.dirty)">
                   <i class="error" *ngIf="expiration.errors?.['required']">Expiration date required.</i>
                   <i class="error" *ngIf="expiration.errors?.['pattern']">Invalid expiratrion date.</i>
@@ -185,7 +234,13 @@
   
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label">CVV</label>
-                <input [maxlength]="4" type="text" class="form-control" id="cc-cvv" placeholder="123" formControlName="cvv">
+                <input [ngClass]="{'valid': cvv.valid && cvv.touched, 'invalid': cvv.invalid && (checkoutSubmitted || cvv.touched)}"
+                    [maxlength]="4" 
+                    type="text" 
+                    class="form-control" 
+                    id="cc-cvv" 
+                    placeholder="123" 
+                    formControlName="cvv">
                 <div *ngIf="cvv.invalid && (cvv.touched || cvv.dirty)">
                   <i class="error" *ngIf="cvv.errors?.['required']">CVV is required.</i>
                   <i class="error" *ngIf="cvv.errors?.['pattern']">Please enter a valid 3 or 4 digit CVV.</i>

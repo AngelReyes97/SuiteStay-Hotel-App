@@ -201,6 +201,14 @@
     border-bottom: none;
 }
 
+.valid{ 
+    border-color: teal; 
+  }
+  
+  .invalid{
+    border-color: red; 
+  }
+
 @media (max-width: 1200px){
     .room-header{
         font-size: 16px;

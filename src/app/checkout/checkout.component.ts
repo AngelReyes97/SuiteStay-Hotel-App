@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit{
       paymentMethod: ['', Validators.required],
       cardName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+( [a-zA-Z]+)+$')]],
       cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
-      expiration: ['', [Validators.required, Validators.pattern(/^\d{2}\/?\d{0,2}$/)]],
+      expiration: ['', [Validators.required, Validators.pattern(/^\d{2}\/?\d{2}$/)]],
       cvv: ['', [Validators.required, Validators.pattern(/^\d{3,4}$/)]]
     })
   });
@@ -88,11 +88,14 @@ export class CheckoutComponent implements OnInit{
 
   submitCheckout(): void {
     this.checkoutSubmitted = true;
-    if(!this.user && this.cartItems().length){
-      this.authSvc.Show();
+    if(this.checkoutForm.valid){
+      console.log("valid");
+      if(!this.user && this.cartItems().length){
+        this.authSvc.Show();
+      }
+    }else{
+      console.log("invalid");
     }
-    console.log(this.checkoutForm.get('billingInfo')?.value);
-    console.log(this.checkoutForm.get('paymentMethod')?.value);
   }
 
   dateRange(checkIn: Date, checkOut: Date){
