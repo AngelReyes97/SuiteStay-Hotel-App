@@ -33,7 +33,7 @@
                     <div class="room-image"></div>
                     <div class="room-details">
                         <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.checkIn | date:'MMM dd'}} - {{item.checkOut | date:'MMM dd'}}</span>
-                        <span *ngFor="let room of item.rooms" style="font-size: 16px; font-weight: 500; color:black;">{{room.room_Type}}</span>
+                        <span style="font-size: 16px; font-weight: 500; color:black;">{{item.room?.room_Type}}</span>
                         <div style="display:flex; flex-direction: row;">
                             <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96);">{{item.numberOfGuest}} Guest(s)</span>
                             <span style="font-size: 12px; font-weight: 500; color:rgb(96, 96, 96); margin-left:8px;">{{item.city}}</span>
@@ -50,7 +50,7 @@
                             <div style="margin-right: 6px;">Room Total*</div>
                         </div>
                         <div class="d-flex">
-                            <div *ngFor="let room of item.rooms" class="text-end">{{item.totalNights * (room.room_Price + 45) | currency: 'USD'}}</div>
+                            <div *ngIf="item.room" class="text-end">{{item.totalNights * (item.room.room_Price + 45) | currency: 'USD'}}</div>
                         </div>
                     </div>
                 </div>

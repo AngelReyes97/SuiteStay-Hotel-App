@@ -18,7 +18,7 @@
                   <div class="room-pic"></div>
                   <div class="description-container">
                     <span class="date-description">{{item.checkIn.getMonth() === item.checkOut.getMonth() ? (item.checkIn | date:'MMM dd' ) + '-' + (item.checkOut | date: 'dd') : (item.checkIn | date:'MMM dd' ) + ' - ' + (item.checkOut | date: 'MMM dd')}}</span>
-                    <h5 *ngFor="let room of item.rooms" class="room-header">{{room.room_Type}}</h5>
+                    <h5 *ngIf="item.room" class="room-header">{{item.room.room_Type}}</h5>
                     <div class="row-container">
                       <span class="stay-description">{{item.totalNights}} {{item.totalNights === 1 ? 'Night' : 'Nights'}}</span>
                       <span class="guest-description">{{item.numberOfGuest}} {{item.numberOfGuest === 1 ? 'Guest' : 'Guests'}}</span>
@@ -35,7 +35,7 @@
                   <p-accordionTab header="Summary">
                     <div *ngFor="let date of dates" class="content-container">
                       <div class="content-date">{{date | date:'MM/dd'}}</div>
-                      <div *ngFor="let room of item.rooms" class="content-price">{{room.room_Price | currency:'USD'}}</div>
+                      <div *ngIf="item.room" class="content-price">{{item.room.room_Price | currency:'USD'}}</div>
                     </div>
                     <p-divider class="divider"></p-divider>
                     <div class="content-container">
@@ -44,11 +44,11 @@
                     </div>
                     <div class="content-container">
                       <div class="content-tax">Room Estimated Tax</div>
-                      <div *ngFor="let room of item.rooms" class="content-price">+{{item.totalNights * (room.room_Price * 10.75 / 100) | currency:'USD'}}</div>
+                      <div *ngIf="item.room" class="content-price">+{{item.totalNights * (item.room.room_Price * 10.75 / 100) | currency:'USD'}}</div>
                     </div>
                     <div class="content-container">
                       <div class="content-room-total">Room Total*</div>
-                      <div *ngFor="let room of item.rooms" class="content-room-total-price">{{ item.price | currency:'USD'}}</div>
+                      <div *ngIf="item.room" class="content-room-total-price">{{ item.price | currency:'USD'}}</div>
                     </div>
                   </p-accordionTab>
                 </p-accordion>

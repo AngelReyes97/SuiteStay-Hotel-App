@@ -1,4 +1,5 @@
 import { Rooms } from "./rooms.model";
+import { User } from "./account.model";
 
 export interface City {
     name: string;
@@ -13,8 +14,7 @@ export interface Reservation {
     checkOut: Date;
     numberOfGuest: number;
     totalNights: number;
-    rooms?: Rooms[];
-    userId?: number;
-    roomId?: number;
+    room?: Rooms;
+    user?: User,
     price?: number;
 }

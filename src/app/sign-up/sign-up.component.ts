@@ -157,7 +157,7 @@ export class SignUpComponent implements OnInit{
         switchMap(() => {
           const userCredentials: userCredentials = {
             email: User.email,
-            password: User.password
+            password: User.password!
           };
           return this.authSvc.login(userCredentials); // Switch to the login observable
         })

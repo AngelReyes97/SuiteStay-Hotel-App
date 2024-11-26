@@ -14,7 +14,7 @@ export class CartService {
   reservationId = signal<number>(1);
 
   subTotal = computed(() => this.cartItems().reduce((total, item) => 
-    total + item.totalNights * (item.rooms?.reduce((fee, room) => fee + room.room_Price, 45) || 0), 0)
+    total + item.totalNights * ((item.room?.room_Price ?? 0) + 45 || 0), 0)
   );
 
   // resortFee = computed(() => this.cartItems().reduce((total, reservation) =>
@@ -30,7 +30,7 @@ export class CartService {
 
   addToCart(room: Rooms, reservation: Reservation): void{
     const roomTotal = this.getRoomTotal(room, reservation);
-    this.cartItems.update(items => [{...reservation, reservationId: this.reservationId(), price: roomTotal, rooms: [room]}, ...items]);
+    this.cartItems.update(items => [{...reservation, reservationId: this.reservationId(), price: roomTotal, room: room}, ...items]);
     this.reservationId.update(id => id + 1);
   }
 
@@ -54,8 +54,8 @@ export class CartService {
   }
 
   finalizeBooking(reservation: Reservation[]) : Observable<Reservation[]>{
-    console.log("in service: ", reservation);
-    return of();
+    const headers = { headers: {'Content-Type': 'application/json'}};
+    return this.http.post<Reservation[]>(`${this.apiUrl}/suitestay/booking-payment`, reservation, headers);
   }
 
   getRoomTotal(room: Rooms, reservation: Reservation): number{

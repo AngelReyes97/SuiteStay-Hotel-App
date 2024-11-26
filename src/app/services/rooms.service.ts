@@ -11,7 +11,7 @@ export class RoomsService {
 
   constructor(private http: HttpClient) { }
 
-  readonly Rooms$ = this.http.get<Rooms[]>(`${this.apiUrl}/available-rooms`)
+  readonly Rooms$ = this.http.get<Rooms[]>(`${this.apiUrl}/suitestay/available-rooms`)
   .pipe(
     catchError(error => {
       console.error('Error fetching rooms:', error);

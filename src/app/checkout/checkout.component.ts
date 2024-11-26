@@ -113,7 +113,7 @@ export class CheckoutComponent implements OnInit{
         this.authSvc.Show();
       } 
       else if(this.user && this.cartItems().length){
-        const userId = this.user.account_id;
+        const user = this.user;
 
         const reservation = this.cartItems().map(reservation => ({
           city: reservation.city,
@@ -123,8 +123,13 @@ export class CheckoutComponent implements OnInit{
           numberOfGuest: reservation.numberOfGuest,
           totalNights: reservation.totalNights,
           price: reservation.price,
-          userId: userId,
-          roomId: reservation.rooms && reservation.rooms[0]?.room_Id
+          user: {
+            account_id: user.account_id,  // Send just the necessary fields
+            fName: user.fName,
+            lName: user.lName,
+            email: user.email,
+          },
+          room: reservation.room
         }));
 
         this.cartSvc.finalizeBooking(reservation).subscribe({
