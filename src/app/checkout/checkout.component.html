@@ -72,7 +72,7 @@
             <div class="row g-3" formGroupName="billingInfo">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
-                <input [ngClass]="{'valid': firstName.valid && firstName.touched, 'invalid': firstName.invalid && (checkoutSubmitted || firstName.touched)}" 
+                <input [ngClass]="{'valid': firstName.valid, 'invalid': firstName.invalid && (checkoutSubmitted || firstName.touched)}" 
                   type="text" 
                   class="form-control" 
                   id="firstName" 
@@ -85,7 +85,7 @@
 
               <div class="col-sm-6">
                 <label for="lastName" class="form-label">Last name</label>
-                <input [ngClass]="{'valid': lastName.valid && lastName.touched, 'invalid': lastName.invalid && (checkoutSubmitted || lastName.touched)}" 
+                <input [ngClass]="{'valid': lastName.valid, 'invalid': lastName.invalid && (checkoutSubmitted || lastName.touched)}" 
                     type="text" 
                     class="form-control" 
                     id="lastName" 
@@ -98,7 +98,7 @@
   
               <div class="col-12">
                 <label for="address" class="form-label">Address</label>
-                <input [ngClass]="{'valid': address.valid && address.touched, 'invalid': address.invalid && (checkoutSubmitted || address.touched)}" 
+                <input [ngClass]="{'valid': address.valid, 'invalid': address.invalid && (checkoutSubmitted || address.touched)}" 
                     autocomplete="street-address" 
                     type="text" class="form-control" 
                     id="address" 
@@ -112,7 +112,7 @@
   
               <div class="col-md-5">
                 <label for="country" class="form-label">Country</label>
-                <select [ngClass]="{'valid': country.valid && country.touched, 'invalid': country.invalid && (checkoutSubmitted || country.touched)}" 
+                <select [ngClass]="{'valid': country.valid, 'invalid': country.invalid && (checkoutSubmitted || country.touched)}" 
                     autocomplete="off" 
                     class="form-select" 
                     id="country" 
@@ -127,7 +127,7 @@
   
               <div class="col-md-4">
                 <label for="state" class="form-label">State</label>
-                <select [ngClass]="{'valid': state.valid && state.touched, 'invalid': state.invalid && (checkoutSubmitted || state.touched)}"
+                <select [ngClass]="{'valid': state.valid, 'invalid': state.invalid && (checkoutSubmitted || state.touched)}"
                     class="form-select" 
                     id="state" 
                     formControlName="state">
@@ -146,7 +146,7 @@
   
               <div class="col-md-3">
                 <label for="zip" class="form-label">Zip</label>
-                <input [ngClass]="{'valid': zipCode.valid && zipCode.touched, 'invalid': zipCode.invalid && (checkoutSubmitted || zipCode.touched)}"
+                <input [ngClass]="{'valid': zipCode.valid, 'invalid': zipCode.invalid && (checkoutSubmitted || zipCode.touched)}"
                     [maxlength]="5" 
                     autocomplete="postal-code" 
                     type="text" 
@@ -183,7 +183,7 @@
             <div formGroupName="paymentMethod" class="row gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name on card</label>
-                <input [ngClass]="{'valid': cardName.valid && cardName.touched, 'invalid': cardName.invalid && (checkoutSubmitted || cardName.touched)}"
+                <input [ngClass]="{'valid': cardName.valid, 'invalid': cardName.invalid && (checkoutSubmitted || cardName.touched)}"
                     autocomplete="off" 
                     type="text" 
                     class="form-control" 
@@ -199,7 +199,7 @@
   
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Credit card number</label>
-                <input [ngClass]="{'valid': cardNumber.valid && cardNumber.touched, 'invalid': cardNumber.invalid && (checkoutSubmitted || cardNumber.touched)}"
+                <input [ngClass]="{'valid': cardNumber.valid, 'invalid': cardNumber.invalid && (checkoutSubmitted || cardNumber.touched)}"
                     [maxlength]="16" 
                     autocomplete="off" 
                     type="text" 
@@ -218,7 +218,7 @@
   
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">Expiration</label>
-                <input [ngClass]="{'valid': expiration.valid && expiration.touched, 'invalid': expiration.invalid && (checkoutSubmitted || expiration.touched)}"
+                <input [ngClass]="{'valid': expiration.valid, 'invalid': expiration.invalid && (checkoutSubmitted || expiration.touched)}"
                     [maxlength]="5" 
                     type="text" 
                     class="form-control" 
@@ -234,7 +234,7 @@
   
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label">CVV</label>
-                <input [ngClass]="{'valid': cvv.valid && cvv.touched, 'invalid': cvv.invalid && (checkoutSubmitted || cvv.touched)}"
+                <input [ngClass]="{'valid': cvv.valid, 'invalid': cvv.invalid && (checkoutSubmitted || cvv.touched)}"
                     [maxlength]="4" 
                     type="text" 
                     class="form-control" 

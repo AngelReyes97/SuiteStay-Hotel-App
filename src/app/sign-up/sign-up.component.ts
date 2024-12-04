@@ -18,7 +18,6 @@ import { User, userCredentials } from '../models/account.model';
 import { emailValidator } from './invalidEmail.directive';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { RoomsService } from '../services/rooms.service';
 import { switchMap } from 'rxjs';
 
 
@@ -67,7 +66,7 @@ export class SignUpComponent implements OnInit{
   constructor(private fb: FormBuilder,
               private authSvc: AuthService,
               private router: Router,
-              private messageSvc: MessageService, private roomSvc: RoomsService) {}
+              private messageSvc: MessageService) {}
 
              
   ngOnInit() {
@@ -147,8 +146,8 @@ export class SignUpComponent implements OnInit{
 
     if(this.signUpForm.valid){ //checks if the form is valid
       const User: User ={ //extract data
-        fName: this.signUpForm.get('fullName')?.value.split(' ')[0]!,
-        lName: this.signUpForm.get('fullName')?.value.split(' ')[1]!,
+        f_name: this.signUpForm.get('fullName')?.value.split(' ')[0]!,
+        l_name: this.signUpForm.get('fullName')?.value.split(' ')[1]!,
         email: this.signUpForm.get('email')?.value!,
         password: this.signUpForm.get('password')?.value!
       }
@@ -181,50 +180,10 @@ export class SignUpComponent implements OnInit{
           this.messageSvc.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Something went wrong during sign up'
+            detail: 'Something went wrong during sign up.'
           });
         }
       });
-
-      // this.authSvc.signUp(User).subscribe({ //subscribe to sign up to save account
-      //   next: () => { 
-      //     const userCredentials: userCredentials = { // After successful sign-up, automatically log the user in
-      //       email: User.email,
-      //       password: User.password
-      //     };
-      //     this.authSvc.login(userCredentials).subscribe({ // Log in the user
-      //       next: () =>{
-      //         this.signUpForm.reset(); // Reset the form after successful submission
-      //         this.formSubmitted = false; // Optionally reset formSubmitted to false
-      //         this.messageSvc.add({ //success message
-      //           severity:'success', 
-      //           summary:'Congratulations!', 
-      //           detail:'Account ready.'
-      //         });
-      //          // Redirect the user to the previous URL they were trying to visit
-      //         this.router.navigate([this.previousUrl()]);
-      //       },
-      //       error: () =>{
-      //          // In case of login error, handle it here (you don't need to reset form or formSubmitted)
-      //         this.messageSvc.add({
-      //           severity: 'error',
-      //           summary: 'Login Failed',
-      //           detail: 'Something went wrong during login.'
-      //         });
-      //       }
-      //     })
-      //   },
-      //   error: () => {
-      //      // Reset form and formSubmitted if sign-up fails
-      //     this.signUpForm.reset();
-      //     this.formSubmitted = false;
-      //     this.messageSvc.add({
-      //       severity:'error',
-      //       summary: 'Error',
-      //       detail: 'Something went wrong during sign up.'
-      //     });
-      //   }
-      // })
     }
   }
   

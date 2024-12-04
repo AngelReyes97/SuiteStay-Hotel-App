@@ -1,7 +1,7 @@
 export interface User{
     account_id?: number;
-    fName: string;
-    lName: string;
+    f_name: string;
+    l_name: string;
     email: string;
     password?: string;
 }

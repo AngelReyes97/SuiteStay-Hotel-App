@@ -2,26 +2,24 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Reservation } from '../models/reservation.model';
 import { Rooms } from '../models/rooms.model';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CheckoutFormData } from '../models/billing.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  
   private apiUrl ='http://localhost:8080';
+
   cartItems = signal<Reservation[]>([]);
   sideBarVisible = signal<boolean>(false);
   reservationId = signal<number>(1);
+  private paymentInfo = new BehaviorSubject<CheckoutFormData | null>(null);
 
   subTotal = computed(() => this.cartItems().reduce((total, item) => 
     total + item.totalNights * ((item.room?.room_Price ?? 0) + 45 || 0), 0)
   );
-
-  // resortFee = computed(() => this.cartItems().reduce((total, reservation) =>
-  // total + reservation.totalNights * 45, 0))
-
-  // tax = computed(() => this.cartItems().reduce((total, reservation) =>
-  // total + reservation.totalNights * (reservation.rooms?.reduce((tax, room) => room.room_Price * tax / 100, 10.75) || 0), 0));
 
   grandTotal = computed(()=> this.cartItems().reduce((total, item) =>
   total + (item.price ?? 0), 0));
@@ -45,12 +43,17 @@ export class CartService {
   clearAllItems(): void{
     this.cartItems.set([]);
     this.reservationId.set(1);
+    this.paymentInfo.next(null);
   }
 
   removeReservation(resId: number){
     this.cartItems.update(items =>
       items.filter(item => item.reservationId !== resId));
     this.reservationId.update(id => id - 1);
+
+    if((this.paymentInfo.getValue() !== null) && !this.cartItems().length){
+      this.paymentInfo.next(null);
+    }
   }
 
   finalizeBooking(reservation: Reservation[]) : Observable<Reservation[]>{
@@ -68,6 +71,20 @@ export class CartService {
     //is truncated to two decimal places, while the Math.floor() 
     //ensures it doesn't round up.
     return Math.round(roomTotal * 100)/100; 
+  }
+
+
+  saveBillingInfo(data: CheckoutFormData): void{
+    this.paymentInfo.next(data);
+  }
+
+  getBillingInfo(): CheckoutFormData | null{
+    return this.paymentInfo.getValue();
+  }
+
+  finalizeBilling(paymentInfo: CheckoutFormData) : Observable<CheckoutFormData>{
+    const headers = { headers: {'Content-Type': 'application/json'}};
+    return this.http.post<CheckoutFormData>(`${this.apiUrl}/test`, paymentInfo, headers);
   }
 
 }

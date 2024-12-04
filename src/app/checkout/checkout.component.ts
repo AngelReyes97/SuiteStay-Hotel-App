@@ -3,13 +3,14 @@ import { CartService } from '../services/cart.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/account.model';
-import { Subscription } from 'rxjs';
+import { concatMap, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
-import { Reservation } from '../models/reservation.model';
-import { Rooms } from '../models/rooms.model';
+import { ToastModule } from 'primeng/toast';
+import { CheckoutFormData } from '../models/billing.model';
+import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,8 @@ import { Rooms } from '../models/rooms.model';
     ReactiveFormsModule,
     CommonModule,
     AccordionModule,
-    DividerModule
+    DividerModule,
+    ToastModule
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
@@ -53,7 +55,8 @@ export class CheckoutComponent implements OnInit{
   constructor(private cartSvc: CartService,
               private fb: FormBuilder,
               private authSvc: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private msgSvc: MessageService) {}
 
 
   ngOnInit(){
@@ -61,6 +64,16 @@ export class CheckoutComponent implements OnInit{
       this.user = user;
     });
     this.authSvc.setPreviousUrl(this.router.url);
+
+    const paymentInfo = this.cartSvc.getBillingInfo();
+    if(paymentInfo){
+      this.checkoutForm.patchValue(paymentInfo);
+    }
+
+    this.checkoutForm.valueChanges.subscribe(data =>{
+      this.cartSvc.saveBillingInfo(data as CheckoutFormData);
+    })
+
   }
 
   get firstName() { return this.checkoutForm.get('billingInfo.firstName')!; }
@@ -125,21 +138,34 @@ export class CheckoutComponent implements OnInit{
           price: reservation.price,
           user: {
             account_id: user.account_id,  // Send just the necessary fields
-            fName: user.fName,
-            lName: user.lName,
+            f_name: user.f_name,
+            l_name: user.l_name,
             email: user.email,
           },
           room: reservation.room
         }));
+        
+        const checkOutForm = this.checkoutForm.getRawValue();
+        const billingInfo: CheckoutFormData = {
+          ...checkOutForm,
+          user: user
+        }
 
-        this.cartSvc.finalizeBooking(reservation).subscribe({
-          next: () =>{
-            console.log("good");
+        this.cartSvc.finalizeBooking(reservation).pipe(
+          concatMap(() => {
+            return this.cartSvc.finalizeBilling(billingInfo);
+          })
+        ).subscribe({
+          next: ()=>{
+            this.checkoutSubmitted = false;
+            this.checkoutForm.reset();
+            this.cartSvc.clearAllItems();
+
           },
-          error: () =>{
+          error: ()=>{
 
           }
-        })
+        });
       }
     } else{
       console.log("invalid");

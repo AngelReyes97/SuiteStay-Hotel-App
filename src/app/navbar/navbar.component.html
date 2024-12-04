@@ -16,7 +16,7 @@
           <div *ngIf="user" class="avatar-menu-wrapper">
             <button pRipple class="avatar-dropdown-btn bg-body-tertiary" type="button" (click)="menu.toggle($event)">
               <p-avatar class="avatar" image="/assets/sign-in-avatar/avtr.png" shape="circle"></p-avatar>
-              <span class="username">{{ user.fName }}</span>
+              <span class="username">{{ user.f_name }}</span>
               <i class="dropdown-arrow pi pi-sort-down-fill"></i>
             </button>
             <p-menu class="avatar-menu" #menu [model]="avatarMenuItems" [popup]="true"></p-menu>
