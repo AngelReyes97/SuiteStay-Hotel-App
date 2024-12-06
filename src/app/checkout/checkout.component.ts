@@ -3,7 +3,7 @@ import { CartService } from '../services/cart.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/account.model';
-import { concatMap, Subscription } from 'rxjs';
+import { catchError, concatMap, EMPTY, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
@@ -38,7 +38,7 @@ export class CheckoutComponent implements OnInit{
     billingInfo: this.fb.nonNullable.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      address: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s,.-]+$')]],
+      address: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9\\s,.#-]+$')]],
       country: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]]
@@ -127,6 +127,7 @@ export class CheckoutComponent implements OnInit{
       } 
       else if(this.user && this.cartItems().length){
         const user = this.user;
+        this.checkoutSubmitted = false;
 
         const reservation = this.cartItems().map(reservation => ({
           city: reservation.city,
@@ -144,31 +145,44 @@ export class CheckoutComponent implements OnInit{
           },
           room: reservation.room
         }));
-        
+
         const checkOutForm = this.checkoutForm.getRawValue();
-        const billingInfo: CheckoutFormData = {
-          ...checkOutForm,
-          user: user
-        }
+        const billingInfo: CheckoutFormData = { ...checkOutForm, user: user}
 
         this.cartSvc.finalizeBooking(reservation).pipe(
           concatMap(() => {
-            return this.cartSvc.finalizeBilling(billingInfo);
+            return this.cartSvc.finalizeBilling(billingInfo).pipe(
+              catchError(() => {
+                this.checkoutForm.reset();
+                this.msgSvc.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Billing process failed.'
+                });
+                return EMPTY;
+              })
+            )
           })
         ).subscribe({
           next: ()=>{
-            this.checkoutSubmitted = false;
             this.checkoutForm.reset();
-            this.cartSvc.clearAllItems();
+            this.msgSvc.add({
+              severity: 'success',
+              summary: 'Booking Confirmed!',
+              detail: 'We’ll see you soon!'
+            });
 
           },
           error: ()=>{
-
+            this.checkoutForm.reset();
+            this.msgSvc.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Booking process failed.'
+            });
           }
         });
       }
-    } else{
-      console.log("invalid");
     }
   }
 

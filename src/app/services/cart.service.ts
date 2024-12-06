@@ -4,12 +4,13 @@ import { Reservation } from '../models/reservation.model';
 import { Rooms } from '../models/rooms.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CheckoutFormData } from '../models/billing.model';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  
+
   private apiUrl ='http://localhost:8080';
 
   cartItems = signal<Reservation[]>([]);
@@ -82,9 +83,24 @@ export class CartService {
     return this.paymentInfo.getValue();
   }
 
-  finalizeBilling(paymentInfo: CheckoutFormData) : Observable<CheckoutFormData>{
+  finalizeBilling(billingInfo: CheckoutFormData) : Observable<CheckoutFormData>{
+    this.paymentInfo.next(billingInfo);
+    this.encryptCardDetails();
+    const currentbillingInfo = this.paymentInfo.getValue();
     const headers = { headers: {'Content-Type': 'application/json'}};
-    return this.http.post<CheckoutFormData>(`${this.apiUrl}/test`, paymentInfo, headers);
+    return this.http.post<CheckoutFormData>(`${this.apiUrl}/suitestay/booking-payment/billing-info`, currentbillingInfo, headers);
   }
+
+  private encryptCardDetails(): void{
+    const billingInfo = this.paymentInfo.getValue();
+    const secretKey = '1234567890123456';
+    if(billingInfo){
+      billingInfo.paymentMethod.cardNumber = CryptoJS.AES.encrypt(billingInfo.paymentMethod.cardNumber, secretKey).toString();
+      billingInfo.paymentMethod.cvv = CryptoJS.AES.encrypt(billingInfo.paymentMethod.cvv, secretKey).toString();
+      this.paymentInfo.next(billingInfo);
+    }
+
+  }
+
 
 }

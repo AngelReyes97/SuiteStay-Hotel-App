@@ -20,7 +20,7 @@ export class AuthService {
 
   signUp(newAccount: User): Observable<User> {
     const headers = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post<User>(`${this.apiUrl}/register`, newAccount, headers);
+    return this.http.post<User>(`${this.apiUrl}/suitestay/register`, newAccount, headers);
   }
 
   checkEmail(email: string): Observable<boolean> {
@@ -29,7 +29,7 @@ export class AuthService {
 
   login(user: userCredentials): Observable<User | null> {
     const headers = { headers: { 'Content-Type': 'application/json' } };
-    return this.http.post<User | null>(`${this.apiUrl}/home/login`, user, headers)
+    return this.http.post<User | null>(`${this.apiUrl}/suitestay/home/login`, user, headers)
     .pipe(
       tap(user=> {
         this.userSubject.next(user);
