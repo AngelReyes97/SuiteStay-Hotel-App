@@ -93,6 +93,8 @@ export class CartService {
 
   private encryptCardDetails(): void{
     const billingInfo = this.paymentInfo.getValue();
+    //This is a hardcoded key for practice only
+    // to encrypt senstive dummy data.
     const secretKey = '1234567890123456';
     if(billingInfo){
       billingInfo.paymentMethod.cardNumber = CryptoJS.AES.encrypt(billingInfo.paymentMethod.cardNumber, secretKey).toString();

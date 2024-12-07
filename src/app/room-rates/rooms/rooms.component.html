@@ -3,7 +3,7 @@
     <div class="card" *ngFor="let room of rooms">
       <p-card [header]="room.room_Type">
         <ng-template pTemplate="header">
-          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" height="130" width="auto"/>
+          <img class="room-image" alt="Room" [src]="room.room_image" height="140" width="auto"/>
         </ng-template>
         <div class="content-container">
           <div style="align-self: flex-start; width: 118px;">
