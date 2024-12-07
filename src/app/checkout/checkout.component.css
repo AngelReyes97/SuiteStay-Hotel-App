@@ -20,12 +20,18 @@
 }
 
 .room-pic{
-    background-image: url(/assets/sign-in-avatar/avtr.png);
-    background-size: cover;
-    background-position: center;
     border-radius: 50%;
-    width: 64px;
-    height: 64px;
+    width: 74px;
+    height: 74px;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.room-image{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .description-container{

@@ -15,7 +15,9 @@
             <div class="scroll-list">
               <li *ngFor="let item of cartItems()" class="res-list list-group-item lh-sm">
                 <div class="item-container">
-                  <div class="room-pic"></div>
+                  <div *ngIf="item.room" class="room-pic">
+                    <img class="room-image" alt="Room" [src]="item.room.room_image"/>
+                  </div>
                   <div class="description-container">
                     <span class="date-description">{{item.checkIn.getMonth() === item.checkOut.getMonth() ? (item.checkIn | date:'MMM dd' ) + '-' + (item.checkOut | date: 'dd') : (item.checkIn | date:'MMM dd' ) + ' - ' + (item.checkOut | date: 'MMM dd')}}</span>
                     <h5 *ngIf="item.room" class="room-header">{{item.room.room_Type}}</h5>

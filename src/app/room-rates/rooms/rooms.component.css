@@ -206,15 +206,16 @@
     color: var(--primary-color);
 }
 
-.room-image{
+/* .room-image{
+    object-fit: cover;
+} */
+
+::ng-deep .p-card-header img {
+    width: 100%;
     object-fit: cover;
 }
 
-::ng-deep .p-image-preview-container{
-    display: flex; /* Use flexbox to align items */
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    width: 100%; /* Ensure it spans the full available width */
-    height: auto; /* Maintain the aspect ratio */
-    overflow: hidden; /* Prevent any overflow of the image */
+::ng-deep .p-image-preview-container {
+    display: flex;
 }
+

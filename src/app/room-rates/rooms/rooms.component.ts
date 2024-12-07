@@ -12,6 +12,7 @@ import { CartService } from '../../services/cart.service';
 import { Reservation } from '../../models/reservation.model';
 import { Router } from '@angular/router';
 import { ROUTER_TOKENS } from '../../app.routes';
+import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-rooms',
@@ -22,7 +23,8 @@ import { ROUTER_TOKENS } from '../../app.routes';
             DialogModule,
             DividerModule,
             Ripple,
-            AsyncPipe],
+            AsyncPipe,
+            ImageModule],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css',
 })
