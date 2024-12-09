@@ -15,6 +15,7 @@ import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
 import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
+import { ROUTER_TOKENS } from '../app.routes';
 
 @Component({
   selector: 'app-navbar',
@@ -64,7 +65,9 @@ export class NavbarComponent implements OnInit {
         {
             label: 'Locations',
             icon: 'pi pi-map',
-            // routerLink: '/register'
+            command: () => {
+              this.router.navigate([ROUTER_TOKENS.LOCATIONS]);
+            }
         }
     ]
 

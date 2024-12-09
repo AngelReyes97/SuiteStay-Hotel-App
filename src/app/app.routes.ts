@@ -3,12 +3,14 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RoomRatesComponent } from './room-rates/room-rates.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { LocationsComponent } from './locations/locations.component';
 
 export enum ROUTER_TOKENS {
     HOME ='suitestay/home',
     REGISTER ='suitestay/register',
     ROOM_RATES = 'suitestay/available-rooms',
-    CHECKOUT = 'suitestay/booking-payment'
+    CHECKOUT = 'suitestay/booking-payment',
+    LOCATIONS = 'suitestay/property-locations'
 }
 
 export const routes: Routes = [
@@ -36,5 +38,10 @@ export const routes: Routes = [
         path: ROUTER_TOKENS.CHECKOUT,
         component: CheckoutComponent,
         title: "Suite Stay - Complete Your Booking"
+    },
+    {
+        path: ROUTER_TOKENS.LOCATIONS,
+        component: LocationsComponent,
+        title: "Suite Stay - Our Locations"
     }
 ];
