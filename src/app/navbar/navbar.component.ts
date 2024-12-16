@@ -56,11 +56,17 @@ export class NavbarComponent implements OnInit {
     this.items = [
         {
             label: 'About Us',
-            icon: 'pi pi-users'
+            icon: 'pi pi-users',
+            command: () =>{
+              this.router.navigate([ROUTER_TOKENS.ABOUT_US]);
+            }
         },
         {
             label: 'Rooms',
-            icon:"custom-icon-1"
+            icon:"custom-icon-1",
+            command: () => {
+              this.router.navigate([ROUTER_TOKENS.ROOM_DETAILS]);
+            }
         },
         {
             label: 'Locations',

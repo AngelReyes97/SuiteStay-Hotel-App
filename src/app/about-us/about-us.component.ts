@@ -3,15 +3,16 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-locations',
+  selector: 'app-about-us',
   standalone: true,
   imports: [],
-  templateUrl: './locations.component.html',
-  styleUrl: './locations.component.css'
+  templateUrl: './about-us.component.html',
+  styleUrl: './about-us.component.css'
 })
-export class LocationsComponent implements OnInit{
+export class AboutUsComponent implements OnInit{
 
   constructor(private authSvc: AuthService, private router: Router) {}
+  
   ngOnInit(): void {
       this.authSvc.setPreviousUrl(this.router.url)
   }

@@ -73,7 +73,7 @@ export class CheckoutComponent implements OnInit{
     this.checkoutForm.valueChanges.subscribe(data =>{
       this.cartSvc.saveBillingInfo(data as CheckoutFormData);
     })
-
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   get firstName() { return this.checkoutForm.get('billingInfo.firstName')!; }

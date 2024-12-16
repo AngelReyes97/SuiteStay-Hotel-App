@@ -29,10 +29,10 @@
             "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         },
         {
-            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_gym.jpg",
+            "itemImageSrc": "/assets/carousel-home-photos/SuiteStay_gym.jpeg",
             "title": "Fitness Center",
             "description": "Stay Fit at Suite Stay's Fitness Center. Energize your day with state-of-the-art equipment.",
-            "srcset": "/assets/carousel-home-photos/SuiteStay_gym.jpg 1920w, /assets/carousel-home-photos/SuiteStay_gym.jpg 1024w, /assets/carousel-home-photos/SuiteStay_gym.jpg 640w",
+            "srcset": "/assets/carousel-home-photos/SuiteStay_gym.jpeg 1920w, /assets/carousel-home-photos/SuiteStay_gym.jpeg 1024w, /assets/carousel-home-photos/SuiteStay_gym.jpeg 640w",
             "sizes": "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
     ]
