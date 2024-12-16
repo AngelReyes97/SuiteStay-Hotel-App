@@ -79,8 +79,8 @@ export class NavbarComponent implements OnInit {
 
     this.avatarMenuItems = [
       {
-        label:'Settings',
-        icon: 'pi pi-cog',
+        label:'Reservations',
+        icon: 'pi pi-calendar',
       },
       {
         separator: true
