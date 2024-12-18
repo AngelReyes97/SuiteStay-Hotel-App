@@ -81,6 +81,9 @@ export class NavbarComponent implements OnInit {
       {
         label:'Reservations',
         icon: 'pi pi-calendar',
+        command: () => {
+          this.router.navigate([`/suitestay/user/${this.user?.account_id}/reservations`]);
+        }
       },
       {
         separator: true
@@ -88,7 +91,13 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Sign Out',
         icon: 'pi pi-sign-out',
-        command: () => this.signOut()
+        command: () => {
+          const currentUrl = this.router.url.includes('/suitestay/user/');
+          if(currentUrl){
+            this.router.navigate([ROUTER_TOKENS.HOME]);
+          }
+          this.signOut()
+        }
       }
     ]
   }

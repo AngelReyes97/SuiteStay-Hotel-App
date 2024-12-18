@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl ='http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/suitestay/user';
 
   private reservationSubject = new BehaviorSubject<Reservation | null>(null);
   readonly reservation$ = this.reservationSubject.asObservable()
@@ -48,5 +48,10 @@ export class ReservationService {
       this.reservationSubject.next(reservation);
     }
   }
+
+  getReservationsByAccountId(userId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/${userId}/reservations`);
+  }
+
 
 }

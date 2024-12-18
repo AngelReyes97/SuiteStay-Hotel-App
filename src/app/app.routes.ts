@@ -6,6 +6,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { LocationsComponent } from './locations/locations.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 
 export enum ROUTER_TOKENS {
     HOME ='suitestay/home',
@@ -14,7 +15,8 @@ export enum ROUTER_TOKENS {
     CHECKOUT = 'suitestay/booking-payment',
     LOCATIONS = 'suitestay/property-locations',
     ROOM_DETAILS = 'suitestay/room-details',
-    ABOUT_US = 'suitestay/about-us'
+    ABOUT_US = 'suitestay/about-us',
+    USER_BOOKINGS = 'suitestay/user/:accountId/reservations'
 }
 
 export const routes: Routes = [
@@ -57,5 +59,10 @@ export const routes: Routes = [
         path: ROUTER_TOKENS.ABOUT_US,
         component: AboutUsComponent,
         title: "Suite Stay - About Us"
+    },
+    {
+        path: 'suitestay/user/:accountId/reservations',
+        component: UserBookingsComponent,
+        title: "Suite Stay - Your Reservations"
     }
 ];

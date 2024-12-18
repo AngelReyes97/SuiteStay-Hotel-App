@@ -90,6 +90,7 @@
     align-items: flex-end;
     flex-direction: column;
     flex-grow: 1;
+    flex-shrink: 0;
 }
 
 .price-fee{
