@@ -1,0 +1,26 @@
+/* .body-container{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.main-container{
+    flex-grow: 1;
+    width: 100%;
+} */
+
+::ng-deep .p-datatable-tbody > tr {
+    text-align: start;
+    border-color: #e5e7eb;;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    color: var(--p-datatable-body-cell-border-color);
+    padding: var(--p-datatable-body-cell-padding);
+}
+
+::ng-deep .p-datatable-wrapper {
+    min-height: calc(100vh - 330px);
+
+}

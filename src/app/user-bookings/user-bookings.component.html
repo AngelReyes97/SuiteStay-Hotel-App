@@ -1,3 +1,81 @@
-<div *ngFor="let booking of reservations">
-    <p>{{ booking.room }}</p>
-  </div>
+<p-table
+#dt
+[value]="reservations"
+[rows]="10"
+[columns]="cols"
+[paginator]="true"
+[globalFilterFields]="['checkInFormatted', 'city', 'price', 'room.room_Type']"
+[tableStyle]="{ 'min-width': '75rem' }"
+[rowHover]="true"
+dataKey="id"
+styleClass="p-datatable-md"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[showCurrentPageReport]="true">
+<ng-template pTemplate="caption">
+    <div class="d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Reservations</h5>
+        <span class="p-input-icon-left"> 
+            <i class="pi pi-search"></i>
+            <input
+            id="search"
+            style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
+            type="text" 
+            pInputText  
+            placeholder="Search..."
+            (input)= "dt.filterGlobal($any($event.target).value, 'contains')"  
+        /> 
+        </span>
+    </div> 
+</ng-template>
+<ng-template pTemplate="header">
+    <tr>
+        <th>Image</th>
+        <th pSortableColumn="room.room_Type" style="min-width: 16rem">
+            Room
+            <p-sortIcon field="room.room_Type" />
+        </th>
+        <th pSortableColumn="price" style="min-width:10rem">
+            Price
+            <p-sortIcon field="price" />
+        </th>
+        <th pSortableColumn="checkIn" style="min-width: 16rem">
+            Check-In / Check-Out
+            <p-sortIcon field="checkIn" />
+        </th>
+        <th style="min-width:8rem">
+            Nights
+        </th>
+        <th pSortableColumn="city" style="min-width: 12rem">
+            City
+            <p-sortIcon field="city" />
+        </th>
+        <th style="min-width: 12rem">
+            Guests
+        </th>
+        <th style="min-width: 12rem"></th>
+    </tr>
+</ng-template>
+
+<ng-template pTemplate="body" let-reservation>
+    <tr>
+        <td *ngIf="reservation.room">
+            <img [src]="reservation.room.room_image" alt="Room" style="width: 64px; height: auto" class="rounded" />
+        </td>
+        <td *ngIf="reservation.room">
+            {{ reservation.room.room_Type }}
+        </td>
+        <td>{{ reservation.price | currency: 'USD' }}</td>
+        <td style="min-width: 16rem">
+            {{(reservation.checkInFormatted) + ' - ' + (reservation.checkOut | date:'mediumDate')}}
+        </td>
+        <td style="min-width: 8rem">{{ reservation.totalNights }}</td>
+        <td>{{ reservation.city }}</td>
+        <td>{{ reservation.numberOfGuest }}</td>
+    </tr>
+</ng-template>
+
+<ng-template pTemplate="summary">
+    <div class="flex items-center justify-between">In total there are {{ reservations ? reservations.length : 0 }} reservations.</div>
+</ng-template>
+
+</p-table>
