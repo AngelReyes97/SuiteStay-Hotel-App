@@ -2,27 +2,15 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Reservation } from '../models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 import { CommonModule } from '@angular/common';
 import { Table, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-
-interface Column {
-  field: string;
-  header: string;
-  customExportHeader?: string;
-}
-
-interface ExportColumn {
-  title: string;
-  dataKey: string;
-}
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog'; 
 
 @Component({
   selector: 'app-user-bookings',
@@ -33,18 +21,17 @@ interface ExportColumn {
     ButtonModule,
     InputTextModule,
     FormsModule,
+    ConfirmDialogModule
   ],
   templateUrl: './user-bookings.component.html',
   styleUrl: './user-bookings.component.css',
-  providers: [ConfirmationService, MessageService, ReservationService]
+  providers: [ConfirmationService, ReservationService]
 })
 export class UserBookingsComponent implements OnInit {
 
   private userSubscription: Subscription | null = null;
   reservations: Reservation[] = [];
   @ViewChild('dt') dt!: Table;
-  cols!: Column[];
-  exportColumns!: ExportColumn[];
 
   constructor(
       private reservationSvc: ReservationService, 
@@ -57,10 +44,6 @@ export class UserBookingsComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.route.snapshot.params['accountId'];
     if(!userId) return
-    // this.userSubscription = this.reservationSvc.getReservationsByAccountId(userId)
-    // .subscribe(bookings => {
-    //   this.reservations = bookings;
-    // });
     this.userSubscription = this.reservationSvc.getReservationsByAccountId(userId)
     .subscribe(bookings => {
       // Format the dates after fetching the reservations
@@ -81,11 +64,48 @@ export class UserBookingsComponent implements OnInit {
     return `${month} ${day}, ${year}`;
   }
 
+  deleteReservation(reservation: Reservation){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to cancel reservation dates for ' + this.formatDate(reservation.checkIn) + ' to ' + this.formatDate(reservation.checkOut) + '?',
+      header: reservation.room?.room_Type,
+      icon: 'pi pi-exclamation-triangle',
+      accept: ()=> {
+        this.reservationSvc.deleteReservation(reservation.reservation_id!)
+        .pipe(
+          switchMap( ()=>{
+            //re-fetch the data for up to date reservations
+            const userId = this.route.snapshot.params['accountId'];
+            //returns all reservations or empty array
+            return this.reservationSvc.getReservationsByAccountId(userId);
+          })
+        ).subscribe({
+          next: (bookings) =>{
+            this.reservations = bookings.map(reservation =>({
+              ...reservation,
+              checkInFormatted: this.formatDate(reservation.checkIn),
+            }));
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Reservation has been cancelled!'
+            });
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Cancel process failed.'
+            });
+          }
+        });
+      }
+    })
+  }
+
   ngOnDestroy(){
     if(this.userSubscription){
       this.userSubscription.unsubscribe();
     }
   }
-
 
 }

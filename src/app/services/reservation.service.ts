@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Reservation } from '../models/reservation.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl = 'http://localhost:8080/suitestay/user';
+  private apiUrl = 'http://localhost:8080/suitestay';
 
   private reservationSubject = new BehaviorSubject<Reservation | null>(null);
   readonly reservation$ = this.reservationSubject.asObservable()
@@ -50,7 +50,14 @@ export class ReservationService {
   }
 
   getReservationsByAccountId(userId: number): Observable<Reservation[]> {
-    return this.http.get<Reservation[]>(`${this.apiUrl}/${userId}/reservations`);
+    return this.http.get<Reservation[]>(`${this.apiUrl}/user/${userId}/reservations`)
+    .pipe(
+      map((response: Reservation[]) => response || []) //makes sure to return empty array or reservations
+    );
+  }
+
+  deleteReservation(reservation_id: number): Observable <Reservation>{
+    return this.http.delete<Reservation>(`${this.apiUrl}/cancel-reservation/${reservation_id}`);
   }
 
 

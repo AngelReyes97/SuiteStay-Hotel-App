@@ -49,7 +49,7 @@ export class CartService {
 
   removeReservation(resId: number){
     this.cartItems.update(items =>
-      items.filter(item => item.reservationId !== resId));
+      items.filter(item => item.reservation_id !== resId));
     this.reservationId.update(id => id - 1);
 
     if((this.paymentInfo.getValue() !== null) && !this.cartItems().length){

@@ -1,12 +1,12 @@
-<p-table
+<!-- <p-table
 #dt
 [value]="reservations"
 [rows]="10"
-[columns]="cols"
 [paginator]="true"
 [globalFilterFields]="['checkInFormatted', 'city', 'price', 'room.room_Type']"
 [tableStyle]="{ 'min-width': '75rem' }"
 [rowHover]="true"
+[filterDelay]="0"
 dataKey="id"
 styleClass="p-datatable-md"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -14,7 +14,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 <ng-template pTemplate="caption">
     <div class="d-flex align-items-center justify-content-between">
         <h5 class="m-0">Manage Reservations</h5>
-        <span class="p-input-icon-left"> 
+        <div class="p-input-icon-left"> 
             <i class="pi pi-search"></i>
             <input
             id="search"
@@ -24,11 +24,12 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             placeholder="Search..."
             (input)= "dt.filterGlobal($any($event.target).value, 'contains')"  
         /> 
-        </span>
+        </div>
     </div> 
 </ng-template>
 <ng-template pTemplate="header">
     <tr>
+        <th style="min-width: 4rem"></th>
         <th>Image</th>
         <th pSortableColumn="room.room_Type" style="min-width: 16rem">
             Room
@@ -58,8 +59,9 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 
 <ng-template pTemplate="body" let-reservation>
     <tr>
+        <td style="min-width: 4rem"></td>
         <td *ngIf="reservation.room">
-            <img [src]="reservation.room.room_image" alt="Room" style="width: 64px; height: auto" class="rounded" />
+            <img [src]="reservation.room.room_image" alt="Room" class="table-image rounded" />
         </td>
         <td *ngIf="reservation.room">
             {{ reservation.room.room_Type }}
@@ -78,4 +80,103 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     <div class="flex items-center justify-between">In total there are {{ reservations ? reservations.length : 0 }} reservations.</div>
 </ng-template>
 
-</p-table>
+</p-table> -->
+
+<div class="table-container">
+    <div class="Hi">
+        <p-table
+        #dt
+        [value]="reservations"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['checkInFormatted', 'city', 'price', 'room.room_Type']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [rowHover]="true"
+        [filterDelay]="0"
+        dataKey="id"
+        styleClass="p-datatable-md"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        
+        <ng-template pTemplate="caption">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Reservations</h5>
+                <div class="p-input-icon-left"> 
+                    <i class="pi pi-search"></i>
+                    <input
+                        id="search"
+                        style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
+                        type="text" 
+                        pInputText  
+                        placeholder="Search..."
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"  
+                    /> 
+                </div>
+            </div> 
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width: 4rem"></th>
+                <th>Image</th>
+                <th pSortableColumn="room.room_Type" style="min-width: 16rem">
+                    Room
+                    <p-sortIcon field="room.room_Type" />
+                </th>
+                <th pSortableColumn="price" style="min-width:10rem">
+                    Price
+                    <p-sortIcon field="price" />
+                </th>
+                <th pSortableColumn="checkIn" style="min-width: 16rem">
+                    Check-In / Check-Out
+                    <p-sortIcon field="checkIn" />
+                </th>
+                <th style="min-width:8rem">
+                    Nights
+                </th>
+                <th pSortableColumn="city" style="min-width: 12rem">
+                    City
+                    <p-sortIcon field="city" />
+                </th>
+                <th style="min-width: 12rem">
+                    Guests
+                </th>
+                <th style="min-width: 12rem"></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-reservation>
+            <tr>
+                <td style="min-width: 4rem"></td>
+                <td *ngIf="reservation.room">
+                    <img [src]="reservation.room.room_image" alt="Room" class="table-image rounded" />
+                </td>
+                <td *ngIf="reservation.room">
+                    {{ reservation.room.room_Type }}
+                </td>
+                <td>{{ reservation.price | currency: 'USD' }}</td>
+                <td style="min-width: 16rem">
+                    {{(reservation.checkInFormatted) + ' - ' + (reservation.checkOut | date:'mediumDate')}}
+                </td>
+                <td style="min-width: 8rem">{{ reservation.totalNights }}</td>
+                <td>{{ reservation.city }}</td>
+                <td>{{ reservation.numberOfGuest }}</td>
+                <td>
+                    <button class="delete-btn" type="button" (click)="deleteReservation(reservation)">
+                        <i class="pi pi-trash" style="font-size: 1rem; padding: 0.45rem 0.3rem;"></i>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="summary-text flex items-center justify-between">
+                {{ reservations && reservations.length > 0 
+                    ? 'Viewing ' + reservations.length + ' reservations. Feel free to filter or search.' 
+                    : 'No reservations found. Try adding one!' }}
+            </div>
+        </ng-template>
+    </p-table>
+    </div>
+    <p-confirmDialog class="cancel-dialog" [style]="{ width: '450px' }" />
+</div>

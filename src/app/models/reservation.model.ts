@@ -7,7 +7,7 @@ export interface City {
 }
 
 export interface Reservation {
-    reservationId?: number;
+    reservation_id?: number;
     city: string;
     state: string;
     checkIn: Date;
