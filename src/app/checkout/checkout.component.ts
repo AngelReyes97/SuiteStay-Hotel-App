@@ -166,6 +166,7 @@ export class CheckoutComponent implements OnInit{
         ).subscribe({
           next: ()=>{
             this.checkoutForm.reset();
+            this.cartSvc.clearAllItems();
             this.msgSvc.add({
               severity: 'success',
               summary: 'Booking Confirmed!',

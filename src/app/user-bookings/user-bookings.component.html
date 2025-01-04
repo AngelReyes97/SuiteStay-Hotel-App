@@ -1,100 +1,17 @@
-<!-- <p-table
-#dt
-[value]="reservations"
-[rows]="10"
-[paginator]="true"
-[globalFilterFields]="['checkInFormatted', 'city', 'price', 'room.room_Type']"
-[tableStyle]="{ 'min-width': '75rem' }"
-[rowHover]="true"
-[filterDelay]="0"
-dataKey="id"
-styleClass="p-datatable-md"
-currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-[showCurrentPageReport]="true">
-<ng-template pTemplate="caption">
-    <div class="d-flex align-items-center justify-content-between">
-        <h5 class="m-0">Manage Reservations</h5>
-        <div class="p-input-icon-left"> 
-            <i class="pi pi-search"></i>
-            <input
-            id="search"
-            style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
-            type="text" 
-            pInputText  
-            placeholder="Search..."
-            (input)= "dt.filterGlobal($any($event.target).value, 'contains')"  
-        /> 
-        </div>
-    </div> 
-</ng-template>
-<ng-template pTemplate="header">
-    <tr>
-        <th style="min-width: 4rem"></th>
-        <th>Image</th>
-        <th pSortableColumn="room.room_Type" style="min-width: 16rem">
-            Room
-            <p-sortIcon field="room.room_Type" />
-        </th>
-        <th pSortableColumn="price" style="min-width:10rem">
-            Price
-            <p-sortIcon field="price" />
-        </th>
-        <th pSortableColumn="checkIn" style="min-width: 16rem">
-            Check-In / Check-Out
-            <p-sortIcon field="checkIn" />
-        </th>
-        <th style="min-width:8rem">
-            Nights
-        </th>
-        <th pSortableColumn="city" style="min-width: 12rem">
-            City
-            <p-sortIcon field="city" />
-        </th>
-        <th style="min-width: 12rem">
-            Guests
-        </th>
-        <th style="min-width: 12rem"></th>
-    </tr>
-</ng-template>
-
-<ng-template pTemplate="body" let-reservation>
-    <tr>
-        <td style="min-width: 4rem"></td>
-        <td *ngIf="reservation.room">
-            <img [src]="reservation.room.room_image" alt="Room" class="table-image rounded" />
-        </td>
-        <td *ngIf="reservation.room">
-            {{ reservation.room.room_Type }}
-        </td>
-        <td>{{ reservation.price | currency: 'USD' }}</td>
-        <td style="min-width: 16rem">
-            {{(reservation.checkInFormatted) + ' - ' + (reservation.checkOut | date:'mediumDate')}}
-        </td>
-        <td style="min-width: 8rem">{{ reservation.totalNights }}</td>
-        <td>{{ reservation.city }}</td>
-        <td>{{ reservation.numberOfGuest }}</td>
-    </tr>
-</ng-template>
-
-<ng-template pTemplate="summary">
-    <div class="flex items-center justify-between">In total there are {{ reservations ? reservations.length : 0 }} reservations.</div>
-</ng-template>
-
-</p-table> -->
-
 <div class="table-container">
-    <div class="Hi">
+    <div>
         <p-table
         #dt
+        [scrollable]="true"
         [value]="reservations"
-        [rows]="10"
+        [rows]="8"
         [paginator]="true"
         [globalFilterFields]="['checkInFormatted', 'city', 'price', 'room.room_Type']"
-        [tableStyle]="{ 'min-width': '75rem' }"
+        [tableStyle]="{ 'min-width': '20rem' }"
         [rowHover]="true"
         [filterDelay]="0"
         dataKey="id"
-        styleClass="p-datatable-md"
+        styleClass="p-datatable-sm"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [showCurrentPageReport]="true">
         
@@ -117,53 +34,89 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 
         <ng-template pTemplate="header">
             <tr>
-                <th style="min-width: 4rem"></th>
                 <th>Image</th>
                 <th pSortableColumn="room.room_Type" style="min-width: 16rem">
                     Room
-                    <p-sortIcon field="room.room_Type" />
+                    <p-sortIcon field="room.room_Type"/>
                 </th>
-                <th pSortableColumn="price" style="min-width:10rem">
+                <th pSortableColumn="price" style="min-width: 8rem">
                     Price
-                    <p-sortIcon field="price" />
+                    <p-sortIcon field="price"/>
                 </th>
                 <th pSortableColumn="checkIn" style="min-width: 16rem">
                     Check-In / Check-Out
-                    <p-sortIcon field="checkIn" />
+                    <p-sortIcon field="checkIn"/>
                 </th>
-                <th style="min-width:8rem">
+                <th style="min-width: 4rem">
                     Nights
                 </th>
-                <th pSortableColumn="city" style="min-width: 12rem">
+                <th pSortableColumn="city" style="min-width: 8rem">
                     City
-                    <p-sortIcon field="city" />
+                    <p-sortIcon field="city"/>
                 </th>
-                <th style="min-width: 12rem">
+                <th>
                     Guests
                 </th>
-                <th style="min-width: 12rem"></th>
+                <th style="min-width: 8rem">
+                    Cancellation
+                </th>
+                <th style="min-width: 2rem"></th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-reservation>
             <tr>
-                <td style="min-width: 4rem"></td>
                 <td *ngIf="reservation.room">
+                    <span class="p-column-title"> 
+                        Image 
+                    </span> 
                     <img [src]="reservation.room.room_image" alt="Room" class="table-image rounded" />
                 </td>
                 <td *ngIf="reservation.room">
+                    <span class="p-column-title"> 
+                        Room 
+                    </span> 
                     {{ reservation.room.room_Type }}
                 </td>
-                <td>{{ reservation.price | currency: 'USD' }}</td>
-                <td style="min-width: 16rem">
+                <td>
+                    <span class="p-column-title"> 
+                        Price 
+                    </span> 
+                    {{ reservation.price | currency: 'USD' }}
+                </td>
+                <td>
+                    <span class="p-column-title"> 
+                        Check-In / Check-Out 
+                    </span> 
                     {{(reservation.checkInFormatted) + ' - ' + (reservation.checkOut | date:'mediumDate')}}
                 </td>
-                <td style="min-width: 8rem">{{ reservation.totalNights }}</td>
-                <td>{{ reservation.city }}</td>
-                <td>{{ reservation.numberOfGuest }}</td>
                 <td>
-                    <button class="delete-btn" type="button" (click)="deleteReservation(reservation)">
-                        <i class="pi pi-trash" style="font-size: 1rem; padding: 0.45rem 0.3rem;"></i>
+                    <span class="p-column-title"> 
+                        Nights 
+                    </span> 
+                    {{ reservation.totalNights }}
+                </td>
+                <td>
+                    <span class="p-column-title"> 
+                        City
+                    </span> 
+                    {{ reservation.city }}
+                </td>
+                <td>
+                    <span class="p-column-title"> 
+                        Guests
+                    </span> 
+                    {{ reservation.numberOfGuest }}
+                </td>
+                <td>
+                    <span class="p-column-title"> 
+                        Cancellation
+                    </span> 
+                    <p-tag class="cancel-status" [value]="getCancelMessage(reservation.cancellation)" [severity]="getSeverity(reservation.cancellation)" />
+                </td>
+                <td class="trash-td">
+                    <button *ngIf="reservation.cancellation" class="delete-btn" type="button" (click)="deleteReservation(reservation)">
+                        <i class="trash-icon pi pi-trash" style="font-size: 1rem; padding: 0.45rem 0.3rem;"></i>
                     </button>
                 </td>
             </tr>

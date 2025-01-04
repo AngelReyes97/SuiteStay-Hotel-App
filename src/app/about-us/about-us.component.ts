@@ -14,7 +14,7 @@ export class AboutUsComponent implements OnInit{
   constructor(private authSvc: AuthService, private router: Router) {}
   
   ngOnInit(): void {
-      this.authSvc.setPreviousUrl(this.router.url)
+      this.authSvc.setPreviousUrl(this.router.url);
   }
 
   scrollToTop(event: Event): void {

@@ -22,7 +22,7 @@ import { ROUTER_TOKENS } from './app.routes';
     CommonModule,
     ToastModule,
     RippleModule,
-    SidebarModule,
+    SidebarModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

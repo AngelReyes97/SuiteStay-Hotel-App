@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Reservation } from '../models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
-
+import { TagModule } from 'primeng/tag';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { Table, TableModule } from 'primeng/table';
@@ -11,6 +11,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog'; 
+import { AuthService } from '../services/auth.service';
+interface Person { 
+  name: String, 
+  age: Number, 
+  profession: String, 
+  mobile: String, 
+  gender: String 
+} 
 
 @Component({
   selector: 'app-user-bookings',
@@ -21,24 +29,29 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ButtonModule,
     InputTextModule,
     FormsModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule
   ],
   templateUrl: './user-bookings.component.html',
   styleUrl: './user-bookings.component.css',
   providers: [ConfirmationService, ReservationService]
 })
+
 export class UserBookingsComponent implements OnInit {
+  
 
   private userSubscription: Subscription | null = null;
   reservations: Reservation[] = [];
   @ViewChild('dt') dt!: Table;
+  today = new Date();
 
   constructor(
       private reservationSvc: ReservationService, 
       private route: ActivatedRoute,
       private messageService: MessageService,
       private confirmationService: ConfirmationService,
-      private cd: ChangeDetectorRef
+      private authSvc: AuthService,
+      private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -50,8 +63,10 @@ export class UserBookingsComponent implements OnInit {
       this.reservations = bookings.map(reservation => ({
         ...reservation,
         checkInFormatted: this.formatDate(reservation.checkIn),
+        cancellation: this.cancellationEligibility(reservation)
       }));
     });
+    this.authSvc.setPreviousUrl(this.router.url);
   }
 
   formatDate(date: Date | string): string {
@@ -62,6 +77,27 @@ export class UserBookingsComponent implements OnInit {
     const month = utcDate.toLocaleString('en-US', { month: 'short' }); // Get the month in short form (Jan, Feb, Dec, etc.)
     const year = utcDate.getUTCFullYear();
     return `${month} ${day}, ${year}`;
+  }
+
+  
+  cancellationEligibility(reservation: Reservation): boolean{
+    const date = new Date(reservation.checkIn);
+    const cancellationDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    //allow to cancel 3 days prior to upcoming date
+    cancellationDate.setDate(cancellationDate.getDate() - 3);
+    //if cancellation dates past today's date return false on cancellation
+    if(cancellationDate <= this.today){
+      return false;
+    }
+    return true;
+  }
+
+  getSeverity(status: boolean) {
+    return status ? 'success' : 'danger';
+  }
+
+  getCancelMessage(status: boolean){
+    return status ? 'Available' : 'Unavailable';
   }
 
   deleteReservation(reservation: Reservation){
@@ -83,6 +119,7 @@ export class UserBookingsComponent implements OnInit {
             this.reservations = bookings.map(reservation =>({
               ...reservation,
               checkInFormatted: this.formatDate(reservation.checkIn),
+              cancellation: this.cancellationEligibility(reservation)
             }));
             this.messageService.add({
               severity: 'success',
