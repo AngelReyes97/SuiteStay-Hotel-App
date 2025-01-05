@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ROUTER_TOKENS } from '../app.routes';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +19,6 @@ import { emailValidator } from './invalidEmail.directive';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { switchMap } from 'rxjs';
-
 
 @Component({
   selector: 'app-sign-up',

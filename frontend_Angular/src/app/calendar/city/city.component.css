@@ -8,11 +8,6 @@
     margin: 0;
 }
 
-/* ::ng-deep .p-dropdown-label{
-    line-height: normal;
-    color: var(--red-500);
-} */
-
 ::ng-deep .border-color{
     border-color: red;
 }
