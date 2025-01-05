@@ -29,7 +29,7 @@ export class CartService {
 
   addToCart(room: Rooms, reservation: Reservation): void{
     const roomTotal = this.getRoomTotal(room, reservation);
-    this.cartItems.update(items => [{...reservation, reservationId: this.reservationId(), price: roomTotal, room: room}, ...items]);
+    this.cartItems.update(items => [{...reservation, reservation_id: this.reservationId(), price: roomTotal, room: room}, ...items]);
     this.reservationId.update(id => id + 1);
   }
 

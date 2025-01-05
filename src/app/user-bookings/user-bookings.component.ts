@@ -12,13 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog'; 
 import { AuthService } from '../services/auth.service';
-interface Person { 
-  name: String, 
-  age: Number, 
-  profession: String, 
-  mobile: String, 
-  gender: String 
-} 
+import { User } from '../models/account.model';
+import { ROUTER_TOKENS } from '../app.routes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-bookings',
@@ -30,7 +26,8 @@ interface Person {
     InputTextModule,
     FormsModule,
     ConfirmDialogModule,
-    TagModule
+    TagModule,
+    RouterLink
   ],
   templateUrl: './user-bookings.component.html',
   styleUrl: './user-bookings.component.css',
@@ -38,12 +35,12 @@ interface Person {
 })
 
 export class UserBookingsComponent implements OnInit {
-  
-
   private userSubscription: Subscription | null = null;
   reservations: Reservation[] = [];
   @ViewChild('dt') dt!: Table;
   today = new Date();
+  user: User | null = null;
+  readonly ROUTER_TOKENS = ROUTER_TOKENS;
 
   constructor(
       private reservationSvc: ReservationService, 
@@ -55,18 +52,20 @@ export class UserBookingsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.params['accountId'];
-    if(!userId) return
-    this.userSubscription = this.reservationSvc.getReservationsByAccountId(userId)
-    .subscribe(bookings => {
-      // Format the dates after fetching the reservations
-      this.reservations = bookings.map(reservation => ({
-        ...reservation,
-        checkInFormatted: this.formatDate(reservation.checkIn),
-        cancellation: this.cancellationEligibility(reservation)
-      }));
+    this.userSubscription = this.authSvc.getUser().subscribe(user => {
+      if(user){
+        this.user = user;
+        const userId = this.route.snapshot.params['accountId'];
+        this.reservationSvc.getReservationsByAccountId(userId).subscribe(bookings =>{
+          this.reservations = bookings.map(reservation =>({
+            ...reservation,
+            checkInFormatted: this.formatDate(reservation.checkIn),
+            cancellation: this.cancellationEligibility(reservation),
+          }));
+        });
+        this.authSvc.setPreviousUrl(this.router.url);
+      }
     });
-    this.authSvc.setPreviousUrl(this.router.url);
   }
 
   formatDate(date: Date | string): string {
@@ -137,6 +136,10 @@ export class UserBookingsComponent implements OnInit {
         });
       }
     })
+  }
+
+  signUp(){
+    this.router.navigate([ROUTER_TOKENS.REGISTER]);
   }
 
   ngOnDestroy(){

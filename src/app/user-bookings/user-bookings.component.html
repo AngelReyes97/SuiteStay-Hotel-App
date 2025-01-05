@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" *ngIf="user; else unauthorizedTemplate">
     <div>
         <p-table
         #dt
@@ -43,14 +43,14 @@
                     Price
                     <p-sortIcon field="price"/>
                 </th>
-                <th pSortableColumn="checkIn" style="min-width: 16rem">
+                <th pSortableColumn="checkIn" style="min-width: 10rem">
                     Check-In / Check-Out
                     <p-sortIcon field="checkIn"/>
                 </th>
                 <th style="min-width: 4rem">
                     Nights
                 </th>
-                <th pSortableColumn="city" style="min-width: 8rem">
+                <th pSortableColumn="city" style="min-width: 4rem">
                     City
                     <p-sortIcon field="city"/>
                 </th>
@@ -60,7 +60,7 @@
                 <th style="min-width: 8rem">
                     Cancellation
                 </th>
-                <th style="min-width: 2rem"></th>
+                <th style="min-width: 4rem"></th>
             </tr>
         </ng-template>
 
@@ -125,7 +125,7 @@
         <ng-template pTemplate="summary">
             <div class="summary-text flex items-center justify-between">
                 {{ reservations && reservations.length > 0 
-                    ? 'Viewing ' + reservations.length + ' reservations. Feel free to filter or search.' 
+                    ? 'Total of ' + reservations.length + ' reservations. Feel free to filter or search.' 
                     : 'No reservations found. Try adding one!' }}
             </div>
         </ng-template>
@@ -133,3 +133,10 @@
     </div>
     <p-confirmDialog class="cancel-dialog" [style]="{ width: '450px' }" />
 </div>
+
+<ng-template #unauthorizedTemplate>
+    <div class="text-center py-5">
+    <h3>Unauthorized</h3>
+    <p>You must be logged in to access this page. You are able to create your account with us here <a [routerLink]="['/suitestay/register']" routerLinkActive="active">sign up</a>!</p>
+    </div>
+  </ng-template>
