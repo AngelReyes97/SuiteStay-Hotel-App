@@ -13,7 +13,8 @@ export class LocationsComponent implements OnInit{
 
   constructor(private authSvc: AuthService, private router: Router) {}
   ngOnInit(): void {
-      this.authSvc.setPreviousUrl(this.router.url)
+      this.authSvc.setPreviousUrl(this.router.url);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   scrollToTop(event: Event): void {

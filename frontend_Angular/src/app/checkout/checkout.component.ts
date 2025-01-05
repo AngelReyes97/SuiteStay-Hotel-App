@@ -11,6 +11,7 @@ import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 import { CheckoutFormData } from '../models/billing.model';
 import { MessageService } from 'primeng/api'
+import { ROUTER_TOKENS } from '../app.routes';
 
 @Component({
   selector: 'app-checkout',
@@ -33,6 +34,7 @@ export class CheckoutComponent implements OnInit{
   dates: Date[] = [];
   today = new Date();
   grandTotal = this.cartSvc.grandTotal;
+  readonly ROUTER_TOKENS = ROUTER_TOKENS;
 
   checkoutForm = this.fb.nonNullable.group({
     billingInfo: this.fb.nonNullable.group({
@@ -167,6 +169,7 @@ export class CheckoutComponent implements OnInit{
           next: ()=>{
             this.checkoutForm.reset();
             this.cartSvc.clearAllItems();
+            this.router.navigate([ROUTER_TOKENS.HOME]);
             this.msgSvc.add({
               severity: 'success',
               summary: 'Booking Confirmed!',

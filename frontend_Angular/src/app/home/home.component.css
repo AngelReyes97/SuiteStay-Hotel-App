@@ -2,3 +2,11 @@
     padding-bottom: 10px;
     padding-top: 10px;
 }
+
+.feature-icon{
+    color: var(--primary-color);
+}
+
+.svg-icon{
+    fill: var(--primary-color);
+}
