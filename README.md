@@ -35,6 +35,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 
 # Getting Started
 ### Angular
+- [**Vs Code**](https://code.visualstudio.com/) installation
 - **Node.js:** v22.11.0 or higher
 - **Angular CLI:** Compatible with Angular 18.2.12
 
