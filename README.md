@@ -58,11 +58,12 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
   ```bash
   java -version
   ```
-- **Maven:** Version 3.9.8
+- [**Maven:**](https://maven.apache.org/download.cgi) Version 3.9.8
   
   ```bash
   mvn -v
   ```
-- [Install IntelliJ]( https://www.jetbrains.com/idea/download/?section=windows) to run backend and extract it to different folder
+- [Install IntelliJ]( https://www.jetbrains.com/idea/download/?section=windows) to run backend and extract it to different folder.
+- [Install MySql Work Bench](https://dev.mysql.com/downloads/workbench/) for the database and use yaml file to set it up.
   
 
