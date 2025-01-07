@@ -207,10 +207,6 @@
     color: var(--primary-color);
 }
 
-/* .room-image{
-    object-fit: cover;
-} */
-
 ::ng-deep .p-card-header img {
     width: 100%;
     object-fit: cover;

@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit {
         numMonths: 2           // Show 2 months
     },
     {
-        breakpoint: '965px',  // For devices between 768px and 1024px
+        breakpoint: '1150px',  // For devices between 768px and 1024px
         numMonths: 1           // Show 1 month
     }
   ];
@@ -43,58 +43,31 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  onRangeDateSelect(){
+  onRangeDateSelect(value: Date){
+    const selectedDate = new Date(value);
+
     const rangeDates = this.guestReservation.get('rangeDates')?.value;
-  
-    if(rangeDates && rangeDates.length > 0){
-      if(rangeDates[0]?.getTime() === rangeDates[1]?.getTime()){
-        const nextDay = new Date(rangeDates[0]);
-        nextDay.setDate(nextDay.getDate() + 1);
-        rangeDates[1] = nextDay;
-        this.guestReservation.patchValue({ rangeDates });
-      }
-      setTimeout(() =>{ // set time out because onRangeDate runs before todayclicked()
-        if(this.isClicked){
-          rangeDates[0] = this.today;
-          this.minDate = new Date(this.today);
-          const updatedMaxDate = new Date(rangeDates[0]);
-          updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
-          this.maxDate = updatedMaxDate;
-          this.guestReservation.patchValue({ rangeDates });
-          this.isClicked = false;
-        } else {
-          this.minDate = new Date(rangeDates[0]);
-          const updatedMaxDate = new Date(rangeDates[0]);
-          updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
-          this.maxDate = updatedMaxDate;
-          this.guestReservation.patchValue({ rangeDates });
-
-        }
-        }, 0);
-      // else{
-      //   console.log("SELECT: ",this.minDate);
-      //   console.log("SELECT: ", this.guestReservation.get('rangeDates')?.value);
-      //   const updatedMaxDate = new Date(rangeDates[0]);
-      //   updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
-      //   this.maxDate = updatedMaxDate;
-      // }
+    if(rangeDates[0]?.getTime() == rangeDates[1]?.getTime()){
+      this.guestReservation.patchValue({ rangeDates: [rangeDates[0], null] });
     }
-
+    if(rangeDates[0] && !rangeDates[1]){
+      // this.minDate = selectedDate;
+      const maxRange = new Date(selectedDate);
+      maxRange.setDate(maxRange.getDate() + 14);
+      this.maxDate = maxRange;
+    }
   }
 
-  todayClicked(){
-    this.isClicked = true;
-    this.minDate = new Date(this.today);
-    this.guestReservation.patchValue({
-      rangeDates: [this.today]
-    })
-    this.onRangeDateSelect();
-    console.log("Clicked Today:", this.minDate);
+  todayClicked(value: Date){
+    const selectedDate = new Date(value);
+    console.log(selectedDate);
+    this.onRangeDateSelect(selectedDate);
   }
 
   handleClearSelection(event: Event){
     this.guestReservation.patchValue({ rangeDates: null });
     this.minDate = new Date(this.today);
+    this.maxDate = undefined;
     if (this.calendar) {
       this.calendar.overlayVisible = true; // Ensure the overlay remains visible
     }

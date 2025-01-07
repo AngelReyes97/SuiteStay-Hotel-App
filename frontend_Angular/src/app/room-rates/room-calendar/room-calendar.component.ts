@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ReservationService } from '../../services/reservation.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CalendarModule,
             CommonModule,
-            ReactiveFormsModule],
+            ReactiveFormsModule,],
   templateUrl: './room-calendar.component.html',
   styleUrl: './room-calendar.component.css'
 })
@@ -21,14 +21,16 @@ export class RoomCalendarComponent implements OnInit{
 
   minDate: Date | undefined;
   maxDate: Date | undefined;
+  today = new Date();
 
-  changeDatesForm = new FormGroup({
-    newrangeDates: new FormControl<Date[] | null>(null)
+  changeDatesForm = this.fb.group({
+    newrangeDates: <Date[] | null> (null),
   });
 
   constructor(private reservationSvc: ReservationService,
               private router: Router,
-              private authSvc: AuthService) {}
+              private authSvc: AuthService,
+              private fb: FormBuilder) {}
 
   ngOnInit(){
     const today = new Date();
@@ -44,7 +46,7 @@ export class RoomCalendarComponent implements OnInit{
     this.authSvc.setPreviousUrl(this.router.url);
   }
 
-  selectRange(){
+  selectRange(value: Date){
     const newrangeDates = this.changeDatesForm.get('newrangeDates')?.value;
 
     if (newrangeDates && newrangeDates.length > 1){
@@ -55,7 +57,7 @@ export class RoomCalendarComponent implements OnInit{
         this.changeDatesForm.patchValue({newrangeDates});
       } else{
         const updatedMaxDate = new Date(newrangeDates[0]);
-        updatedMaxDate.setDate(updatedMaxDate.getDate() + 31);
+        updatedMaxDate.setDate(updatedMaxDate.getDate() + 14);
         this.maxDate = updatedMaxDate;
       }
       if(newrangeDates[0] !== null && newrangeDates[1]!== null)
@@ -63,6 +65,12 @@ export class RoomCalendarComponent implements OnInit{
         this.reservationSvc.changeDates(newrangeDates);
       }
     }
+  }
+
+  handleClearSelection(event: Event){
+    this.changeDatesForm.patchValue({ newrangeDates: null });
+    this.minDate = new Date(this.today);
+    this.maxDate = undefined;
   }
 
   ngOnDestroy() {

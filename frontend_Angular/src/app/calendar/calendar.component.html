@@ -6,7 +6,7 @@
         formControlName="rangeDates"
         selectionMode="range"
         [numberOfMonths]="2"
-        (onSelect)="onRangeDateSelect()"
+        (onSelect)="onRangeDateSelect($event)"
         [readonlyInput]="true"
         [showIcon]="true" 
         [showOnFocus]="true"
@@ -17,7 +17,7 @@
         [showButtonBar]="true"
         [hideOnDateTimeSelect]="false"
         [rangeSeparator]="' | '"
-        (onTodayClick)="todayClicked()"
+        (onTodayClick)="todayClicked($event)"
         (onClearClick)="handleClearSelection($event)"
         placeholder="Select Check-In & Check-Out Dates"
         [responsiveOptions]="responsiveOptions">

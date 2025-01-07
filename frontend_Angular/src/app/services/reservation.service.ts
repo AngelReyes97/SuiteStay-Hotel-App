@@ -44,7 +44,7 @@ export class ReservationService {
     if(reservation && newDates.length == 2){
       reservation.checkIn = newDates[0];
       reservation.checkOut = newDates[1];
-      reservation.totalNights = (newDates[1].getTime() - newDates[0].getTime()) / (1000 * 60 * 60 * 24);
+      reservation.totalNights =  Math.ceil((newDates[1].getTime() - newDates[0].getTime()) / (1000 * 60 * 60 * 24));
       this.reservationSubject.next(reservation);
     }
   }
@@ -59,6 +59,5 @@ export class ReservationService {
   deleteReservation(reservation_id: number): Observable <Reservation>{
     return this.http.delete<Reservation>(`${this.apiUrl}/cancel-reservation/${reservation_id}`);
   }
-
 
 }

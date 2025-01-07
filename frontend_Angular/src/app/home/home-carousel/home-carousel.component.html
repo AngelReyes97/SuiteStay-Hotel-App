@@ -9,7 +9,7 @@
     [circular]="true"
     [transitionInterval]="9000" >
     <ng-template pTemplate="item" let-item let-first="first">
-        <img [src]="item.itemImageSrc" [attr.srcset]="item.srcset" [attr.sizes]="item.sizes" [attr.loading]="first ? 'eager' : 'lazy'" />
+        <img class="home-images" [src]="item.itemImageSrc"  />
     </ng-template>
     <ng-template pTemplate="caption" let-img> 
         <h4 

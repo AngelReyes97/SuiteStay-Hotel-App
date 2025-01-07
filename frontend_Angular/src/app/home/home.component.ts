@@ -52,9 +52,9 @@ export class HomeComponent implements OnInit{
               private authSvc: AuthService) {}
 
   ngOnInit(){
-    this.guestReservation.get('selectedCity')?.valueChanges.subscribe();
-    this.guestReservation.get('rangeDates')?.valueChanges.subscribe();
-    this.guestReservation.get('numberOfGuest')?.valueChanges.subscribe();
+    // this.guestReservation.get('selectedCity')?.valueChanges.subscribe();
+    // this.guestReservation.get('rangeDates')?.valueChanges.subscribe();
+    // this.guestReservation.get('numberOfGuest')?.valueChanges.subscribe();
     this.authSvc.setPreviousUrl(this.router.url);
   }
 

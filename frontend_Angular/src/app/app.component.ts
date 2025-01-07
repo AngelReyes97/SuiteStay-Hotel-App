@@ -53,7 +53,6 @@ export class AppComponent implements OnInit{
   }
 
   removeReservation(resId: number){
-    console.log(resId);
     this.cartSvc.removeReservation(resId);
   }
 

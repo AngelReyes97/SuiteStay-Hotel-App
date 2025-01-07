@@ -40,3 +40,11 @@
         padding: 0rem;
     }
 }
+
+::ng-deep .room-calendar .p-button{
+    padding: 0.3rem .6rem;
+}
+
+::ng-deep .room-calendar .p-datepicker-buttonbar{
+    padding: 0;
+}
