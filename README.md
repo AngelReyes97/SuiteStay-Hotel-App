@@ -51,6 +51,11 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
   ```bash
   npm list --depth=0
   ```
+- To run angular application use in the terminal make sure to cd to the frontend_Angular folder.
+
+  ```bash
+  ng serve
+  ```
 
 ### Spring Boot
 - **Java:** version 22.0.2
