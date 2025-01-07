@@ -51,7 +51,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
   ```bash
   npm list --depth=0
   ```
-- To run angular application use in the terminal make sure to cd to the frontend_Angular folder.
+- To run angular application use ng serve command in the terminal, make sure to cd to the frontend_Angular folder.
 
   ```bash
   ng serve
