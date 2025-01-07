@@ -34,7 +34,36 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 
 
 # Getting Started
+### Angular
 - **Node.js:** v22.11.0 or higher
 - **Angular CLI:** Compatible with Angular 18.2.12
+
+  ```bash
+  npm install -g @angular/cli@18.2.12
+  ```
 - **Install Dependencies** Use npm to install all project dependencies:
+
+  ```bash
+  npm install
+  ```
+- Verify Package Versions Ensure the following versions are installed: To verify, open the package.json file or run:
+  
+  ```bash
+  npm list --depth=0
+  ```
+
+### Spring Boot
+- **Java:** version 22.0.2
+
+  ```bash
+  java -version
+  ```
+- **Maven:** Version 3.9.8
+  
+  ```bash
+  mvn -v
+  ```
+- **Install IntelliJ** to run backend and extract it to different folder
+  https://www.jetbrains.com/idea/download/?section=windows
+  
 
