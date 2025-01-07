@@ -63,7 +63,6 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
   ```bash
   mvn -v
   ```
-- **Install IntelliJ** to run backend and extract it to different folder
-  https://www.jetbrains.com/idea/download/?section=windows
+- [Install IntelliJ]( https://www.jetbrains.com/idea/download/?section=windows) to run backend and extract it to different folder
   
 
