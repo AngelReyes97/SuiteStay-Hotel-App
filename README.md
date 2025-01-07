@@ -10,7 +10,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 - **Manage Reservations:** A user-friendly component that allows users to manage their reservations by filtering and deleting entries as needed.
 
 
-#Technologies Used
+# Technologies Used
 
 ### Frontend:
 - **Angular:** A powerful framework for building dynamic and responsive web applications, used for managing the frontend logic and views.
