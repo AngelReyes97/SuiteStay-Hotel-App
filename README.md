@@ -81,7 +81,7 @@ Ensure you have the following installed:
 - Apache Maven v3.9.8 or higher
 - MySQL Server (along with MySQL Workbench for easier database management)
 
-#### Step: 1 Start the Backend
+#### Step: 1 Start the Backend (IntelliJ)
 - Navigate to the backend directory and open with IntelliJ:
   ```bash
   cd backend
@@ -97,7 +97,7 @@ Ensure you have the following installed:
 - Ensure you connected the database in the yaml file
 
 
-#### Step 2: Start the Frontend
+#### Step 2: Start the Frontend (Vs Code)
 - Navigate to the frontend directory:
   ```bash
   cd ../frontend
