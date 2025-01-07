@@ -29,7 +29,12 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 ### Other Tools
 - **Bootstrap:** For responsive design and ensuring the application is mobile-friendly.
 - **RxJS:** Used for handling asynchronous data streams and making the application more reactive and event-driven.
+- **Adobe Stock:** For high-quality images used throughout the application, providing a professional and appealing visual experience.
 
 
 
-#Getting Started
+# Getting Started
+- **Node.js:** v22.11.0 or higher
+- **Angular CLI:** Compatible with Angular 18.2.12
+- **Install Dependencies** Use npm to install all project dependencies:
+
