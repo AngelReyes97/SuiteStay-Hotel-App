@@ -51,11 +51,6 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
   ```bash
   npm list --depth=0
   ```
-- To run angular application use ng serve command in the terminal, make sure to cd to the frontend_Angular folder.
-
-  ```bash
-  ng serve
-  ```
 
 ### Spring Boot
 - **Java:** version 22.0.2
@@ -71,4 +66,47 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 - [Install IntelliJ]( https://www.jetbrains.com/idea/download/?section=windows) to run backend and extract it to different folder.
 - [Install MySql Work Bench](https://dev.mysql.com/downloads/workbench/) for the database and use yaml file to set it up.
   
+## Running the application
 
+Running the Application
+Follow these steps to run both the frontend and backend of the Suite Stay application:
+
+Prerequisites
+Ensure you have the following installed:
+
+- Node.js v22.11.0 or higher
+- Angular CLI (compatible with Angular 18.2.12)
+- Java JDK v22.0.2 or higher
+- Apache Maven v3.9.8 or higher
+- MySQL Server (along with MySQL Workbench for easier database management)
+
+#### Step: 1 Start the Backend
+- Navigate to the backend directory and open with IntelliJ:
+  ```bash
+  cd backend
+  ```
+- Build the Spring Boot application using Maven:
+  ```bash
+  mvn clean install
+  ```
+- Start the backend server
+  ```bash
+  mvn spring-boot:run
+  ```
+- Ensure you connected the database in the yaml file
+
+
+#### Step 2: Start the Frontend
+- Navigate to the frontend directory:
+  ```bash
+  cd ../frontend
+  ```
+- Install project dependencies:
+  ```bash
+  npm install
+  ```
+- Start the Angular development server:
+  ```bash
+  ng serve
+  ```
+- Open your browser and navigate to http://localhost:4200.
