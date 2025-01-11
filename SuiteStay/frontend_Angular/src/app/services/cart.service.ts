@@ -4,7 +4,7 @@ import { Reservation } from '../models/reservation.model';
 import { Rooms } from '../models/rooms.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CheckoutFormData } from '../models/billing.model';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
