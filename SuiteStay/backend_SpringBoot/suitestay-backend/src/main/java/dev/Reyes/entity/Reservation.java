@@ -45,6 +45,8 @@ public class Reservation{
     @JoinColumn(name="fk_room_id", referencedColumnName = "room_Id", nullable = false)
     private Room room;
 
+    public Reservation () {}
+
     public Reservation(String city, String state, LocalDate checkIn,
                        LocalDate checkOut, Integer guestNum, BigDecimal price, Integer totalNights){
         this.city = city;

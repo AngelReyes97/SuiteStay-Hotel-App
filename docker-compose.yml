@@ -1,0 +1,38 @@
+name: SuiteStay 
+
+services:
+  frontend:
+    build:
+      context: ./SuiteStay/frontend_Angular
+    ports:
+      - "80:80"
+    networks:
+      - suiteStayNetwork
+
+  backend:
+    build:
+      context: ./SuiteStay/backend_SpringBoot/suitestay-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/suitestay_db # Updated MySQL URL
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Reyeslocal123! # Make sure this matches the MySQL password
+    depends_on:
+      - mysql
+    networks:
+      - suiteStayNetwork
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: Reyeslocal123! # Corrected MySQL root password
+      MYSQL_DATABASE: suitestay_db
+    ports:
+      - "3307:3306"
+    networks:
+      - suiteStayNetwork
+
+networks:
+  suiteStayNetwork:
+    driver: bridge

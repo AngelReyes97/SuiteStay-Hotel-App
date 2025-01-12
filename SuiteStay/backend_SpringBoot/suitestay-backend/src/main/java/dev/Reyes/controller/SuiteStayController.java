@@ -67,7 +67,6 @@ public class SuiteStayController {
     @PostMapping("/suitestay/home/login")
     public @ResponseBody ResponseEntity<Account> login(@RequestBody Account credentials){
        Account existingUser = this.accountService.findByEmail(credentials.getEmail());
-
        if(existingUser != null && passwordEncoder.matches(credentials.getPassword(), existingUser.getPassword())){
            return ResponseEntity.status(HttpStatus.OK).body(existingUser);
        }

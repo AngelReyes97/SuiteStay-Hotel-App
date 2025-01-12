@@ -25,6 +25,9 @@ public class Account{
     @Column(name="password", nullable = false)
     private String password;
 
+    public Account() {
+    }
+
     public Account(Integer account_id, String fName, String lName, String email, String password){
         this.account_id = account_id;
         this.f_name = fName;
