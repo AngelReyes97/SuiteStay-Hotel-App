@@ -4,6 +4,8 @@ services:
   frontend:
     build:
       context: ./SuiteStay/frontend_Angular
+    image: suitestay-frontend
+    container_name: frontend-container
     ports:
       - "80:80"
     networks:
@@ -12,6 +14,8 @@ services:
   backend:
     build:
       context: ./SuiteStay/backend_SpringBoot/suitestay-backend
+    image: suitestay-backend # Specifies the image name
+    container_name: backend-container  # Sets a specific container name
     ports:
       - "8080:8080"
     environment:
@@ -25,6 +29,7 @@ services:
 
   mysql:
     image: mysql:8
+    container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: Reyeslocal123! # Corrected MySQL root password
       MYSQL_DATABASE: suitestay_db
