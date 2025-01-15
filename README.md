@@ -50,9 +50,9 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 
 Created folder
 
-  ├── SuiteStay
+    ├── SuiteStay
   
-  ├── docker-compose.yml
+    ├── docker-compose.yml
 
 ## Step 4 Build Images
 - Build the backend image
