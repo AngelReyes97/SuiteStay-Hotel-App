@@ -33,6 +33,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 
 
 
+
 # Running the Application with Docker
 
 ## Step 1 Install Docker Desktop
@@ -48,9 +49,11 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 ## Step 3 Cd to the Created Folder
 - Use Git or any other CLI to cd into the folder where docker-compose is located.
 
-Created folder
-  ├── SuiteStay
-  ├── docker-compose.yml
+  ```bash
+   **Created folder**
+          ├── SuiteStay
+          ├── docker-compose.yml
+  ```
 
 ## Step 4 Build Images
 - Build the backend image
