@@ -33,81 +33,40 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 
 
 
-# Getting Started
-### Angular
-- [**Vs Code**](https://code.visualstudio.com/) installation
-- **Node.js:** v22.11.0 or higher
-- **Angular CLI:** Compatible with Angular 18.2.12
+# Running the Application with Docker
+
+## Step 1 Install Docker Desktop
+- Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+
+## Step 2 Clone the Repo
+- clone the repository if not already done into a created folder:
 
   ```bash
-  npm install -g @angular/cli@18.2.12
-  ```
-- **Install Dependencies** Use npm to install all project dependencies:
-
-  ```bash
-  npm install
-  ```
-- Verify Package Versions Ensure the following versions are installed: To verify, open the package.json file or run:
-  
-  ```bash
-  npm list --depth=0
+    git clone https://github.com/AngelReyes97/SuiteStay-Hotel-App.git
   ```
 
-### Spring Boot
-- **Java:** version 22.0.2
+## Step 3 Cd to the Created Folder
+- Use Git or any other CLI to cd into the folder where docker-compose is located.
 
-  ```bash
-  java -version
-  ```
-- [**Maven:**](https://maven.apache.org/download.cgi) Version 3.9.8
-  
-  ```bash
-  mvn -v
-  ```
-- [Install IntelliJ]( https://www.jetbrains.com/idea/download/?section=windows) to run backend and extract it to different folder.
-- [Install MySql Work Bench](https://dev.mysql.com/downloads/workbench/) for the database and use yaml file to set it up.
-  
-## Running the application
+Created folder
+  ├── SuiteStay
+  ├── docker-compose.yml
 
-Running the Application
-Follow these steps to run both the frontend and backend of the Suite Stay application:
+## Step 4 Build Images
+- Build the backend image
+  ```bash
+    docker-compose build backend
+  ```
+- Build the frontend image
+   ```bash
+    docker-compose build frontend
+  ```
+- wait a couple minutes
 
-Prerequisites
-Ensure you have the following installed:
-
-- Node.js v22.11.0 or higher
-- Angular CLI (compatible with Angular 18.2.12)
-- Java JDK v22.0.2 or higher
-- Apache Maven v3.9.8 or higher
-- MySQL Server (along with MySQL Workbench for easier database management)
-
-#### Step: 1 Start the Backend (IntelliJ)
-- Navigate to the backend directory and open with IntelliJ:
-  ```bash
-  cd backend
+# Step 5 Run the Container
+- Run the container this will start all the services defined in the docker-compose.yml file (backend, frontend, and database).
+   ```bash
+    docker-compose up -d
   ```
-- Build the Spring Boot application using Maven:
-  ```bash
-  mvn clean install
-  ```
-- Start the backend server
-  ```bash
-  mvn spring-boot:run
-  ```
-- Ensure you connected the database in the yaml file
-
-
-#### Step 2: Start the Frontend (Vs Code)
-- Navigate to the frontend directory:
-  ```bash
-  cd ../frontend
-  ```
-- Install project dependencies:
-  ```bash
-  npm install
-  ```
-- Start the Angular development server:
-  ```bash
-  ng serve
-  ```
-- Open your browser and navigate to http://localhost:4200.
+# Step 5 Access the Application
+- Open Docker Desktop go to containers and open the frontend localhost browser.
