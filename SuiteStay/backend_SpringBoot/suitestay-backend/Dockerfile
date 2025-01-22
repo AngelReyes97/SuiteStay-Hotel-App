@@ -12,10 +12,12 @@ WORKDIR /app
 
 # Copy the pom.xml and source code
 COPY pom.xml .
+RUN mvn dependency:resolve
 COPY src ./src
 
 # Run mvn clean package to build the JAR file
-RUN mvn clean package -DskipTests
+RUN mvn clean 
+RUN mvn package -DskipTests
 
 # Use OpenJDK for running the app
 FROM openjdk:22-jdk

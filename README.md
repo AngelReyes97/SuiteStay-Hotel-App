@@ -72,4 +72,4 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
     docker-compose up -d
   ```
 # Step 5 Access the Application
-- Open Docker Desktop go to containers and open the frontend localhost browser.
+- Open Docker Desktop go to containers(click suitestay incase backend stopped just click run button again and should work) and open the frontend localhost browser.
