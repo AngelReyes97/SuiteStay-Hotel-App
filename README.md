@@ -40,7 +40,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 - Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
 
 ## Step 2 Clone the Repo
-- clone the repository if not already done into a created folder:
+- clone the repository if not already done:
 
   ```bash
     git clone https://github.com/AngelReyes97/SuiteStay-Hotel-App.git
@@ -50,9 +50,10 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 - Use Git or any other CLI to cd into the folder where docker-compose is located.
 
   ```bash
-   **Created folder**
+   SuiteStay-Hotel-App
           ├── SuiteStay
           ├── docker-compose.yml
+          ├── .env
   ```
 
 # Step 4 Run the Container
