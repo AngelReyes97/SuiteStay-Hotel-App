@@ -15,13 +15,13 @@ services:
     build:
       context: ./SuiteStay/backend_SpringBoot/suitestay-backend
     image: angelreyes968/suitestay-backend:1.0
-    container_name: backend-container  # Sets a specific container name
+    container_name: backend-container
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/suitestay_db # Updated MySQL URL
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=Reyeslocal123! # Make sure this matches the MySQL password
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
     depends_on:
       mysql:
         condition: service_healthy
@@ -32,8 +32,8 @@ services:
     image: angelreyes968/suitestay-mysql:1.0
     container_name: mysql-container
     environment:
-      MYSQL_ROOT_PASSWORD: Reyeslocal123! # Corrected MySQL root password
-      MYSQL_DATABASE: suitestay_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
     networks:
