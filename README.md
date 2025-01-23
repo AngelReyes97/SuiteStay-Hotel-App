@@ -37,7 +37,7 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
 # Running the Application with Docker
 
 ## Step 1 Install Docker Desktop
-- Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed.
+- Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and open the app.
 
 ## Step 2 Clone the Repo
 - clone the repository if not already done:
@@ -56,11 +56,11 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
           ├── .env
   ```
 
-# Step 4 Run the Container
+## Step 4 Run the Container
 - Run the container this will start all the services defined in the docker-compose.yml file (backend, frontend, and database).
 - Will pull from docker hub registry.
    ```bash
     docker-compose up -d
   ```
-# Step 5 Access the Application
+## Step 5 Access the Application
 - Open Docker Desktop go to containers and open the frontend localhost browser(80:80).
