@@ -55,15 +55,9 @@ Suite Stay is a full-featured hotel reservation web application designed to prov
           ├── docker-compose.yml
   ```
 
-## Step 4 Build Images
-- Build the app image
-  ```bash
-    docker-compose build
-  ```
-- wait a couple minutes
-
-# Step 5 Run the Container
+# Step 4 Run the Container
 - Run the container this will start all the services defined in the docker-compose.yml file (backend, frontend, and database).
+- Will pull from docker hub registry.
    ```bash
     docker-compose up -d
   ```
