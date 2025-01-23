@@ -28,7 +28,7 @@ services:
       - suiteStayNetwork
 
   mysql:
-    image: mysql:8
+    image: angelreyes968/suitestay-mysql:1.0
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: Reyeslocal123! # Corrected MySQL root password
