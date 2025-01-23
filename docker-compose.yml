@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: ./SuiteStay/frontend_Angular
-    image: suitestay-frontend
+    image: angelreyes968/suitestay-frontend:1.0
     container_name: frontend-container
     ports:
       - "80:80"
@@ -14,7 +14,7 @@ services:
   backend:
     build:
       context: ./SuiteStay/backend_SpringBoot/suitestay-backend
-    image: suitestay-backend # Specifies the image name
+    image: angelreyes968/suitestay-backend:1.0
     container_name: backend-container  # Sets a specific container name
     ports:
       - "8080:8080"
